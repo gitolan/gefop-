@@ -1,0 +1,88 @@
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local BatDamageButton = Instance.new("TextButton")
+local CrowbarDamageButton = Instance.new("TextButton")
+local ToggleButton = Instance.new("TextButton")
+
+-- ตั้งค่า ScreenGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- ตั้งค่า MainFrame
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- สีรุ้ง
+MainFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
+MainFrame.Size = UDim2.new(0, 200, 0, 100)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+-- ฟังก์ชันสำหรับกระพริบปุ่ม
+local function blinkButton(button)
+    button.BackgroundColor3 = Color3.new(1, 0, 0) -- สีแดง
+    wait(0.1)
+    button.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
+    wait(0.1)
+    button.BackgroundColor3 = Color3.new(1, 0, 0) -- สีแดง
+end
+
+-- ตั้งค่า BatDamageButton
+BatDamageButton.Name = "BatDamageButton"
+BatDamageButton.Parent = MainFrame
+BatDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
+BatDamageButton.Position = UDim2.new(0, 0, 0, 0)
+BatDamageButton.Size = UDim2.new(0, 200, 0, 50)
+BatDamageButton.Text = "Bat Damage"
+BatDamageButton.MouseButton1Click:Connect(function()
+    blinkButton(BatDamageButton)
+    local player = game.Players.LocalPlayer
+    if player.Backpack:FindFirstChild("Bat") and player.Backpack.Bat:FindFirstChild("Damage") then
+        player.Backpack.Bat.Damage.Value = 99999999999999999
+    end
+end)
+
+-- ตั้งค่า CrowbarDamageButton
+CrowbarDamageButton.Name = "CrowbarDamageButton"
+CrowbarDamageButton.Parent = MainFrame
+CrowbarDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
+CrowbarDamageButton.Position = UDim2.new(0, 0, 0, 50)
+CrowbarDamageButton.Size = UDim2.new(0, 200, 0, 50)
+CrowbarDamageButton.Text = "Crowbar Damage"
+CrowbarDamageButton.MouseButton1Click:Connect(function()
+    blinkButton(CrowbarDamageButton)
+    local player = game.Players.LocalPlayer
+    if player.Backpack:FindFirstChild("Crowbar") and player.Backpack.Crowbar:FindFirstChild("Damage") then
+        player.Backpack.Crowbar.Damage.Value = 99999999999999999
+    end
+end)
+
+ShotgunDamageButton.Name = "ShotgunDamageButton"
+ShotgunDamageButton.Parent = MainFrame
+ShotgunDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
+ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 50)
+ShotgunDamageButton.Size = UDim2.new(0, 200, 0, 50)
+ShotgunDamageButton.Text = "Crowbar Damage"
+ShotgunDamageButton.MouseButton1Click:Connect(function()
+    blinkButton(ShotgunDamageButton)
+    local player = game.Players.LocalPlayer
+    if player.Backpack:FindFirstChild("Shotgun") and player.Backpack.Crowbar:FindFirstChild("Damage") then
+        player.Backpack.Crowbar.Damage.Value = 99999999999999999
+    end
+end)
+
+-- ตั้งค่า ToggleButton
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Parent = ScreenGui
+ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีแดง
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
+ToggleButton.Position = UDim2.new(0, 0, 1, -50) -- ตำแหน่งซ้ายล่าง
+ToggleButton.Size = UDim2.new(0, 50, 0, 50)
+ToggleButton.Text = "Toggle"
+ToggleButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+-- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
+game:GetService("RunService").Heartbeat:Connect(function()
+    MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+end)
