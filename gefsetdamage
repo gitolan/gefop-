@@ -33,7 +33,7 @@ BatDamageButton.Name = "BatDamageButton"
 BatDamageButton.Parent = MainFrame
 BatDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
 BatDamageButton.Position = UDim2.new(0, 0, 0, 0)
-BatDamageButton.Size = UDim2.new(0, 200, 0, 50)
+BatDamageButton.Size = UDim2.new(0, 130, 0, 40)
 BatDamageButton.Text = "Bat Damage"
 BatDamageButton.MouseButton1Click:Connect(function()
     blinkButton(BatDamageButton)
@@ -48,7 +48,7 @@ CrowbarDamageButton.Name = "CrowbarDamageButton"
 CrowbarDamageButton.Parent = MainFrame
 CrowbarDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
 CrowbarDamageButton.Position = UDim2.new(0, 0, 0, 50)
-CrowbarDamageButton.Size = UDim2.new(0, 200, 0, 50)
+CrowbarDamageButton.Size = UDim2.new(0, 130, 0, 40)
 CrowbarDamageButton.Text = "Crowbar Damage"
 CrowbarDamageButton.MouseButton1Click:Connect(function()
     blinkButton(CrowbarDamageButton)
@@ -62,7 +62,7 @@ ShotgunDamageButton.Name = "ShotgunDamageButton"
 ShotgunDamageButton.Parent = MainFrame
 ShotgunDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
 ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 130)
-ShotgunDamageButton.Size = UDim2.new(0, 200, 0, 50)
+ShotgunDamageButton.Size = UDim2.new(0, 130, 0, 40)
 ShotgunDamageButton.Text = "Shotgun Damage"
 ShotgunDamageButton.MouseButton1Click:Connect(function()
     blinkButton(ShotgunDamageButton)
@@ -92,7 +92,7 @@ ToggleButton.Position = UDim2.new(0, 0, 4, -60) -- ตำแหน่งซ้�
 ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.Text = "X"
 ToggleButton.MouseButton1Click:Connect(function()
-    MainFrame.Visible = MainFrame.Visible
+    MainFrame.Visible = Visible
 end)
 
 
