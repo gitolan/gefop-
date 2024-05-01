@@ -187,7 +187,7 @@ local function ToggleElements(visible)
 end
 
 local function ToggleButtons()
-    if isMinimized then
+    if isminimized then
         ToggleElements(true)
     else
         ToggleElements(false)
@@ -195,7 +195,7 @@ local function ToggleButtons()
 end
 
 minimizeButton.MouseButton1Click:Connect(function()
-    isMinimized = not isMinimized
+    isminimized = not isminimized
     ToggleButtons()
 end)
 
