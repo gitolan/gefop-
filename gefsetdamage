@@ -88,11 +88,11 @@ end)
 XButton.Name = "XButton"
 XButton.Parent = ScreenGui
 XButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีแดง
-ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
-ToggleButton.Position = UDim2.new(0, 0, 4, -60) -- ตำแหน่งซ้ายล่าง 
-ToggleButton.Size = UDim2.new(0, 50, 0, 50)
-ToggleButton.Text = "X"
-ToggleButton.MouseButton1Click:Connect(function()
+XButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
+XButton.Position = UDim2.new(0, 0, 4, -60) -- ตำแหน่งซ้ายล่าง 
+XButton.Size = UDim2.new(0, 50, 0, 50)
+XButton.Text = "X"
+XxButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = Visible
 end)
 
