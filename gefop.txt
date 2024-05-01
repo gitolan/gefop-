@@ -1,3 +1,9 @@
+local ScreenGui = Instance.new("ScreenGui")
+local frame = Instance.new("Frame")
+local TextBoxButton = Instance.new("TextButton")
+local GotopartButton = Instance.new("TextButton")
+local CreateSPButton = Instance.new("TextButton")
+local MinimizeButton = Instance.new("TextButton")
 local highlightTransparency = 0.5
 local gotopartDelay = 0.1
 local isMinimized = false
@@ -116,7 +122,7 @@ textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
 textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
 textbox.BackgroundColor3 = Color3.new(1, 1, 1)
 textbox.BorderSizePixel = 0
-textbox.Text = "Tuliskan nama di sini"
+textbox.Text = "Partname or Player (can short)"
 textbox.Parent = frame
 
 local gotopartButton = Instance.new("TextButton")
@@ -166,14 +172,11 @@ minimizeButton.Parent = frame
 
 local function ToggleElements(visible)
     textbox.Visible = visible
+    frame.Visible = visible
     gotopartButton.Visible = visible
     createSPButton.Visible = visible
     gotoplayerButton.Visible = visible
-    destroyESPButton.Visible = visible
-end
-
-local function ToggleFrame(visible)
-    frame.Visible = visible
+    destroyESPButton.Visibl = visible
 end
 
 local function ToggleButtons()
