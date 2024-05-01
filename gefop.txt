@@ -120,13 +120,13 @@ mainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
 mainFrame.Active = true
 mainFrame.Draggable = true
 
-local textbox = Instance.new("TextBox")
-textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
-textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
-textbox.BackgroundColor3 = Color3.new(1, 1, 1)
-textbox.BorderSizePixel = 0
-textbox.Text = "Partname or (Player can short)"
-textbox.Parent = Mainframe
+local TextBox = Instance.new("TextBox")
+TextBox.Size = UDim2.new(0.8, 0, 0.1, 0)
+TextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
+TextBox.BackgroundColor3 = Color3.new(1, 1, 1)
+TextBox.BorderSizePixel = 0
+TextBox.Text = "Partname or (Player can short)"
+TextBox.Parent = MainFrame
 
 local gotopartButton = Instance.new("TextButton")
 gotopartButton.Name = "Gotopart"
@@ -146,7 +146,7 @@ createspButton.BackgroundColor3 = Color3.new(0, 0, 1)
 createspButton.TextColor3 = Color3.new(1, 1, 1)
 createspButton.Text = "Createsp"
 createspButton.BorderSizePixel = 0
-createspButton.Parent = MainFrame
+createspButton.Parent = mainFrame
 
 local gotoplayerButton = Instance.new("TextButton")
 gotoplayerButton.Name = "Gotoplayer"
@@ -156,7 +156,7 @@ gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotoplayerButton.TextColor3 = Color3.new(1, 1, 1)
 gotoplayerButton.Text = "Gotoplayer"
 gotoplayerButton.BorderSizePixel = 0
-gotoplayerButton.Parent = MainFrame
+gotoplayerButton.Parent = mainFrame
 
 local destroyespButton = Instance.new("TextButton")
 destroyespButton.Name = "DestroyESP"
@@ -166,7 +166,7 @@ destroyespButton.BackgroundColor3 = Color3.new(0, 0, 1)
 destroyespButton.TextColor3 = Color3.new(1, 1, 1)
 destroyespButton.Text = "DestroyESP"
 destroyespButton.BorderSizePixel = 0
-destroyespButton.Parent = MainFrame
+destroyespButton.Parent = mainFrame
 
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "Minimize"
@@ -176,7 +176,7 @@ minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
 minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
-minimizeButton.Parent = MainFrame
+minimizeButton.Parent = mainFrame
 
 local function toggleElements(visible)
     textbox.Visible = visible
