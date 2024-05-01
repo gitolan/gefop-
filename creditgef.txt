@@ -8,54 +8,45 @@ screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ResetOnSpawn = false
 
--- Buat Button
-local button = Instance.new("TextButton")
-button.AnchorPoint = Vector2.new(0.5, 0.5)
-button.BackgroundColor3 = Color3.new(1, 1, 1)
-button.BackgroundTransparency = 1
-button.Position = UDim2.new(0.5, 0, 0.8, 0) -- Sedikit di atas dari tengah bawah
-button.Size = UDim2.new(0.1, 0, 0.05, 0) -- Mengurangi ukuran tombol
-button.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
-button.Text = "By indQwerty🤫 and edited"
-button.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
-button.TextSize = 10 -- Mengurangi ukuran teks tombol
-button.TextTransparency = 0.5 -- Mengatur transparansi teks menjadi 0.5
-button.TextScaled = true -- Mengatur teks diukur
-button.TextWrapped = true -- Mengatur teks dibungkus
-button.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
-button.Parent = screenGui
+-- Buat TextButton
+local discordButton = Instance.new("TextButton")
+discordButton.AnchorPoint = Vector2.new(0.5, 0.5)
+discordButton.BackgroundColor3 = Color3.new(1, 1, 1)
+discordButton.BackgroundTransparency = 1
+discordButton.Position = UDim2.new(0.5, 0, 0.8, 0) -- Sedikit di atas dari tengah bawah
+discordButton.Size = UDim2.new(0.2, 0, 0.05, 0) -- Mengurangi ukuran tombol
+discordButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
+discordButton.Text = "Join our Discord"
+discordButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
+discordButton.TextSize = 10 -- Mengurangi ukuran teks tombol
+discordButton.TextTransparency = 0.5 -- Mengatur transparansi teks menjadi 0.5
+discordButton.TextScaled = true -- Mengatur teks diukur
+discordButton.TextWrapped = true -- Mengatur teks dibungkus
+discordButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
+discordButton.Parent = screenGui
 
--- Fungsi untuk membuat efek fade loop pada tombol
-local function fadeLoop()
-    local fadeDuration = 0.6
-    local transparencyMin = 1
-    local transparencyMax = 1
-    
-    while true do
-        for transparency = transparencyMin, transparencyMax, 0.1 do
-            button.BackgroundTransparency = transparency
-            wait(fadeDuration / (transparencyMax - transparencyMin + 1))
-        end
-        for transparency = transparencyMax, transparencyMin, -0.1 do
-            button.BackgroundTransparency = transparency
-            wait(fadeDuration / (transparencyMax - transparencyMin + 1))
-        end
+-- ButtonImage
+local buttonImage = Instance.new("ImageLabel")
+buttonImage.Size = UDim2.new(0.2, 0, 1, 0)
+buttonImage.Position = UDim2.new(0.3, 0, 0, 0)
+buttonImage.Image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfDLRbYIhqHFr-9jy2XLpjlz5oOZx_iRRoAe-yL1nZLA&s"
+buttonImage.BackgroundTransparency = 1
+buttonImage.Parent = discordButton
+
+-- Fungsi untuk menyalin teks ke clipboard
+local function copyToClipboard(text)
+    if game:GetService("GuiService"):GetWindowsPlatform() then
+        game:GetService("GuiService"):CopyToClipboard(text)
+    else
+        -- Tambahkan kode untuk menyalin teks ke clipboard untuk platform non-Windows di sini
     end
 end
 
--- Mulai efek fade loop pada tombol
-fadeLoop()
-
--- Fungsi untuk menghapus warna rainbow dan penanganan double-click pada tombol
-local function setWhiteColor()
-    button.BackgroundColor3 = Color3.new(1, 1, 1)
-    button.BackgroundTransparency = 0
+-- Fungsi untuk menyalin teks Discord saat tombol diklik
+local function copyDiscordLink()
+    local discordLink = "https://discord.com/invite/5sG4jJwQ"
+    copyToClipboard(discordLink)
 end
 
--- Inisialisasi warna awal pada tombol
-setWhiteColor()
-
--- Fungsi untuk menghandle klik tombol (tidak memerlukan penanganan double-click)
-button.MouseButton1Click:Connect(function()
-    -- Tidak ada yang perlu dilakukan di sini
-end)
+-- Menjalankan fungsi copyDiscordLink saat tombol diklik
+discordButton.MouseButton1Click:Connect(copyDiscordLink)
