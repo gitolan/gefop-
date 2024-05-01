@@ -52,7 +52,7 @@ local function findPartByName(partName)
     return nil
 end
 
-local function CreateESP(part, color)
+local function Createesp(part, color)
     local existingESP = part:FindFirstChild("ESP")
     if existingESP then
         print("ESP atau highlight dengan nama '"..part.Name.."' sudah ada.")
@@ -158,7 +158,7 @@ gotoplayerButton.Parent = frame
 
 local destroyespButton = Instance.new("TextButton")
 destroyespButton.Name = "DestroyESP"
-destroyespButton.Size = UDim2.new(0.8, 0, 0.1, 0)
+destroyespButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 destroyespButton.Position = UDim2.new(0.1, 0, 0.75, 0)
 destroyespButton.BackgroundColor3 = Color3.new(0, 0, 1)
 destroyespButton.TextColor3 = Color3.new(1, 1, 1)
@@ -168,7 +168,7 @@ destroyespButton.Parent = frame
 
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "Minimize"
-minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0)
+minimizeButton.Size = UDim2.new(0.3, 0, 0.1, 0)
 minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
 minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
@@ -209,7 +209,7 @@ gotopartButton.MouseButton1Click:Connect(function()
     end
 end)
 
-createSPButton.MouseButton1Click:Connect(function()
+createspButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
     if part then
@@ -233,7 +233,7 @@ gotoplayerButton.MouseButton1Click:Connect(function()
     end
 end)
 
-destroyESPButton.MouseButton1Click:Connect(function()
+destroyespButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
 end)
 
