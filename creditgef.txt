@@ -25,28 +25,19 @@ discordButton.TextWrapped = true -- Mengatur teks dibungkus
 discordButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
 discordButton.Parent = screenGui
 
--- ButtonImage
-local buttonImage = Instance.new("ImageLabel")
-buttonImage.Size = UDim2.new(0.2, 0, 1, 0)
-buttonImage.Position = UDim2.new(0.3, 0, 0, 0)
-buttonImage.Image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfDLRbYIhqHFr-9jy2XLpjlz5oOZx_iRRoAe-yL1nZLA&s"
-buttonImage.BackgroundTransparency = 1
-buttonImage.Parent = discordButton
+-- Tautan Discord
+local discordLink = "https://discord.com/invite/5sG4jJwQ"
 
--- Fungsi untuk menyalin teks ke clipboard
+-- Fungsi untuk menyalin tautan ke clipboard
 local function copyToClipboard(text)
-    if game:GetService("GuiService"):GetWindowsPlatform() then
-        game:GetService("GuiService"):CopyToClipboard(text)
+    if setclipboard then
+        setclipboard(text)
     else
-        -- Tambahkan kode untuk menyalin teks ke clipboard untuk platform non-Windows di sini
+        warn("Clipboard feature is not supported in this platform.")
     end
 end
 
--- Fungsi untuk menyalin teks Discord saat tombol diklik
-local function copyDiscordLink()
-    local discordLink = "https://discord.com/invite/5sG4jJwQ"
+-- Fungsi untuk menyalin tautan Discord saat tombol diklik
+discordButton.MouseButton1Click:Connect(function()
     copyToClipboard(discordLink)
-end
-
--- Menjalankan fungsi copyDiscordLink saat tombol diklik
-discordButton.MouseButton1Click:Connect(copyDiscordLink)
+end)
