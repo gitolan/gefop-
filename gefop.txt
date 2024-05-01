@@ -182,7 +182,7 @@ local function ToggleElements(visible)
     gotopartButton.Visible = visible
     createspButton.Visible = visible
     gotoplayerButton.Visible = visible
-    destroyespButton.Visibl = visible
+    destroyespButton.Visible = visible
 end
 
 local function ToggleButtons()
