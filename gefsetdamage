@@ -16,7 +16,7 @@ MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- สีรุ้ง
 MainFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
-MainFrame.Size = UDim2.new(0, 200, 0, 100)
+MainFrame.Size = UDim2.new(0, 100, 0, 50)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
