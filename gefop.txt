@@ -1,5 +1,5 @@
 local ScreenGui = Instance.new("ScreenGui")
-local frame = Instance.new("Frame")
+local MainFrame = Instance.new("Frame")
 local TextBoxButton = Instance.new("TextButton")
 local GotopartButton = Instance.new("TextButton")
 local CreateSPButton = Instance.new("TextButton")
@@ -110,14 +110,14 @@ screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.ResetOnSpawn = false
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0.4, 0, 0.3, 0)
-frame.Position = UDim2.new(0.5, 0, 0.05, 0)
-frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- สีรุ้ง
-frame.BorderSizePixel = 0
-frame.Parent = screenGui
-frame.Active = true
-frame.Draggable = true
+local MainFrame = Instance.new("MainFrame")
+MainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
+MainFrame.Position = UDim2.new(0.5, 0, 0.05, 0)
+MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- สีรุ้ง
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = screenGui
+MainFrame.Active = true
+MainFrame.Draggable = true
 
 local textbox = Instance.new("TextBox")
 textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -125,7 +125,7 @@ textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
 textbox.BackgroundColor3 = Color3.new(1, 1, 1)
 textbox.BorderSizePixel = 0
 textbox.Text = "Partname or (Player can short)"
-textbox.Parent = frame
+textbox.Parent = Mainframe
 
 local gotopartButton = Instance.new("TextButton")
 gotopartButton.Name = "Gotopart"
@@ -135,7 +135,7 @@ gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotopartButton.TextColor3 = Color3.new(1, 1, 1)
 gotopartButton.Text = "Gotopart"
 gotopartButton.BorderSizePixel = 0
-gotopartButton.Parent = frame
+gotopartButton.Parent = MainFrame
 
 local createspButton = Instance.new("TextButton")
 createspButton.Name = "Createsp"
@@ -145,7 +145,7 @@ createspButton.BackgroundColor3 = Color3.new(0, 0, 1)
 createspButton.TextColor3 = Color3.new(1, 1, 1)
 createspButton.Text = "Createsp"
 createspButton.BorderSizePixel = 0
-createspButton.Parent = frame
+createspButton.Parent = MainFrame
 
 local gotoplayerButton = Instance.new("TextButton")
 gotoplayerButton.Name = "Gotoplayer"
