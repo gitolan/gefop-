@@ -1,0 +1,61 @@
+-- Buat ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Enabled = true
+screenGui.IgnoreGuiInset = true
+screenGui.DisplayOrder = 0
+screenGui.Name = "MyGui"
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+
+-- Buat Button
+local button = Instance.new("TextButton")
+button.AnchorPoint = Vector2.new(0.5, 0.5)
+button.BackgroundColor3 = Color3.new(1, 1, 1)
+button.BackgroundTransparency = 1
+button.Position = UDim2.new(0.5, 0, 0.8, 0) -- Sedikit di atas dari tengah bawah
+button.Size = UDim2.new(0.1, 0, 0.05, 0) -- Mengurangi ukuran tombol
+button.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
+button.Text = "By indQwerty🤫 and edited"
+button.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
+button.TextSize = 10 -- Mengurangi ukuran teks tombol
+button.TextTransparency = 0.5 -- Mengatur transparansi teks menjadi 0.5
+button.TextScaled = true -- Mengatur teks diukur
+button.TextWrapped = true -- Mengatur teks dibungkus
+button.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
+button.Parent = screenGui
+
+-- Fungsi untuk membuat efek fade loop pada tombol
+local function fadeLoop()
+    local fadeDuration = 0.6
+    local transparencyMin = 1
+    local transparencyMax = 1
+
+    while true do
+        for transparency = transparencyMin, transparencyMax, 0.1 do
+            button.BackgroundTransparency = transparency
+            wait(fadeDuration / (transparencyMax - transparencyMin + 1))
+        end
+        for transparency = transparencyMax, transparencyMin, -0.1 do
+            button.BackgroundTransparency = transparency
+            wait(fadeDuration / (transparencyMax - transparencyMin + 1))
+        end
+    end
+end
+
+-- Mulai efek fade loop pada tombol
+fadeLoop()
+
+-- Fungsi untuk menghapus warna rainbow dan penanganan double-click pada tombol
+local function setWhiteColor()
+    button.BackgroundColor3 = Color3.new(1, 1, 1)
+    button.BackgroundTransparency = 0
+end
+
+-- Inisialisasi warna awal pada tombol
+setWhiteColor()
+
+-- Fungsi untuk menghandle klik tombol (tidak memerlukan penanganan double-click)
+button.MouseButton1Click:Connect(function()
+    -- Tidak ada yang perlu dilakukan di sini
+end)
