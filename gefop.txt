@@ -1,10 +1,3 @@
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local textBoxButton = Instance.new("TextButton")
-local gotopartButton = Instance.new("TextButton")
-local CreateSPButton = Instance.new("TextButton")
-local DestroyESPButton = Instance.new("TextButton")
-local MinimizeButton = Instance.new("TextButton")
 local highlightTransparency = 0.5
 local gotopartDelay = 0.1
 local isMinimized = false
@@ -52,7 +45,7 @@ local function findPartByName(partName)
     return nil
 end
 
-local function Createesp(part, color)
+local function CreateESP(part, color)
     local existingESP = part:FindFirstChild("ESP")
     if existingESP then
         print("ESP atau highlight dengan nama '"..part.Name.."' sudah ada.")
@@ -107,97 +100,91 @@ end
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MyGui"
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.ResetOnSpawn = false
 
--- Set up MainFrame
-local mainFrame = Instance.new("Frame")
-mainFrame.Name = "MainFrame"
-mainFrame.Parent = screenGui
-mainFrame.BackgroundColor3 = Color3.new(1, 1, 1) -- Rainbow color
-mainFrame.Position = UDim2.new(0.5, 0, 0.05, 0)
-mainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
-mainFrame.Active = true
-mainFrame.Draggable = true
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.4, 0, 0.3, 0)
+frame.Position = UDim2.new(0.5, 0, 0.05, 0)
+frame.BackgroundColor3 = Color3.new(1, 1, 1)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
 
-local textboxbutton = Instance.new("TextBox")
-textboxbutton.Size = UDim2.new(0.8, 0, 0.1, 0)
-textboxbutton.Position = UDim2.new(0.1, 0, 0.1, 0)
-textboxbutton.BackgroundColor3 = Color3.new(1, 1, 1)
-textboxbutton.BorderSizePixel = 0
-textboxbutton.Text = "Partname or (Player can short)"
-textboxbutton.Parent = MainFrame
+local textbox = Instance.new("TextBox")
+textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
+textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
+textbox.BackgroundColor3 = Color3.new(1, 1, 1)
+textbox.BorderSizePixel = 0
+textbox.Text = "Tuliskan nama di sini"
+textbox.Parent = frame
 
 local gotopartButton = Instance.new("TextButton")
-gotopartButton.Name = "Gotopart"
 gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 gotopartButton.Position = UDim2.new(0.1, 0, 0.25, 0)
 gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotopartButton.TextColor3 = Color3.new(1, 1, 1)
 gotopartButton.Text = "Gotopart"
 gotopartButton.BorderSizePixel = 0
-gotopartButton.Parent = MainFrame
+gotopartButton.Parent = frame
 
-local createspButton = Instance.new("TextButton")
-createspButton.Name = "Createsp"
-createspButton.Size = UDim2.new(0.4, 0, 0.1, 0)
-createspButton.Position = UDim2.new(0.55, 0, 0.25, 0)
-createspButton.BackgroundColor3 = Color3.new(0, 0, 1)
-createspButton.TextColor3 = Color3.new(1, 1, 1)
-createspButton.Text = "Createsp"
-createspButton.BorderSizePixel = 0
-createspButton.Parent = mainFrame
+local createSPButton = Instance.new("TextButton")
+createSPButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+createSPButton.Position = UDim2.new(0.55, 0, 0.25, 0)
+createSPButton.BackgroundColor3 = Color3.new(0, 0, 1)
+createSPButton.TextColor3 = Color3.new(1, 1, 1)
+createSPButton.Text = "CreateSP"
+createSPButton.BorderSizePixel = 0
+createSPButton.Parent = frame
 
 local gotoplayerButton = Instance.new("TextButton")
-gotoplayerButton.Name = "Gotoplayer"
 gotoplayerButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 gotoplayerButton.Position = UDim2.new(0.1, 0, 0.45, 0)
 gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotoplayerButton.TextColor3 = Color3.new(1, 1, 1)
 gotoplayerButton.Text = "Gotoplayer"
 gotoplayerButton.BorderSizePixel = 0
-gotoplayerButton.Parent = mainFrame
+gotoplayerButton.Parent = frame
 
-local destroyespButton = Instance.new("TextButton")
-destroyespButton.Name = "DestroyESP"
-destroyespButton.Size = UDim2.new(0.4, 0, 0.1, 0)
-destroyespButton.Position = UDim2.new(0.1, 0, 0.75, 0)
-destroyespButton.BackgroundColor3 = Color3.new(0, 0, 1)
-destroyespButton.TextColor3 = Color3.new(1, 1, 1)
-destroyespButton.Text = "DestroyESP"
-destroyespButton.BorderSizePixel = 0
-destroyespButton.Parent = mainFrame
+local destroyESPButton = Instance.new("TextButton")
+destroyESPButton.Size = UDim2.new(0.8, 0, 0.1, 0)
+destroyESPButton.Position = UDim2.new(0.1, 0, 0.75, 0)
+destroyESPButton.BackgroundColor3 = Color3.new(0, 0, 1)
+destroyESPButton.TextColor3 = Color3.new(1, 1, 1)
+destroyESPButton.Text = "Destroy ESP"
+destroyESPButton.BorderSizePixel = 0
+destroyESPButton.Parent = frame
 
 local minimizeButton = Instance.new("TextButton")
-minimizeButton.Name = "Minimize"
-minimizeButton.Size = UDim2.new(0.3, 0, 0.1, 0)
+minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0)
 minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
 minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
 minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
-minimizeButton.Parent = mainFrame
+minimizeButton.Parent = frame
 
-local function toggleElements(visible)
+local function ToggleElements(visible)
     textbox.Visible = visible
-    mainFrame.Visible = visible
     gotopartButton.Visible = visible
-    createspButton.Visible = visible
+    createSPButton.Visible = visible
     gotoplayerButton.Visible = visible
-    destroyespButton.Visible = visible
+    destroyESPButton.Visible = visible
 end
 
-local function toggleButtons()
+local function ToggleFrame(visible)
+    frame.Visible = visible
+end
+
+local function ToggleButtons()
     if isMinimized then
-        toggleElements(false)
+        ToggleElements(true)
     else
-        toggleElements(true)
+        ToggleElements(false)
     end
 end
 
-MinimizeButton.MouseButton1Click:Connect(function()
+minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    toggleButtons()
+    ToggleButtons()
 end)
 
 gotopartButton.MouseButton1Click:Connect(function()
@@ -211,7 +198,7 @@ gotopartButton.MouseButton1Click:Connect(function()
     end
 end)
 
-createspButton.MouseButton1Click:Connect(function()
+createSPButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
     if part then
@@ -235,9 +222,8 @@ gotoplayerButton.MouseButton1Click:Connect(function()
     end
 end)
 
-destroyespButton.MouseButton1Click:Connect(function()
+destroyESPButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
 end)
 
-toggleElements(true)
-
+ToggleFrame(true)
