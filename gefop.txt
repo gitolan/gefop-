@@ -136,7 +136,7 @@ gotopartButton.Text = "Gotopart"
 gotopartButton.BorderSizePixel = 0
 gotopartButton.Parent = frame
 
-local createSPButton = Instance.new("TextButton")
+local createspButton = Instance.new("TextButton")
 createspButton.Name = "CreateSP"
 createspButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 createspButton.Position = UDim2.new(0.55, 0, 0.25, 0)
@@ -157,12 +157,12 @@ gotoplayerButton.BorderSizePixel = 0
 gotoplayerButton.Parent = frame
 
 local destroyespButton = Instance.new("TextButton")
-destroyespButton.Name = "Destroy ESP"
+destroyespButton.Name = "DestroyESP"
 destroyespButton.Size = UDim2.new(0.8, 0, 0.1, 0)
 destroyespButton.Position = UDim2.new(0.1, 0, 0.75, 0)
 destroyespButton.BackgroundColor3 = Color3.new(0, 0, 1)
 destroyespButton.TextColor3 = Color3.new(1, 1, 1)
-destroyespButton.Text = "Destroy ESP"
+destroyespButton.Text = "DestroyESP"
 destroyespButton.BorderSizePixel = 0
 destroyespButton.Parent = frame
 
