@@ -120,7 +120,7 @@ mainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
 mainFrame.Active = true
 mainFrame.Draggable = true
 
-local textboxbutton = Instance.new("Textbutton")
+local textboxbutton = Instance.new("TextBox")
 textboxbutton.Size = UDim2.new(0.8, 0, 0.1, 0)
 textboxbutton.Position = UDim2.new(0.1, 0, 0.1, 0)
 textboxbutton.BackgroundColor3 = Color3.new(1, 1, 1)
