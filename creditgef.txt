@@ -6,7 +6,7 @@ screenGui.DisplayOrder = 0
 screenGui.Name = "MyGui"
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ResetOnSpawn = false
+screenGui.ResetOnSpawn = false
 
 -- Buat Button
 local button = Instance.new("TextButton")
