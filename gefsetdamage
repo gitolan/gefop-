@@ -2,7 +2,9 @@ local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local BatDamageButton = Instance.new("TextButton")
 local CrowbarDamageButton = Instance.new("TextButton")
+local ShotgunDamageButton = Instance.new("TextButton")
 local ToggleButton = Instance.new("TextButton")
+local XButton = Instance.new("TextButton")
 
 -- ตั้งค่า ScreenGui
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -60,7 +62,7 @@ end)
 ShotgunDamageButton.Name = "ShotgunDamageButton"
 ShotgunDamageButton.Parent = MainFrame
 ShotgunDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
-ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 100)
+ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 130)
 ShotgunDamageButton.Size = UDim2.new(0, 200, 0, 50)
 ShotgunDamageButton.Text = "Shotgun Damage"
 ShotgunDamageButton.MouseButton1Click:Connect(function()
@@ -76,12 +78,24 @@ ToggleButton.Name = "ToggleButton"
 ToggleButton.Parent = ScreenGui
 ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีแดง
 ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
-ToggleButton.Position = UDim2.new(0, 0, 1, -50) -- ตำแหน่งซ้ายล่าง
+ToggleButton.Position = UDim2.new(0, 0, 2, -50) -- ตำแหน่งซ้ายล่าง 
 ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.Text = "Toggle"
 ToggleButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
+
+XButton.Name = "XButton"
+XButton.Parent = ScreenGui
+XButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีแดง
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
+ToggleButton.Position = UDim2.new(0, 0, 4, -60) -- ตำแหน่งซ้ายล่าง 
+ToggleButton.Size = UDim2.new(0, 50, 0, 50)
+ToggleButton.Text = "X"
+ToggleButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = MainFrame.Visible
+end)
+
 
 -- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
 game:GetService("RunService").Heartbeat:Connect(function()
