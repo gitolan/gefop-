@@ -20,7 +20,7 @@ MainFrame.Size = UDim2.new(0, 100, 0, 50)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
--- ฟังก์ชันสำหรับกระพริบปุ่ม
+-- ฟังก์ชันสำหรับกระพริบปุ่ม Fungsi untuk mem-flash tombol
 local function blinkButton(button)
     button.BackgroundColor3 = Color3.new(1, 0, 0) -- สีแดง
     wait(0.1)
@@ -62,7 +62,7 @@ end)
 ShotgunDamageButton.Name = "ShotgunDamageButton"
 ShotgunDamageButton.Parent = MainFrame
 ShotgunDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
-ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 100)
+ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 90)
 ShotgunDamageButton.Size = UDim2.new(0, 130, 0, 40)
 ShotgunDamageButton.Text = "Shotgun Damage"
 ShotgunDamageButton.MouseButton1Click:Connect(function()
