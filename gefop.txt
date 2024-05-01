@@ -165,8 +165,6 @@ minimizeButton.BorderSizePixel = 0
 minimizeButton.Parent = frame
 
 local function ToggleElements(visible)
-    screenGui.Visible = visible
-    frame.Visible = visible
     textbox.Visible = visible
     gotopartButton.Visible = visible
     createSPButton.Visible = visible
