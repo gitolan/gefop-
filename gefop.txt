@@ -3,6 +3,7 @@ local frame = Instance.new("Frame")
 local TextBoxButton = Instance.new("TextButton")
 local GotopartButton = Instance.new("TextButton")
 local CreateSPButton = Instance.new("TextButton")
+local DestroyESPButton = Instance.new("TextButton")
 local MinimizeButton = Instance.new("TextButton")
 local highlightTransparency = 0.5
 local gotopartDelay = 0.1
@@ -122,10 +123,11 @@ textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
 textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
 textbox.BackgroundColor3 = Color3.new(1, 1, 1)
 textbox.BorderSizePixel = 0
-textbox.Text = "Partname or Player (can short)"
+textbox.Text = "Partname or (Player can short)"
 textbox.Parent = frame
 
 local gotopartButton = Instance.new("TextButton")
+gotopartButton.Name = "Gotopart"
 gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 gotopartButton.Position = UDim2.new(0.1, 0, 0.25, 0)
 gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
@@ -135,6 +137,7 @@ gotopartButton.BorderSizePixel = 0
 gotopartButton.Parent = frame
 
 local createSPButton = Instance.new("TextButton")
+createspButton.Name = "CreateSP"
 createSPButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 createSPButton.Position = UDim2.new(0.55, 0, 0.25, 0)
 createSPButton.BackgroundColor3 = Color3.new(0, 0, 1)
@@ -144,6 +147,7 @@ createSPButton.BorderSizePixel = 0
 createSPButton.Parent = frame
 
 local gotoplayerButton = Instance.new("TextButton")
+gotoplayerButton.Name = "Gotoplayer"
 gotoplayerButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 gotoplayerButton.Position = UDim2.new(0.1, 0, 0.45, 0)
 gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
@@ -153,6 +157,7 @@ gotoplayerButton.BorderSizePixel = 0
 gotoplayerButton.Parent = frame
 
 local destroyESPButton = Instance.new("TextButton")
+destroyESPButton.Name = "Destroy ESP"
 destroyESPButton.Size = UDim2.new(0.8, 0, 0.1, 0)
 destroyESPButton.Position = UDim2.new(0.1, 0, 0.75, 0)
 destroyESPButton.BackgroundColor3 = Color3.new(0, 0, 1)
@@ -162,6 +167,7 @@ destroyESPButton.BorderSizePixel = 0
 destroyESPButton.Parent = frame
 
 local minimizeButton = Instance.new("TextButton")
+minimizeButton.Name = "Minimize"
 minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0)
 minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
 minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
