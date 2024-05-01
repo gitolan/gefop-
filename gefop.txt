@@ -242,4 +242,4 @@ game:GetService("RunService").Heartbeat:Connect(function()
     MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
-ToggleFrame(true)
+ToggleMainFrame(true)
