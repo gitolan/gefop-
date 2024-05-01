@@ -60,7 +60,7 @@ end)
 ShotgunDamageButton.Name = "ShotgunDamageButton"
 ShotgunDamageButton.Parent = MainFrame
 ShotgunDamageButton.BackgroundColor3 = Color3.new(1, 1, 1) -- สีขาว
-ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 50)
+ShotgunDamageButton.Position = UDim2.new(0, 0, 0, 100)
 ShotgunDamageButton.Size = UDim2.new(0, 200, 0, 50)
 ShotgunDamageButton.Text = "Crowbar Damage"
 ShotgunDamageButton.MouseButton1Click:Connect(function()
