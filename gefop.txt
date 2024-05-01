@@ -120,13 +120,13 @@ mainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
 mainFrame.Active = true
 mainFrame.Draggable = true
 
-local TextBox = Instance.new("TextBox")
-TextBox.Size = UDim2.new(0.8, 0, 0.1, 0)
-TextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
-TextBox.BackgroundColor3 = Color3.new(1, 1, 1)
-TextBox.BorderSizePixel = 0
-TextBox.Text = "Partname or (Player can short)"
-TextBox.Parent = MainFrame
+local textboxbutton = Instance.new("Textbutton")
+textboxbutton.Size = UDim2.new(0.8, 0, 0.1, 0)
+textboxbutton.Position = UDim2.new(0.1, 0, 0.1, 0)
+textboxbutton.BackgroundColor3 = Color3.new(1, 1, 1)
+textboxbutton.BorderSizePixel = 0
+textboxbutton.Text = "Partname or (Player can short)"
+textboxbutton.Parent = MainFrame
 
 local gotopartButton = Instance.new("TextButton")
 gotopartButton.Name = "Gotopart"
@@ -134,7 +134,7 @@ gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 gotopartButton.Position = UDim2.new(0.1, 0, 0.25, 0)
 gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotopartButton.TextColor3 = Color3.new(1, 1, 1)
-gotopartButton.Text = "Go to Part"
+gotopartButton.Text = "Gotopart"
 gotopartButton.BorderSizePixel = 0
 gotopartButton.Parent = MainFrame
 
