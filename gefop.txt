@@ -105,7 +105,7 @@ screenGui.ResetOnSpawn = false
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0.4, 0, 0.3, 0)
 frame.Position = UDim2.new(0.5, 0, 0.05, 0)
-frame.BackgroundColor3 = Color3.new(1, 1, 1)
+frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 frame.BorderSizePixel = 0
 frame.Parent = screenGui
 
@@ -163,6 +163,8 @@ minimizeButton.BorderSizePixel = 0
 minimizeButton.Parent = frame
 
 local function ToggleElements(visible)
+    screenGui.Visible = visible
+    frame.Visible = visible
     textbox.Visible = visible
     gotopartButton.Visible = visible
     createSPButton.Visible = visible
@@ -224,6 +226,10 @@ end)
 
 destroyESPButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
 ToggleFrame(true)
