@@ -110,14 +110,15 @@ screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.ResetOnSpawn = false
 
--- ตั้งค่า MainFrame
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- สีรุ้ง
-MainFrame.Position = UDim2.new(0.5, 0, 0.05, 0)
-MainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
-MainFrame.Active = true
-MainFrame.Draggable = true
+-- Set up MainFrame
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Parent = screenGui
+mainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- Rainbow color
+mainFrame.Position = UDim2.new(0.5, 0, 0.05, 0)
+mainFrame.Size = UDim2.new(0.4, 0, 0.3, 0)
+mainFrame.Active = true
+mainFrame.Draggable = true
 
 local textbox = Instance.new("TextBox")
 textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -177,26 +178,26 @@ minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
 minimizeButton.Parent = MainFrame
 
-local function ToggleElements(visible)
+local function toggleElements(visible)
     textbox.Visible = visible
-    MainFrame.Visible = visible
+    mainFrame.Visible = visible
     gotopartButton.Visible = visible
     createspButton.Visible = visible
     gotoplayerButton.Visible = visible
     destroyespButton.Visible = visible
 end
 
-local function ToggleButtons()
-    if isminimized then
-        ToggleElements(true)
+local function toggleButtons()
+    if isMinimized then
+        toggleElements(false)
     else
-        ToggleElements(false)
+        toggleElements(true)
     end
 end
 
 minimizeButton.MouseButton1Click:Connect(function()
-    isminimized = not isminimized
-    ToggleButtons()
+    isMinimized = not isMinimized
+    toggleButtons()
 end)
 
 gotopartButton.MouseButton1Click:Connect(function()
@@ -242,5 +243,5 @@ game:GetService("RunService").Heartbeat:Connect(function()
     MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
-ToggleElements(true)
+toggleElements(true)
 
