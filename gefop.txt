@@ -155,7 +155,7 @@ gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotoplayerButton.TextColor3 = Color3.new(1, 1, 1)
 gotoplayerButton.Text = "Gotoplayer"
 gotoplayerButton.BorderSizePixel = 0
-gotoplayerButton.Parent = frame
+gotoplayerButton.Parent = MainFrame
 
 local destroyespButton = Instance.new("TextButton")
 destroyespButton.Name = "DestroyESP"
@@ -165,7 +165,7 @@ destroyespButton.BackgroundColor3 = Color3.new(0, 0, 1)
 destroyespButton.TextColor3 = Color3.new(1, 1, 1)
 destroyespButton.Text = "DestroyESP"
 destroyespButton.BorderSizePixel = 0
-destroyespButton.Parent = frame
+destroyespButton.Parent = MainFrame
 
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "Minimize"
@@ -179,7 +179,7 @@ minimizeButton.Parent = frame
 
 local function ToggleElements(visible)
     textbox.Visible = visible
-    frame.Visible = visible
+    MainFrame.Visible = visible
     gotopartButton.Visible = visible
     createspButton.Visible = visible
     gotoplayerButton.Visible = visible
