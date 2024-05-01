@@ -137,12 +137,12 @@ gotopartButton.BorderSizePixel = 0
 gotopartButton.Parent = frame
 
 local createspButton = Instance.new("TextButton")
-createspButton.Name = "CreateSP"
+createspButton.Name = "Createsp"
 createspButton.Size = UDim2.new(0.4, 0, 0.1, 0)
 createspButton.Position = UDim2.new(0.55, 0, 0.25, 0)
 createspButton.BackgroundColor3 = Color3.new(0, 0, 1)
 createspButton.TextColor3 = Color3.new(1, 1, 1)
-createspButton.Text = "CreateSP"
+createspButton.Text = "Createsp"
 createspButton.BorderSizePixel = 0
 createspButton.Parent = frame
 
@@ -180,9 +180,9 @@ local function ToggleElements(visible)
     textbox.Visible = visible
     frame.Visible = visible
     gotopartButton.Visible = visible
-    createSPButton.Visible = visible
+    createspButton.Visible = visible
     gotoplayerButton.Visible = visible
-    destroyESPButton.Visibl = visible
+    destroyespButton.Visibl = visible
 end
 
 local function ToggleButtons()
