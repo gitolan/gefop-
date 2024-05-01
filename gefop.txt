@@ -172,6 +172,9 @@ end
 
 local function ToggleFrame(visible)
     frame.Visible = visible
+    if visible then
+        frame.BackgroundTransparency = isMinimized and 0 or 1
+    end
 end
 
 local function ToggleButtons()
@@ -185,6 +188,7 @@ end
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
     ToggleButtons()
+    ToggleFrame(true)
 end)
 
 gotopartButton.MouseButton1Click:Connect(function()
