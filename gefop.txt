@@ -1,26 +1,23 @@
-local highlightTransparency = 0.5 -- Transparansi highlight box
-local gotopartDelay = 0.1 -- Waktu penundaan sebelum teleportasi
-local isMinimized = false -- Status minimasi, awalnya tidak terminimasi
+local highlightTransparency = 0.5
+local gotopartDelay = 0.1
+local isMinimized = false
 
--- Daftar warna yang akan dipilih secara acak
 local colors = {
-    Color3.new(1, 0, 0), -- Red
-    Color3.new(0, 1, 0), -- Green
-    Color3.new(0, 0, 1), -- Blue
-    Color3.fromRGB(255, 165, 0), -- Orange
-    Color3.new(1, 1, 1), -- White
-    Color3.fromRGB(255, 192, 203), -- Pink
-    Color3.fromRGB(128, 0, 128), -- Purple
-    Color3.fromRGB(255, 255, 0), -- Yellow
-    Color3.fromRGB(0, 255, 255), -- Bright
+    Color3.new(1, 0, 0),
+    Color3.new(0, 1, 0),
+    Color3.new(0, 0, 1),
+    Color3.fromRGB(255, 165, 0),
+    Color3.new(1, 1, 1),
+    Color3.fromRGB(255, 192, 203),
+    Color3.fromRGB(128, 0, 128),
+    Color3.fromRGB(255, 255, 0),
+    Color3.fromRGB(0, 255, 255),
 }
 
--- Fungsi untuk memilih warna secara acak dari daftar warna
 local function getRandomColor()
     return colors[math.random(1, #colors)]
 end
 
--- Fungsi untuk menemukan akar dari karakter
 local function getRoot(character)
     if character:FindFirstChild("HumanoidRootPart") then
         return character.HumanoidRootPart
@@ -29,7 +26,6 @@ local function getRoot(character)
     end
 end
 
--- Fungsi untuk mencari pemain berdasarkan sebagian nama
 local function findPlayerByName(playerName)
     playerName = playerName:lower()
     for _, player in ipairs(game.Players:GetPlayers()) do
@@ -40,7 +36,6 @@ local function findPlayerByName(playerName)
     return nil
 end
 
--- Fungsi untuk mencari part di seluruh game berdasarkan nama
 local function findPartByName(partName)
     for _, obj in ipairs(workspace:GetDescendants()) do
         if obj:IsA("BasePart") and obj.Name:lower() == partName:lower() then
@@ -50,7 +45,6 @@ local function findPartByName(partName)
     return nil
 end
 
--- Fungsi untuk membuat ESP atau highlight box
 local function CreateESP(part, color)
     local existingESP = part:FindFirstChild("ESP")
     if existingESP then
@@ -65,16 +59,15 @@ local function CreateESP(part, color)
     esp.Color3 = color
     esp.AlwaysOnTop = true
     esp.Transparency = highlightTransparency
-    esp.ZIndex = 5 -- Agar terlihat di depan objek lain
+    esp.ZIndex = 5
     esp.Parent = part
 end
 
--- Fungsi untuk membuat floating highlight dengan nama part
 local function CreateFloatingHighlight(part)
     local floatingText = Instance.new("BillboardGui")
     floatingText.Name = "FloatingText"
     floatingText.Size = UDim2.new(0, 200, 0, 50)
-    floatingText.StudsOffset = Vector3.new(0, 3, 0) -- Angka 3 untuk mengangkat teks sedikit di atas part
+    floatingText.StudsOffset = Vector3.new(0, 3, 0)
     floatingText.AlwaysOnTop = true
 
     local textLabel = Instance.new("TextLabel")
@@ -92,7 +85,6 @@ local function CreateFloatingHighlight(part)
     floatingText.Parent = part
 end
 
--- Fungsi untuk menghapus semua ESP atau highlight box dan floating text
 local function DestroyAllESP()
     for _, part in ipairs(workspace:GetDescendants()) do
         if part:IsA("BasePart") and part:FindFirstChild("ESP") then
@@ -105,99 +97,96 @@ local function DestroyAllESP()
     print("Semua ESP, highlight, dan floating text telah dihapus.")
 end
 
--- Buat sebuah ScreenGui untuk menampung tombol-tombol
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "MyGui"
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ResetOnSpawn = false
 
--- Buat sebuah frame untuk menampung tombol-tombol
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0.4, 0, 0.3, 0) -- Ukuran frame
-frame.Position = UDim2.new(0.5, 0, 0.05, 0) -- Posisi di tengah atas
-frame.BackgroundColor3 = Color3.new(1, 1, 1) -- Warna latar belakang frame
-frame.BorderSizePixel = 0 -- Hapus border
+frame.Size = UDim2.new(0.4, 0, 0.3, 0)
+frame.Position = UDim2.new(0.5, 0, 0.05, 0)
+frame.BackgroundColor3 = Color3.new(1, 1, 1)
+frame.BorderSizePixel = 0
 frame.Parent = screenGui
 
--- Buat textbox di dalam frame
 local textbox = Instance.new("TextBox")
-textbox.Size = UDim2.new(0.8, 0, 0.1, 0) -- Ukuran textbox
-textbox.Position = UDim2.new(0.1, 0, 0.1, 0) -- Posisi di dalam frame
-textbox.BackgroundColor3 = Color3.new(1, 1, 1) -- Warna latar belakang textbox
-textbox.BorderSizePixel = 0 -- Hapus border
-textbox.Text = "Tuliskan nama di sini" -- Teks default
-textbox.Parent = frame -- Jadikan textbox sebagai anak dari frame
+textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
+textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
+textbox.BackgroundColor3 = Color3.new(1, 1, 1)
+textbox.BorderSizePixel = 0
+textbox.Text = "Tuliskan nama di sini"
+textbox.Parent = frame
 
--- Buat tombol "Gotopart" di dalam frame
 local gotopartButton = Instance.new("TextButton")
-gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0) -- Ukuran tombol
-gotopartButton.Position = UDim2.new(0.1, 0, 0.25, 0) -- Posisi di dalam frame
-gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Warna latar belakang tombol
-gotopartButton.TextColor3 = Color3.new(1, 1, 1) -- Warna teks tombol
-gotopartButton.Text = "Gotopart" -- Teks tombol
-gotopartButton.BorderSizePixel = 0 -- Hapus border
-gotopartButton.Parent = frame -- Jadikan tombol sebagai anak dari frame
+gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+gotopartButton.Position = UDim2.new(0.1, 0, 0.25, 0)
+gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
+gotopartButton.TextColor3 = Color3.new(1, 1, 1)
+gotopartButton.Text = "Gotopart"
+gotopartButton.BorderSizePixel = 0
+gotopartButton.Parent = frame
 
--- Buat tombol "CreateSP" di dalam frame
 local createSPButton = Instance.new("TextButton")
-createSPButton.Size = UDim2.new(0.4, 0, 0.1, 0) -- Ukuran tombol
-createSPButton.Position = UDim2.new(0.55, 0, 0.25, 0) -- Posisi di dalam frame
-createSPButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Warna latar belakang tombol
-createSPButton.TextColor3 = Color3.new(1, 1, 1) -- Warna teks tombol
-createSPButton.Text = "CreateSP" -- Teks tombol
-createSPButton.BorderSizePixel = 0 -- Hapus border
-createSPButton.Parent = frame -- Jadikan tombol sebagai anak dari frame
+createSPButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+createSPButton.Position = UDim2.new(0.55, 0, 0.25, 0)
+createSPButton.BackgroundColor3 = Color3.new(0, 0, 1)
+createSPButton.TextColor3 = Color3.new(1, 1, 1)
+createSPButton.Text = "CreateSP"
+createSPButton.BorderSizePixel = 0
+createSPButton.Parent = frame
 
--- Buat tombol "Gotoplayer" di dalam frame
 local gotoplayerButton = Instance.new("TextButton")
-gotoplayerButton.Size = UDim2.new(0.4, 0, 0.1, 0) -- Ukuran tombol
-gotoplayerButton.Position = UDim2.new(0.1, 0, 0.45, 0) -- Posisi di dalam frame
-gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Warna latar belakang tombol
-gotoplayerButton.TextColor3 = Color3.new(1, 1, 1) -- Warna teks tombol
-gotoplayerButton.Text = "Gotoplayer" -- Teks tombol
-gotoplayerButton.BorderSizePixel = 0 -- Hapus border
-gotoplayerButton.Parent = frame -- Jadikan tombol sebagai anak dari frame
+gotoplayerButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+gotoplayerButton.Position = UDim2.new(0.1, 0, 0.45, 0)
+gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
+gotoplayerButton.TextColor3 = Color3.new(1, 1, 1)
+gotoplayerButton.Text = "Gotoplayer"
+gotoplayerButton.BorderSizePixel = 0
+gotoplayerButton.Parent = frame
 
--- Buat tombol "Destroy ESP" di dalam frame
 local destroyESPButton = Instance.new("TextButton")
-destroyESPButton.Size = UDim2.new(0.8, 0, 0.1, 0) -- Ukuran tombol
-destroyESPButton.Position = UDim2.new(0.1, 0, 0.75, 0) -- Posisi di dalam frame
-destroyESPButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Warna latar belakang tombol
-destroyESPButton.TextColor3 = Color3.new(1, 1, 1) -- Warna teks tombol
-destroyESPButton.Text = "Destroy ESP" -- Teks tombol
-destroyESPButton.BorderSizePixel = 0 -- Hapus border
-destroyESPButton.Parent = frame -- Jadikan tombol sebagai anak dari frame
+destroyESPButton.Size = UDim2.new(0.8, 0, 0.1, 0)
+destroyESPButton.Position = UDim2.new(0.1, 0, 0.75, 0)
+destroyESPButton.BackgroundColor3 = Color3.new(0, 0, 1)
+destroyESPButton.TextColor3 = Color3.new(1, 1, 1)
+destroyESPButton.Text = "Destroy ESP"
+destroyESPButton.BorderSizePixel = 0
+destroyESPButton.Parent = frame
 
--- Buat tombol "Minimize" di dalam frame
 local minimizeButton = Instance.new("TextButton")
-minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0) -- Ukuran tombol
-minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0) -- Posisi di dalam frame
-minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Warna latar belakang tombol
-minimizeButton.TextColor3 = Color3.new(1, 1, 1) -- Warna teks tombol
-minimizeButton.Text = "Minimize" -- Teks tombol
-minimizeButton.BorderSizePixel = 0 -- Hapus border
-minimizeButton.Parent = frame -- Jadikan tombol sebagai anak dari frame
+minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0)
+minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
+minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
+minimizeButton.TextColor3 = Color3.new(1, 1, 1)
+minimizeButton.Text = "Minimize"
+minimizeButton.BorderSizePixel = 0
+minimizeButton.Parent = frame
 
--- Fungsi untuk menampilkan atau menyembunyikan frame dan tombol
-local function ToggleElements(transparency)
-    frame.BackgroundTransparency = transparency
-    textbox.BackgroundTransparency = transparency
-    gotopartButton.BackgroundTransparency = transparency
-    createSPButton.BackgroundTransparency = transparency
-    gotoplayerButton.BackgroundTransparency = transparency
-    destroyESPButton.BackgroundTransparency = transparency
-    minimizeButton.BackgroundTransparency = transparency
-
-    -- Set transparansi teks pada tombol minimize menjadi 0%
-    minimizeButton.TextTransparency = transparency
+local function ToggleElements(visible)
+    textbox.Visible = visible
+    gotopartButton.Visible = visible
+    createSPButton.Visible = visible
+    gotoplayerButton.Visible = visible
+    destroyESPButton.Visible = visible
 end
 
--- Fungsi untuk menampilkan atau menyembunyikan frame
 local function ToggleFrame(visible)
     frame.Visible = visible
 end
 
--- Tambahkan event listener untuk tombol "Gotopart"
+local function ToggleButtons()
+    if isMinimized then
+        ToggleElements(true)
+    else
+        ToggleElements(false)
+    end
+end
+
+minimizeButton.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+    ToggleButtons()
+end)
+
 gotopartButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
@@ -209,21 +198,19 @@ gotopartButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- Tambahkan event listener untuk tombol "CreateSP"
 createSPButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
     if part then
         local randomColor = getRandomColor()
         CreateESP(part, randomColor)
-        CreateFloatingHighlight(part) -- Tambahkan floating highlight dengan nama part
+        CreateFloatingHighlight(part)
         print("Created ESP atau highlight: "..partName)
     else
         print("Tidak dapat menemukan part dengan nama '"..partName.."'.")
     end
 end)
 
--- Tambahkan event listener untuk tombol "Gotoplayer"
 gotoplayerButton.MouseButton1Click:Connect(function()
     local playerName = textbox.Text
     local player = findPlayerByName(playerName)
@@ -235,33 +222,8 @@ gotoplayerButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- Tambahkan event listener untuk tombol "Destroy ESP"
 destroyESPButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
 end)
 
--- Tambahkan event listener untuk tombol "Minimize"
-minimizeButton.MouseButton1Click:Connect(function()
-    if isMinimized then
-        ToggleElements(0)
-        isMinimized = false
-    else
-        ToggleElements(1)
-        isMinimized = true
-    end
-end)
-
--- Buat sebuah teks "By indQwerty" di bawah tengah dengan transparansi 40%
-local byText = Instance.new("TextLabel")
-byText.Size = UDim2.new(1, 0, 0.05, 0)
-byText.Position = UDim2.new(0, 0, 0.9, 0)
-byText.BackgroundColor3 = Color3.new(1, 1, 1)
-byText.BackgroundTransparency = 1 -- Jadikan latar belakang teks transparan
-byText.TextColor3 = Color3.new(1, 1, 1)
-byText.TextTransparency = 0.4 -- Transparansi teks
-byText.Text = "By indQwerty"
-byText.TextScaled = true
-byText.Parent = frame -- Jadikan teks sebagai anak dari frame
-
--- Tampilkan frame
 ToggleFrame(true)
