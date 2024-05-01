@@ -128,15 +128,15 @@ TextBox.BorderSizePixel = 0
 TextBox.Text = "Partname or (Player can short)"
 TextBox.Parent = MainFrame
 
-local GoToPartButton = Instance.new("TextButton")
-GoToPartButton.Name = "GoToPart"
-GoToPartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
-GoToPartButton.Position = UDim2.new(0.1, 0, 0.25, 0)
-GoToPartButton.BackgroundColor3 = Color3.new(0, 0, 1)
-GoToPartButton.TextColor3 = Color3.new(1, 1, 1)
-GoToPartButton.Text = "Go to Part"
-GoToPartButton.BorderSizePixel = 0
-GoToPartButton.Parent = MainFrame
+local gotopartButton = Instance.new("TextButton")
+gotopartButton.Name = "Gotopart"
+gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+gotopartButton.Position = UDim2.new(0.1, 0, 0.25, 0)
+gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
+gotopartButton.TextColor3 = Color3.new(1, 1, 1)
+gotopartButton.Text = "Go to Part"
+gotopartButton.BorderSizePixel = 0
+gotopartButton.Parent = MainFrame
 
 local createspButton = Instance.new("TextButton")
 createspButton.Name = "Createsp"
@@ -168,7 +168,7 @@ destroyespButton.Text = "DestroyESP"
 destroyespButton.BorderSizePixel = 0
 destroyespButton.Parent = mainFrame
 
-local MinimizeButton = Instance.new("TextButton")
+local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "Minimize"
 minimizeButton.Size = UDim2.new(0.3, 0, 0.1, 0)
 minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
