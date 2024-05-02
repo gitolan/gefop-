@@ -189,4 +189,4 @@ end
 while true do
     antiVoid()
     wait(1) -- Periksa setiap detik
-end
+  end
