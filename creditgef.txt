@@ -84,12 +84,13 @@ fadeLoop(customButton)
 fadeLoop(discordButton)
 
 local function pressE()
-    -- Tekan tombol "E"
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+    -- -- Fungsi untuk menekan tombol "E" secara otomatis
+local function pressE()
+    game:GetService("UserInputService"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
     wait(0.1) -- Tunggu sebentar sebelum melepaskan tombol
-    -- Lepaskan tombol "E"
-    game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+    game:GetService("UserInputService"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
+
 
 -- Fungsi untuk mendapatkan jarak antara dua titik dalam ruang 3D
 local function getDistance(point1, point2)
