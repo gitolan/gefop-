@@ -191,8 +191,12 @@ end
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    ToggleFrame()
-    ToggleButtons()
+    ToggleFrame(not isMinimized)
+    if isMinimized then
+        MainFrame.BackgroundTransparency = 0
+    else
+        MainFrame.BackgroundTransparency = 0.5
+    end
 end)
 
 gotopartButton.MouseButton1Click:Connect(function()
