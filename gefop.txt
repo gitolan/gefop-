@@ -116,7 +116,7 @@ textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
 textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
 textbox.BackgroundColor3 = Color3.new(1, 1, 1)
 textbox.BorderSizePixel = 0
-textbox.Text = "Tuliskan nama di sini"
+textbox.Text = "Part or nameplayer (can short)"
 textbox.Parent = MainFrame
 
 local gotopartButton = Instance.new("TextButton")
