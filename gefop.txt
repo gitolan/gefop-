@@ -177,8 +177,8 @@ local function ToggleElements(visible)
     destroyESPButton.Visible = visible
 end
 
-local function ToggleFrame(visible)
-    MainFrame.Visible = visible
+local function ToggleFrame()
+    MainFrame.Visible = not isMinimized
 end
 
 local function ToggleButtons()
@@ -191,6 +191,7 @@ end
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
+    ToggleFrame()
     ToggleButtons()
 end)
 
