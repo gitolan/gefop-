@@ -114,7 +114,7 @@ local function detectNearbyDoor(character)
     return false
 end
 
--- Fungsi untuk memeriksa dan menekan tombol "E" jika dekat dengan DoorFrame atau Door
+-- Fungsi untuk memeriksa dan menekan tombol "E" Door
 local function checkAndPressE()
     local character = game.Players.LocalPlayer.Character
     if character then
@@ -129,7 +129,7 @@ while true do
     wait(1) -- Periksa setiap detik
 end
 
--- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter ditambahkan
+-- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakte
 local function autoJump(character)
     local humanoid = character:WaitForChild("Humanoid")
     humanoid.JumpingEnabled = true
@@ -174,7 +174,7 @@ local function getPlayerPosition()
     return nil
 end
 
--- Fungsi untuk memindahkan pemain ke posisi yang aman jika mereka berada di dalam void
+-- Fungsi untuk memindahkan pemain ke posisi
 local function antiVoid()
     local playerPosition = getPlayerPosition()
     if playerPosition and playerPosition.Y < VOID_THRESHOLD then
