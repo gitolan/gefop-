@@ -83,6 +83,54 @@ fadeLoop(customButton)
 -- Mulai efek fade loop pada tombol "Join our Discord"
 fadeLoop(discordButton)
 
+local function pressE()
+    -- Tekan tombol "E"
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
+    wait(0.1) -- Tunggu sebentar sebelum melepaskan tombol
+    -- Lepaskan tombol "E"
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
+end
+
+-- Fungsi untuk mendapatkan jarak antara dua titik dalam ruang 3D
+local function getDistance(point1, point2)
+    return (point1 - point2).Magnitude
+end
+
+-- Fungsi untuk mendeteksi apakah karakter berada dekat dengan DoorFrame atau Door
+local function detectNearbyDoor(character)
+    local doorFrame = game:GetService("Workspace").BuildingsDoorFrame
+    if doorFrame then
+        local door = doorFrame:FindFirstChild("Door")
+        local doorFramePart = doorFrame:FindFirstChild("DoorFrame")
+        if door and doorFramePart then
+            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+            local distanceToDoor = getDistance(humanoidRootPart.Position, door.Position)
+            local distanceToDoorFrame = getDistance(humanoidRootPart.Position, doorFramePart.Position)
+            -- Tentukan jarak maksimum untuk dianggap dekat dengan Door atau DoorFrame
+            local maxDistance = 5 -- Ubah sesuai kebutuhan
+            if distanceToDoor <= maxDistance or distanceToDoorFrame <= maxDistance then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+-- Fungsi untuk memeriksa dan menekan tombol "E" jika dekat dengan DoorFrame atau Door
+local function checkAndPressE()
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        if detectNearbyDoor(character) then
+            pressE()
+        end
+    end
+end
+
+while true do
+    checkAndPressE()
+    wait(1) -- Periksa setiap detik
+end
+
 -- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter ditambahkan
 local function autoJump(character)
     local humanoid = character:WaitForChild("Humanoid")
@@ -113,3 +161,5 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
     autoJump(character)
     detectTeleport(character)
 end)
+
+
