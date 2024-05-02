@@ -75,7 +75,7 @@ local function CreateFloatingHighlight(part)
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.BackgroundColor3 = Color3.new(1, 1, 1)
     textLabel.BackgroundTransparency = 1
-    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
     textLabel.TextStrokeTransparency = 0.5
     textLabel.TextScaled = true
     textLabel.Font = Enum.Font.SourceSansBold
@@ -184,6 +184,7 @@ local function ToggleElements(visible)
     createSPButton.Visible = visible
     gotoplayerButton.Visible = visible
     destroyESPButton.Visible = visible
+    xbutton.Visible = visible
 end
 
 local function ToggleFrame()
