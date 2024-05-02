@@ -164,6 +164,15 @@ minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
 minimizeButton.Parent = MainFrame
 
+local xButton = Instance.new("TextButton")
+xButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+xButton.Position = UDim2.new(0.9, 0, 0.9, 0)
+xButton.BackgroundColor3 = Color3.new(1, 0, 0)
+xButton.TextColor3 = Color3.new(1, 1, 1)
+xButton.Text = "x"
+xButton.BorderSizePixel = 0
+xButton.Parent = MainFrame
+
 -- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
 game:GetService("RunService").Heartbeat:Connect(function()
     MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
@@ -178,7 +187,7 @@ local function ToggleElements(visible)
 end
 
 local function ToggleFrame()
-    MainFrame.Visible = not isMinimized
+    MainFrame.Visible = not MainFrame.Visible
 end
 
 local function ToggleButtons()
@@ -191,12 +200,17 @@ end
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    ToggleFrame(not isMinimized)
+    ToggleFrame()
     if isMinimized then
-        MainFrame.BackgroundTransparency = 0
+        MainFrame.BackgroundTransparency = 1 -- Mengatur transparansi
     else
         MainFrame.BackgroundTransparency = 0.5
     end
+end)
+
+
+xButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
 end)
 
 gotopartButton.MouseButton1Click:Connect(function()
