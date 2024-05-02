@@ -66,7 +66,7 @@ end
 local function CreateFloatingHighlight(part)
     local floatingText = Instance.new("BillboardGui")
     floatingText.Name = "FloatingText"
-    floatingText.Size = UDim2.new(0, 20, 0, 20)
+    floatingText.Size = UDim2.new(0, 100, 0, 100)
     floatingText.StudsOffset = Vector3.new(0, 2, 0)
     floatingText.AlwaysOnTop = true
 
@@ -107,7 +107,7 @@ MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- HSL to RGB
 MainFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
-MainFrame.Size = UDim2.new(0, 2000, 0, 300)
+MainFrame.Size = UDim2.new(0, 200, 0, 200)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
