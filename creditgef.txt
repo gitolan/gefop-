@@ -83,10 +83,10 @@ fadeLoop(customButton)
 -- Mulai efek fade loop pada tombol "Join our Discord"
 fadeLoop(discordButton)
 
-    -- -- Fungsi untuk menekan tombol "E" secara otomatis
+    -- Function to press 'E' key automatically
 local function pressE()
     game:GetService("UserInputService"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
-    wait(0.1) -- Tunggu sebentar sebelum melepaskan tombol
+    wait(0.1)
     game:GetService("UserInputService"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
 
@@ -95,18 +95,17 @@ local function getDistance(point1, point2)
     return (point1 - point2).Magnitude
 end
 
--- Fungsi untuk mendeteksi apakah karakter berada dekat dengan DoorFrame atau Door
+-- Function to detect nearby DoorFrame or Door
 local function detectNearbyDoor(character)
-    local doorFrame = game:GetService("Workspace").BuildingsDoorFrame
+    local doorFrame = game:GetService("Workspace").Buildings:FindFirstChild("DoorFrame") -- Perbaiki akses ke DoorFrame
     if doorFrame then
         local door = doorFrame:FindFirstChild("Door")
         local doorFramePart = doorFrame:FindFirstChild("DoorFrame")
         if door and doorFramePart then
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-            local distanceToDoor = getDistance(humanoidRootPart.Position, door.Position)
-            local distanceToDoorFrame = getDistance(humanoidRootPart.Position, doorFramePart.Position)
-            -- Tentukan jarak maksimum untuk dianggap dekat dengan Door atau DoorFrame
-            local maxDistance = 2 -- Ubah sesuai kebutuhan
+            local distanceToDoor = (humanoidRootPart.Position - door.Position).Magnitude
+            local distanceToDoorFrame = (humanoidRootPart.Position - doorFramePart.Position).Magnitude
+            local maxDistance = 2
             if distanceToDoor <= maxDistance or distanceToDoorFrame <= maxDistance then
                 return true
             end
