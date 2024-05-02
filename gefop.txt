@@ -227,8 +227,10 @@ local function TeleportAndJump(cframe)
         wait(0.1) -- Tunggu sebentar sebelum melompat
         for i = 1, 3 do
             root.Velocity = Vector3.new(0, 50, 0) -- Atur kecepatan vertikal untuk melompat
-            wait(0.1) -- Tunggu sebentar sebelum melompat lagi
+            wait(0.5) -- Tunggu sebentar sebelum melompat lagi
         end
+        -- Orientasi karakter ke atas
+        character:SetPrimaryPartCFrame(cframe)
     end
 end
 
