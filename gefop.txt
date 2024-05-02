@@ -97,31 +97,26 @@ local function DestroyAllESP()
     print("Semua ESP, highlight, dan floating text telah dihapus.")
 end
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "MyGui"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-screenGui.ResetOnSpawn = false
+ScreenGui.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- HSL to RGB
+MainFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
+MainFrame.Size = UDim2.new(0, 200, 0, 30)
+MainFrame.Active = true
+MainFrame.Draggable = true
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0.4, 0, 0.3, 0)
 frame.Position = UDim2.new(0.5, 0, 0.05, 0)
 frame.BackgroundColor3 = Color3.new(1, 1, 1)
 frame.BorderSizePixel = 0
-frame.Parent = screenGui
-
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.ResetOnSpawn = false
-
--- ตั้งค่า MainFrame
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.new(1, 1, 1) -- สีรุ้ง
-MainFrame.Position = UDim2.new0.5, 0, 0.05, 0)
-MainFrame.Size = UDim2.new0.4, 0, 0.3, 0)
-MainFrame.Active = true
-MainFrame.Draggable = true
+frame.Parent = MainFrame
 
 local textbox = Instance.new("TextBox")
 textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -129,7 +124,7 @@ textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
 textbox.BackgroundColor3 = Color3.new(1, 1, 1)
 textbox.BorderSizePixel = 0
 textbox.Text = "Tuliskan nama di sini"
-textbox.Parent = frame
+textbox.Parent = MainFrame
 
 local gotopartButton = Instance.new("TextButton")
 gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
@@ -138,7 +133,7 @@ gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotopartButton.TextColor3 = Color3.new(1, 1, 1)
 gotopartButton.Text = "Gotopart"
 gotopartButton.BorderSizePixel = 0
-gotopartButton.Parent = frame
+gotopartButton.Parent = MainFrame
 
 local createSPButton = Instance.new("TextButton")
 createSPButton.Size = UDim2.new(0.4, 0, 0.1, 0)
@@ -147,7 +142,7 @@ createSPButton.BackgroundColor3 = Color3.new(0, 0, 1)
 createSPButton.TextColor3 = Color3.new(1, 1, 1)
 createSPButton.Text = "CreateSP"
 createSPButton.BorderSizePixel = 0
-createSPButton.Parent = frame
+createSPButton.Parent = MainFrame
 
 local gotoplayerButton = Instance.new("TextButton")
 gotoplayerButton.Size = UDim2.new(0.4, 0, 0.1, 0)
@@ -156,7 +151,7 @@ gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotoplayerButton.TextColor3 = Color3.new(1, 1, 1)
 gotoplayerButton.Text = "Gotoplayer"
 gotoplayerButton.BorderSizePixel = 0
-gotoplayerButton.Parent = frame
+gotoplayerButton.Parent = MainFrame
 
 local destroyESPButton = Instance.new("TextButton")
 destroyESPButton.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -165,16 +160,16 @@ destroyESPButton.BackgroundColor3 = Color3.new(0, 0, 1)
 destroyESPButton.TextColor3 = Color3.new(1, 1, 1)
 destroyESPButton.Text = "Destroy ESP"
 destroyESPButton.BorderSizePixel = 0
-destroyESPButton.Parent = frame
+destroyESPButton.Parent = MainFrame
 
 local minimizeButton = Instance.new("TextButton")
-minimizeButton.Size = UDim2.new(0.4, 0, 0.1, 0)
-minimizeButton.Position = UDim2.new(0.3, 0, 0.9, 0)
+minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0)
+minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
 minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
 minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
-minimizeButton.Parent = frame
+minimizeButton.Parent = MainFrame
 
 local function ToggleElements(visible)
     textbox.Visible = visible
@@ -185,10 +180,7 @@ local function ToggleElements(visible)
 end
 
 local function ToggleFrame(visible)
-    frame.Visible = visible
-    if visible then
-        frame.BackgroundTransparency = isMinimized and 0 or 1
-    end
+    MainFrame.Visible = visible
 end
 
 local function ToggleButtons()
@@ -202,7 +194,6 @@ end
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
     ToggleButtons()
-    ToggleFrame(true)
 end)
 
 gotopartButton.MouseButton1Click:Connect(function()
@@ -244,4 +235,4 @@ destroyESPButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
 end)
 
-ToggleFrame(true)
+ToggleMainFrame(true)
