@@ -160,7 +160,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
     detectTeleport(character)
 end)
 
-local VOID_THRESHOLD = -50
+local VOID_THRESHOLD = -300
 
 -- Fungsi untuk mendapatkan posisi pemain
 local function getPlayerPosition()
