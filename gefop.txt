@@ -227,7 +227,18 @@ gotopartButton.MouseButton1Click:Connect(function()
         getRoot(game.Players.LocalPlayer.Character).CFrame = part.CFrame
         print("Last Gotopart: "..partName)
     else
-        print("Tidak dapat menemukan part dengan nama '"..partName.."'.")
+        print("Tidak dapat menemukan part dengan nama '"..partName.."'. Teleport ke koordinat default...")
+        -- Teleport ke koordinat default
+        getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
+        wait(1) -- Tunggu 1 detik sebelum mencoba teleport lagi
+        -- Coba teleport lagi
+        part = findPartByName(partName)
+        if part then
+            getRoot(game.Players.LocalPlayer.Character).CFrame = part.CFrame
+            print("Teleport ke "..partName.." berhasil.")
+        else
+            print("Tidak dapat menemukan part dengan nama '"..partName.."'.")
+        end
     end
 end)
 
@@ -251,7 +262,9 @@ gotoplayerButton.MouseButton1Click:Connect(function()
         getRoot(game.Players.LocalPlayer.Character).CFrame = player.Character.HumanoidRootPart.CFrame
         print("Last Gotoplayer: "..player.Name)
     else
-        print("Tidak dapat menemukan pemain dengan nama '"..playerName.."'.")
+        print("Tidak dapat menemukan pemain dengan nama '"..playerName.."'. Teleport ke koordinat default...")
+        -- Teleport ke koordinat default
+        getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
     end
 end)
 
