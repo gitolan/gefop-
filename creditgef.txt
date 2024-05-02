@@ -149,7 +149,7 @@ local function detectTeleport(character)
     humanoidRootPart:GetPropertyChangedSignal("Position"):Connect(function()
         local newPosition = humanoidRootPart.Position
         local distance = (newPosition - prevPosition).Magnitude
-        if distance > 10 then -- Jika jarak perpindahan melebihi 10 stud, kita anggap sebagai teleportasi
+        if distance > 0 then -- Jika jarak perpindahan melebihi 10 stud, kita anggap sebagai teleportasi
             autoJump(character)
         end
         prevPosition = newPosition
@@ -181,7 +181,7 @@ local function antiVoid()
     local playerPosition = getPlayerPosition()
     if playerPosition and playerPosition.Y < VOID_THRESHOLD then
         -- Pemain berada di dalam void, kita perlu memindahkan mereka kembali ke permukaan
-        playerPosition = Vector3.new(playerPosition.X, 20, playerPosition.Z) -- Mengubah ketinggian menjadi 20
+        playerPosition = Vector3.new(playerPosition.X, 400, playerPosition.Z) -- Mengubah ketinggian menjadi 20
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(playerPosition)) -- Memindahkan pemain kembali ke posisi yang aman
     end
 end
