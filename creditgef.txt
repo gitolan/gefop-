@@ -162,4 +162,32 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
     detectTeleport(character)
 end)
 
+local VOID_THRESHOLD = -50
 
+-- Fungsi untuk mendapatkan posisi pemain
+local function getPlayerPosition()
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            return humanoidRootPart.Position
+        end
+    end
+    return nil
+end
+
+-- Fungsi untuk memindahkan pemain ke posisi yang aman jika mereka berada di dalam void
+local function antiVoid()
+    local playerPosition = getPlayerPosition()
+    if playerPosition and playerPosition.Y < VOID_THRESHOLD then
+        -- Pemain berada di dalam void, kita perlu memindahkan mereka kembali ke permukaan
+        playerPosition = Vector3.new(playerPosition.X, 20, playerPosition.Z) -- Mengubah ketinggian menjadi 20
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(playerPosition)) -- Memindahkan pemain kembali ke posisi yang aman
+    end
+end
+
+-- Loop untuk memantau posisi pemain dan menjalankan fungsi antiVoid secara berkala
+while true do
+    antiVoid()
+    wait(1) -- Periksa setiap detik
+end
