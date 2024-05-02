@@ -14,12 +14,12 @@ customButton.AnchorPoint = Vector2.new(0.5, 0.5)
 customButton.BackgroundColor3 = Color3.new(1, 1, 1)
 customButton.BackgroundTransparency = 1
 customButton.Position = UDim2.new(0.5, 0, 0.7, 0) -- Atur posisi sedikit di atas dari tombol Discord
-customButton.Size = UDim2.new(0.2, 0, 0.02, 0) -- Ukuran tombol
+customButton.Size = UDim2.new(0.2, 0, 0.05, 0) -- Ukuran tombol
 customButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
 customButton.Text = "By indQwerty🤫 and edited"
 customButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
-customButton.TextSize = 5 -- Ukuran teks tombol
-customButton.TextTransparency = 0.5 -- Mengatur transparansi teks menjadi 0.5
+customButton.TextSize = 3 -- Ukuran teks tombol
+customButton.TextTransparency = 0.7 -- Mengatur transparansi teks menjadi 0.5
 customButton.TextScaled = true -- Mengatur teks diukur
 customButton.TextWrapped = true -- Mengatur teks dibungkus
 customButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
@@ -31,12 +31,12 @@ discordButton.AnchorPoint = Vector2.new(0.5, 0.5)
 discordButton.BackgroundColor3 = Color3.new(1, 1, 1)
 discordButton.BackgroundTransparency = 1
 discordButton.Position = UDim2.new(0.5, 0, 0.8, 0) -- Sedikit di atas dari tengah bawah
-discordButton.Size = UDim2.new(0.2, 0, 0.02, 0) -- Ukuran tombol
+discordButton.Size = UDim2.new(0.2, 0, 0.05, 0) -- Ukuran tombol
 discordButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
 discordButton.Text = "Join our Discord"
 discordButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
-discordButton.TextSize = 5 -- Ukuran teks tombol
-discordButton.TextTransparency = 0.5 -- Mengatur transparansi teks menjadi 0.5
+discordButton.TextSize = 1 -- Ukuran teks tombol
+discordButton.TextTransparency = 0.7 -- Mengatur transparansi teks menjadi 0.5
 discordButton.TextScaled = true -- Mengatur teks diukur
 discordButton.TextWrapped = true -- Mengatur teks dibungkus
 discordButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
@@ -82,3 +82,34 @@ fadeLoop(customButton)
 
 -- Mulai efek fade loop pada tombol "Join our Discord"
 fadeLoop(discordButton)
+
+-- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter ditambahkan
+local function autoJump(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.JumpingEnabled = true
+    for _ = 1, 3 do
+        humanoid.Jump = true
+        wait(0.2) -- Tunggu 0.2 detik antara setiap lompatan
+    end
+end
+
+-- Fungsi untuk mendeteksi teleportasi karakter
+local function detectTeleport(character)
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    local prevPosition = humanoidRootPart.Position
+
+    humanoidRootPart:GetPropertyChangedSignal("Position"):Connect(function()
+        local newPosition = humanoidRootPart.Position
+        local distance = (newPosition - prevPosition).Magnitude
+        if distance > 10 then -- Jika jarak perpindahan melebihi 10 stud, kita anggap sebagai teleportasi
+            autoJump(character)
+        end
+        prevPosition = newPosition
+    end)
+end
+
+-- Jalankan lompatan otomatis sebanyak tiga kali saat karakter ditambahkan
+game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+    autoJump(character)
+    detectTeleport(character)
+end)
