@@ -164,6 +164,11 @@ minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
 minimizeButton.Parent = MainFrame
 
+-- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
+game:GetService("RunService").Heartbeat:Connect(function()
+    MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+end)
+
 local function ToggleElements(visible)
     textbox.Visible = visible
     gotopartButton.Visible = visible
