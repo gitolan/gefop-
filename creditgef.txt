@@ -107,7 +107,7 @@ local function detectNearbyDoor(character)
             local distanceToDoor = getDistance(humanoidRootPart.Position, door.Position)
             local distanceToDoorFrame = getDistance(humanoidRootPart.Position, doorFramePart.Position)
             -- Tentukan jarak maksimum untuk dianggap dekat dengan Door atau DoorFrame
-            local maxDistance = 5 -- Ubah sesuai kebutuhan
+            local maxDistance = 2 -- Ubah sesuai kebutuhan
             if distanceToDoor <= maxDistance or distanceToDoorFrame <= maxDistance then
                 return true
             end
