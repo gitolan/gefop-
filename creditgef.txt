@@ -83,14 +83,12 @@ fadeLoop(customButton)
 -- Mulai efek fade loop pada tombol "Join our Discord"
 fadeLoop(discordButton)
 
-local function pressE()
     -- -- Fungsi untuk menekan tombol "E" secara otomatis
 local function pressE()
     game:GetService("UserInputService"):SendKeyEvent(true, Enum.KeyCode.E, false, game)
     wait(0.1) -- Tunggu sebentar sebelum melepaskan tombol
     game:GetService("UserInputService"):SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
-
 
 -- Fungsi untuk mendapatkan jarak antara dua titik dalam ruang 3D
 local function getDistance(point1, point2)
