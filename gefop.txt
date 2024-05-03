@@ -203,8 +203,14 @@ local function ToggleFrame()
         MainFrame.Visible = false
     else
         MainFrame.Visible = true
+        if transparentMode then
+            MainFrame.BackgroundTransparency = 1
+        else
+            MainFrame.BackgroundTransparency = 0.5
+        end
     end
 end
+
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
