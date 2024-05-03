@@ -208,30 +208,30 @@ local function ToggleFrame()
         else
             MainFrame.BackgroundTransparency = 0.5
         end
+        minimizeButton.Visible = true -- Mengembalikan visibilitas tombol minimize agar terlihat kembali
     end
 end
-
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
     ToggleFrame()
     if isMinimized then
         MainFrame.BackgroundTransparency = 1
-        ToggleElements(true) 
-        xButton.Visible = false 
+        ToggleElements(true) -- Mengatur visibilitas tombol-tombol lainnya
+        xButton.Visible = false -- Mengubah visibilitas tombol 'X' agar tidak terlihat
     else
         MainFrame.BackgroundTransparency = 0.5
-        ToggleElements(false) 
-        xButton.Visible = true 
-        minimizeButton.Visible = true 
+        ToggleElements(false) -- Mengatur visibilitas tombol-tombol lainnya
+        xButton.Visible = true -- Mengubah visibilitas tombol 'X' agar terlihat kembali
+        minimizeButton.Visible = true -- Mengembalikan visibilitas tombol minimize agar terlihat kembali
     end
 end)
-
 
 xButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = false -- Mengatur visibilitas MainFrame menjadi false
     ToggleElements(false) -- Mengatur visibilitas tombol-tombol lainnya menjadi false
 end)
+
 
 local function TeleportAndJump(cframe)
     local character = game.Players.LocalPlayer.Character
