@@ -176,7 +176,7 @@ xButton.Parent = frame
 -- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
 game:GetService("RunService").Heartbeat:Connect(function()
     frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-    textLabel.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+    textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
 local isMinimized = false
