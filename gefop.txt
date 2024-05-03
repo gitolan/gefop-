@@ -187,53 +187,35 @@ local function ToggleElements(visible)
     createSPButton.Visible = visible
     gotoplayerButton.Visible = visible
     destroyESPButton.Visible = visible
-    minimizebutton.Visisble = visible
-    xButton.Visible = visible
+end
+
+local function ToggleMainFrame(visible)
+    MainFrame.Visible = visible
+    if visible then
+        MainFrame.BackgroundTransparency = 0.5
+        ToggleElements(true) -- Menampilkan tombol-tombol
+    else
+        MainFrame.BackgroundTransparency = 1
+        ToggleElements(false) -- Menyembunyikan tombol-tombol
+    end
 end
 
 local function ToggleFrame()
     if isMinimized then
-        frame.Visible = false
+        ToggleMainFrame(false)
     else
-        frame.Visible = true
-        if transparentMode then
-            frame.BackgroundTransparency = 1
-        else
-            frame.BackgroundTransparency = 0.5
-        end
+        ToggleMainFrame(true)
     end
-end
-
-local function ShowAllElements()
-    elementsVisible = true
-    ToggleElements(true)
-end
-
-local function HideAllElements()
-    elementsVisible = false
-    ToggleElements(false)
-    minimizeButton.Visible = true
 end
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    Toggleframe()
-    if isMinimized then
-        frame.BackgroundTransparency = 1
-        if elementsVisible then
-            HideAllElements()
-        else
-            minimizeButton.Visible = true
-        end
-    else
-        MainFrame.BackgroundTransparency = 0.5
-        ShowAllElements()
-    end
+    ToggleFrame()
 end)
 
 xButton.MouseButton1Click:Connect(function()
     if not isMinimized then
-        HideAllElements()
+        ToggleMainFrame(false)
     end
 end)
 
