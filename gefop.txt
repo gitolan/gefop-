@@ -173,10 +173,13 @@ xButton.Text = "x"
 xButton.BorderSizePixel = 0
 xButton.Parent = frame
 
--- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
+local textLabel = frame:FindFirstChild("TextLabel") -- Mencari child bernama "TextLabel" di dalam frame
+
 game:GetService("RunService").Heartbeat:Connect(function()
     frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-    textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+    if textLabel then
+        textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- Mengubah warna teks dari textLabel
+    end
 end)
 
 local isMinimized = false
