@@ -198,12 +198,11 @@ local function ToggleMainFrame(visible)
     end
 end
 
-
-local function ToggleButtons()
+local function ToggleFrame()
     if isMinimized then
-        ToggleElements(true)
+        MainFrame.Visible = false
     else
-        ToggleElements(false)
+        MainFrame.Visible = true
     end
 end
 
