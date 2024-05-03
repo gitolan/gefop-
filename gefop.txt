@@ -187,9 +187,17 @@ local function ToggleElements(visible)
     xbutton.Visible = visible
 end
 
-local function ToggleFrame()
-    MainFrame.Visible = not MainFrame.Visible
+local function ToggleMainFrame(visible)
+    MainFrame.Visible = visible
+    if visible then
+        MainFrame.BackgroundTransparency = 0.5
+        ToggleElements(false) -- Menyembunyikan tombol-tombol
+    else
+        MainFrame.BackgroundTransparency = 1
+        ToggleElements(true) -- Menampilkan tombol-tombol
+    end
 end
+
 
 local function ToggleButtons()
     if isMinimized then
@@ -213,7 +221,7 @@ minimizeButton.MouseButton1Click:Connect(function()
         minimizeButton.Visible = true -- Mengubah visibilitas tombol minimize agar terlihat kembali
         xButton.Visible = true -- Mengubah visibilitas tombol 'X' agar terlihat kembali
     end
-
+end)
 
 xButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = false -- Mengatur visibilitas MainFrame menjadi false
