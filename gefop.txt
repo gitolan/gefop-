@@ -191,13 +191,11 @@ local function ToggleElements(visible)
 end
 
 local function Toggleframe(visible)
-    MainFrame.Visible = visible
-    if visible then
-        MainFrame.BackgroundTransparency = 0.5
-        ToggleElements(true) -- Menampilkan tombol-tombol
-    else
-        MainFrame.BackgroundTransparency = 1
-        ToggleElements(false) -- Menyembunyikan tombol-tombol
+    frame.Visible = visible  
+        frame.BackgroundTransparency = 0.5  
+        ToggleElements(true) 
+        frame.BackgroundTransparency = 1 
+        ToggleElements(false) 
     end
 end
 
@@ -216,7 +214,7 @@ end)
 
 xButton.MouseButton1Click:Connect(function()
     if not isMinimized then
-        ToggleMainFrame(false)
+        Toggleframe(false)
     end
 end)
 
@@ -224,13 +222,12 @@ local function TeleportAndJump(cframe)
     local character = game.Players.LocalPlayer.Character
     if character then
         local root = getRoot(character)
-        root.CFrame = cframe -- Teleport ke posisi yang ditentukan
-        wait(0.1) -- Tunggu sebentar sebelum melompat
+        root.CFrame = cframe 
+        wait(0.1) 
         for i = 1, 3 do
             root.Velocity = Vector3.new(0, 50, 0) -- Atur kecepatan vertikal untuk melompat
-            wait(0.5) -- Tunggu sebentar sebelum melompat lagi
+            wait(0.5) 
         end
-        -- Orientasi karakter ke atas
         character:SetPrimaryPartCFrame(cframe)
     end
 end
@@ -245,8 +242,7 @@ gotopartButton.MouseButton1Click:Connect(function()
         print("Tidak dapat menemukan part dengan nama '"..partName.."'. Teleport ke koordinat default...")
         -- Teleport ke koordinat default
         getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
-        wait(1) -- Tunggu 1 detik sebelum mencoba teleport lagi
-        -- Coba teleport lagi
+        wait(1) 
         part = findPartByName(partName)
         if part then
             getRoot(game.Players.LocalPlayer.Character).CFrame = part.CFrame
@@ -278,7 +274,6 @@ gotoplayerButton.MouseButton1Click:Connect(function()
         print("Last Gotoplayer: "..player.Name)
     else
         print("Tidak dapat menemukan pemain dengan nama '"..playerName.."'. Teleport ke koordinat default...")
-        -- Teleport ke koordinat default
         getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
     end
 end)
@@ -287,4 +282,4 @@ destroyESPButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
 end)
 
-ToggleMainFrame(true)
+Toggleframe(true)
