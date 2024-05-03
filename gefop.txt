@@ -178,11 +178,6 @@ game:GetService("RunService").Heartbeat:Connect(function()
     MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
--- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
-game:GetService("RunService").Heartbeat:Connect(function()
-    MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-end)
-
 local isMinimized = false
 local elementsVisible = true
 
