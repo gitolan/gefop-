@@ -202,9 +202,9 @@ end
 
 local function ToggleFrame()
     if isMinimized then
-        ToggleMainFrame(false)
+        Toggleframe(false)
     else
-        ToggleMainFrame(true)
+        Toggleframe(true)
     end
 end
 
