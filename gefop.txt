@@ -218,12 +218,10 @@ minimizeButton.MouseButton1Click:Connect(function()
     if isMinimized then
         MainFrame.BackgroundTransparency = 1
         ToggleElements(true) -- Mengatur visibilitas tombol-tombol lainnya
-        minimizeButton.Visible = false -- Mengubah visibilitas tombol minimize agar tidak terlihat
         xButton.Visible = false -- Mengubah visibilitas tombol 'X' agar tidak terlihat
     else
         MainFrame.BackgroundTransparency = 0.5
         ToggleElements(false) -- Mengatur visibilitas tombol-tombol lainnya
-        minimizeButton.Visible = true -- Mengubah visibilitas tombol minimize agar terlihat kembali
         xButton.Visible = true -- Mengubah visibilitas tombol 'X' agar terlihat kembali
     end
 end)
