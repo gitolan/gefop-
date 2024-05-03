@@ -241,13 +241,15 @@ gotopartButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
     if part then
+        game.Players.LocalPlayer.CharacterAdded:Wait() -- Menunggu karakter ditambahkan
         getRoot(game.Players.LocalPlayer.Character).CFrame = part.CFrame
         print("Last Gotopart: "..partName)
     else
         print("Tidak dapat menemukan part dengan nama '"..partName.."'. Teleport ke koordinat default...")
         -- Teleport ke koordinat default
+        game.Players.LocalPlayer.CharacterAdded:Wait() -- Menunggu karakter ditambahkan
         getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
-        wait(1) 
+        wait(1)
         part = findPartByName(partName)
         if part then
             getRoot(game.Players.LocalPlayer.Character).CFrame = part.CFrame
@@ -262,6 +264,7 @@ createSPButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
     if part then
+        game.Players.LocalPlayer.CharacterAdded:Wait() 
         local randomColor = getRandomColor()
         CreateESP(part, randomColor)
         CreateFloatingHighlight(part)
@@ -275,10 +278,12 @@ gotoplayerButton.MouseButton1Click:Connect(function()
     local playerName = textbox.Text
     local player = findPlayerByName(playerName)
     if player then
+        game.Players.LocalPlayer.CharacterAdded:Wait() -- Menunggu karakter ditambahkan
         getRoot(game.Players.LocalPlayer.Character).CFrame = player.Character.HumanoidRootPart.CFrame
         print("Last Gotoplayer: "..player.Name)
     else
         print("Tidak dapat menemukan pemain dengan nama '"..playerName.."'. Teleport ke koordinat default...")
+        game.Players.LocalPlayer.CharacterAdded:Wait() -- Menunggu karakter ditambahkan
         getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
     end
 end)
