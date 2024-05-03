@@ -178,6 +178,9 @@ game:GetService("RunService").Heartbeat:Connect(function()
     MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
+local isMinimized = false
+local elementsVisible = true
+
 local function ToggleElements(visible)
     textbox.Visible = visible
     gotopartButton.Visible = visible
@@ -185,17 +188,6 @@ local function ToggleElements(visible)
     gotoplayerButton.Visible = visible
     destroyESPButton.Visible = visible
     xButton.Visible = visible
-end
-
-local function ToggleMainFrame(visible)
-    MainFrame.Visible = visible
-    if visible then
-        MainFrame.BackgroundTransparency = 0.5
-        ToggleElements(false) -- Menyembunyikan tombol-tombol
-    else
-        MainFrame.BackgroundTransparency = 1
-        ToggleElements(true) -- Menampilkan tombol-tombol
-    end
 end
 
 local function ToggleFrame()
@@ -208,8 +200,18 @@ local function ToggleFrame()
         else
             MainFrame.BackgroundTransparency = 0.5
         end
-        minimizeButton.Visible = true -- Mengembalikan visibilitas tombol minimize agar terlihat kembali
     end
+end
+
+local function ShowAllElements()
+    elementsVisible = true
+    ToggleElements(true)
+end
+
+local function HideAllElements()
+    elementsVisible = false
+    ToggleElements(false)
+    minimizeButton.Visible = true
 end
 
 minimizeButton.MouseButton1Click:Connect(function()
@@ -217,19 +219,21 @@ minimizeButton.MouseButton1Click:Connect(function()
     ToggleFrame()
     if isMinimized then
         MainFrame.BackgroundTransparency = 1
-        ToggleElements(true) -- Mengatur visibilitas tombol-tombol lainnya
-        xButton.Visible = false -- Mengubah visibilitas tombol 'X' agar tidak terlihat
+        if elementsVisible then
+            HideAllElements()
+        else
+            minimizeButton.Visible = true
+        end
     else
         MainFrame.BackgroundTransparency = 0.5
-        ToggleElements(false) -- Mengatur visibilitas tombol-tombol lainnya
-        xButton.Visible = true -- Mengubah visibilitas tombol 'X' agar terlihat kembali
-        minimizeButton.Visible = true -- Mengembalikan visibilitas tombol minimize agar terlihat kembali
+        ShowAllElements()
     end
 end)
 
 xButton.MouseButton1Click:Connect(function()
-    MainFrame.Visible = false -- Mengatur visibilitas MainFrame menjadi false
-    ToggleElements(false) -- Mengatur visibilitas tombol-tombol lainnya menjadi false
+    if not isMinimized then
+        HideAllElements()
+    end
 end)
 
 
