@@ -102,14 +102,14 @@ ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.ResetOnSpawn = false
 
-local MainFrame = Instance.new("Frame")
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- HSL to RGB
-MainFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
-MainFrame.Size = UDim2.new(0, 200, 0, 200)
-MainFrame.Active = true
-MainFrame.Draggable = true
+local Mainframe = Instance.new("frame")
+frame.Name = "frame"
+frame.Parent = ScreenGui
+frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- HSL to RGB
+frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.Size = UDim2.new(0, 200, 0, 200)
+frame.Active = true
+frame.Draggable = true
 
 local textbox = Instance.new("TextBox")
 textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -117,7 +117,7 @@ textbox.Position = UDim2.new(0.1, 0, 0.1, 0)
 textbox.BackgroundColor3 = Color3.new(1, 1, 1)
 textbox.BorderSizePixel = 0
 textbox.Text = "Part or nameplayer (can short)"
-textbox.Parent = MainFrame
+textbox.Parent = frame
 
 local gotopartButton = Instance.new("TextButton")
 gotopartButton.Size = UDim2.new(0.4, 0, 0.1, 0)
@@ -126,7 +126,7 @@ gotopartButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotopartButton.TextColor3 = Color3.new(1, 1, 1)
 gotopartButton.Text = "Gotopart"
 gotopartButton.BorderSizePixel = 0
-gotopartButton.Parent = MainFrame
+gotopartButton.Parent = frame
 
 local createSPButton = Instance.new("TextButton")
 createSPButton.Size = UDim2.new(0.4, 0, 0.1, 0)
@@ -135,7 +135,7 @@ createSPButton.BackgroundColor3 = Color3.new(0, 0, 1)
 createSPButton.TextColor3 = Color3.new(1, 1, 1)
 createSPButton.Text = "CreateSP"
 createSPButton.BorderSizePixel = 0
-createSPButton.Parent = MainFrame
+createSPButton.Parent = frame
 
 local gotoplayerButton = Instance.new("TextButton")
 gotoplayerButton.Size = UDim2.new(0.4, 0, 0.1, 0)
@@ -144,7 +144,7 @@ gotoplayerButton.BackgroundColor3 = Color3.new(0, 0, 1)
 gotoplayerButton.TextColor3 = Color3.new(1, 1, 1)
 gotoplayerButton.Text = "Gotoplayer"
 gotoplayerButton.BorderSizePixel = 0
-gotoplayerButton.Parent = MainFrame
+gotoplayerButton.Parent = frame
 
 local destroyESPButton = Instance.new("TextButton")
 destroyESPButton.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -153,7 +153,7 @@ destroyESPButton.BackgroundColor3 = Color3.new(0, 0, 1)
 destroyESPButton.TextColor3 = Color3.new(1, 1, 1)
 destroyESPButton.Text = "Destroy ESP"
 destroyESPButton.BorderSizePixel = 0
-destroyESPButton.Parent = MainFrame
+destroyESPButton.Parent = frame
 
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Size = UDim2.new(0.8, 0, 0.1, 0)
@@ -162,7 +162,7 @@ minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
 minimizeButton.Text = "Minimize"
 minimizeButton.BorderSizePixel = 0
-minimizeButton.Parent = MainFrame
+minimizeButton.Parent = frame
 
 local xButton = Instance.new("TextButton")
 xButton.Size = UDim2.new(0.1, 0, 0.1, 0)
@@ -171,7 +171,7 @@ xButton.BackgroundColor3 = Color3.new(1, 0, 0)
 xButton.TextColor3 = Color3.new(1, 1, 1)
 xButton.Text = "x"
 xButton.BorderSizePixel = 0
-xButton.Parent = MainFrame
+xButton.Parent = frame
 
 -- ฟังก์ชันสำหรับเปลี่ยนสีของ MainFrame ให้เป็นสีรุ้ง
 game:GetService("RunService").Heartbeat:Connect(function()
@@ -187,18 +187,19 @@ local function ToggleElements(visible)
     createSPButton.Visible = visible
     gotoplayerButton.Visible = visible
     destroyESPButton.Visible = visible
+    minimizebutton.Visisble = visible
     xButton.Visible = visible
 end
 
 local function ToggleFrame()
     if isMinimized then
-        MainFrame.Visible = false
+        frame.Visible = false
     else
-        MainFrame.Visible = true
+        frame.Visible = true
         if transparentMode then
-            MainFrame.BackgroundTransparency = 1
+            frame.BackgroundTransparency = 1
         else
-            MainFrame.BackgroundTransparency = 0.5
+            frame.BackgroundTransparency = 0.5
         end
     end
 end
@@ -216,9 +217,9 @@ end
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    ToggleFrame()
+    Toggleframe()
     if isMinimized then
-        MainFrame.BackgroundTransparency = 1
+        frame.BackgroundTransparency = 1
         if elementsVisible then
             HideAllElements()
         else
@@ -235,7 +236,6 @@ xButton.MouseButton1Click:Connect(function()
         HideAllElements()
     end
 end)
-
 
 local function TeleportAndJump(cframe)
     local character = game.Players.LocalPlayer.Character
