@@ -192,10 +192,12 @@ end
 
 local function Toggleframe(visible)
     frame.Visible = visible  
-        frame.BackgroundTransparency = 0.5  
-        ToggleElements(true) 
-        frame.BackgroundTransparency = 1 
-        ToggleElements(false) 
+    if visible then
+        frame.BackgroundTransparency = 0.5
+        ToggleElements(true) -- Menampilkan tombol-tombol
+    else
+        frame.BackgroundTransparency = 1
+        ToggleElements(false) -- Menyembunyikan tombol-tombol
     end
 end
 
