@@ -184,7 +184,7 @@ local function ToggleElements(visible)
     createSPButton.Visible = visible
     gotoplayerButton.Visible = visible
     destroyESPButton.Visible = visible
-    xbutton.Visible = visible
+    xButton.Visible = visible
 end
 
 local function ToggleMainFrame(visible)
