@@ -194,7 +194,7 @@ local function ToggleElements(visible)
     destroyESPButton.Visible = visible
 end
 
-local function ToggleMainFrame(visible)
+local function Toggleframe(visible)
     MainFrame.Visible = visible
     if visible then
         MainFrame.BackgroundTransparency = 0.5
