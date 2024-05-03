@@ -102,7 +102,7 @@ ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.ResetOnSpawn = false
 
-local frame = Instance.new("frame")
+local frame = Instance.new("Frame")
 frame.Name = "frame"
 frame.Parent = ScreenGui
 frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- HSL to RGB
