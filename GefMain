@@ -1,0 +1,526 @@
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local OpenButton = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+local XButton = Instance.new("TextButton")
+local TeleportButton = Instance.new("TextButton")
+local EspButton = Instance.new("TextButton")
+local PlayerButton = Instance.new("TextButton")
+local OtherButton = Instance.new("TextButton")
+local Teleport2Button = Instance.new("TextButton")
+local TeleportMenu = Instance.new("Frame")
+local EspMenu = Instance.new("Frame")
+local PlayerMenu = Instance.new("Frame")
+local OtherMenu = Instance.new("Frame")
+local Teleport2Menu = Instance.new("Frame")
+local MenuLabel = Instance.new("TextLabel")
+print("loading...")
+
+-- ตั้งค่าสี
+local colors = {
+    red = Color3.fromRGB(255, 0, 0),
+    black = Color3.fromRGB(0, 0, 0),
+    gray = Color3.fromRGB(128, 128, 128)
+}
+-- end
+
+-- Function to teleport the character to a specified CFrame
+local function teleportCharacterToCFrame(cframe)
+    local character = game.Players.LocalPlayer.Character
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = cframe
+end
+
+-- ตั้งค่า ScreenGui
+ScreenGui.Name = "Hub"
+ScreenGui.Parent = syn and game.CoreGui or game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+-- ตั้งค่า MainFrame
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = colors.gray
+MainFrame.BorderColor3 = colors.red
+MainFrame.BorderSizePixel = 2
+MainFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
+MainFrame.Size = UDim2.new(0, 470, 0, 400)
+MainFrame.Draggable = true
+MainFrame.Active = true
+MainFrame.Visible = false
+
+-- ตั้งค่า OpenButton
+OpenButton.Name = "OpenButton"
+OpenButton.Parent = ScreenGui
+OpenButton.BackgroundColor3 = colors.red
+OpenButton.TextColor3 = colors.black
+OpenButton.Position = UDim2.new(0.5, -425, 0.5, 4)
+OpenButton.Size = UDim2.new(0, 70, 0, 40)
+OpenButton.Text = "Open notbyme"
+OpenButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = true
+end)
+
+-- ตั้งค่า CloseButton
+CloseButton.Name = "CloseButton"
+CloseButton.Parent = MainFrame
+CloseButton.BackgroundColor3 = colors.red
+CloseButton.TextColor3 = colors.black
+CloseButton.Position = UDim2.new(1, -25, 0, 0)
+CloseButton.Size = UDim2.new(0, 25, 0, 25)
+CloseButton.Text = "x"
+CloseButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+end)
+
+XButton.Name = "XButton"
+XButton.Parent = ScreenGui
+XButton.BackgroundColor3 = colors.red
+XButton.TextColor3 = colors.black
+XButton.Position = UDim2.new(0.5, -451, 0.5, 4)
+XButton.Size = UDim2.new(0, 25, 0, 25)
+XButton.Text = "X"
+XButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    OpenButton.Visible = false
+    XButton.Visible = false
+end)
+
+-- ตั้งค่า MenuLabel
+MenuLabel.Name = "MenuLabel"
+MenuLabel.Parent = MainFrame
+MenuLabel.BackgroundColor3 = colors.gray
+MenuLabel.TextColor3 = colors.black
+MenuLabel.Position = UDim2.new(0, 0, 0, 0)
+MenuLabel.Size = UDim2.new(0, 200, 0, 25)
+MenuLabel.Text = "GEF Script Not By Me"
+
+-- ตั้งค่า TeleportButton
+TeleportButton.Name = "TeleportButton"
+TeleportButton.Parent = MainFrame
+TeleportButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีแดง
+TeleportButton.Size = UDim2.new(0, 190, 0, 50)
+TeleportButton.Text = "Teleport"
+
+-- ตั้งค่า EspButton
+EspButton.Name = "EspButton"
+EspButton.Parent = MainFrame
+EspButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีแดง
+EspButton.Position = UDim2.new(0, 0, 0, 50)
+EspButton.Size = UDim2.new(0, 190, 0, 50)
+EspButton.Text = "Esp"
+
+PlayerButton.Name = "PlayerButton"
+PlayerButton.Parent = MainFrame
+PlayerButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) 
+PlayerButton.Position = UDim2.new(0, 0, 0, 100)
+PlayerButton.Size = UDim2.new(0, 190, 0, 50)
+PlayerButton.Text = "Player"
+
+OtherButton.Name = "OtherButton"
+OtherButton.Parent = MainFrame
+OtherButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+OtherButton.Position = UDim2.new(0, 0, 0, 150)
+OtherButton.Size = UDim2.new(0, 190, 0, 50)
+OtherButton.Text = "Other"
+
+Teleport2Button.Name = "Teleport2Button"
+Teleport2Button.Parent = MainFrame
+Teleport2Button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Teleport2Button.Position = UDim2.new(0, 0, 0, 200)
+Teleport2Button.Size = UDim2.new(0, 190, 0, 50)
+Teleport2Button.Text = "Teleport2"
+
+TeleportMenu.Name = "TeleportMenu"
+TeleportMenu.Parent = MainFrame
+TeleportMenu.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- สีเทา
+TeleportMenu.Position = UDim2.new(0, 200, 0, 0)
+TeleportMenu.Size = UDim2.new(0, 200, 0, 290)
+TeleportMenu.Visible = false
+
+-- ตั้งค่า EspMenu
+EspMenu.Name = "EspMenu"
+EspMenu.Parent = MainFrame
+EspMenu.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- สีเทา
+EspMenu.Position = UDim2.new(0, 200, 0, 0)
+EspMenu.Size = UDim2.new(0, 200, 0, 290)
+EspMenu.Visible = false
+
+PlayerMenu.Name = "PlayerMenu"
+PlayerMenu.Parent = MainFrame
+PlayerMenu.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- สีเทา
+PlayerMenu.Position = UDim2.new(0, 200, 0, 0)
+PlayerMenu.Size = UDim2.new(0, 200, 0, 290)
+PlayerMenu.Visible = false
+
+OtherMenu.Name = "OtherMenu"
+OtherMenu.Parent = MainFrame
+OtherMenu.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- สีเทา
+OtherMenu.Position = UDim2.new(0, 200, 0, 0)
+OtherMenu.Size = UDim2.new(0, 200, 0, 290)
+OtherMenu.Visible = false
+
+-- ตั้งค่า TeleportMenu
+Teleport2Menu.Name = "Teleport2Menu"
+Teleport2Menu.Parent = MainFrame
+Teleport2Menu.BackgroundColor3 = Color3.fromRGB(128, 128, 128) -- สีเทา
+Teleport2Menu.Position = UDim2.new(0, 200, 0, 0)
+Teleport2Menu.Size = UDim2.new(0, 200, 0, 290)
+Teleport2Menu.Visible = false
+
+-- สร้างปุ่มย่อยใน TeleportMenu และกำหนดฟังก์ชันเทเลพอร์ต 
+for i = 1, 12 do
+    local Button = Instance.new("TextButton")
+    Button.Parent = TeleportMenu
+    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
+    Button.Size = UDim2.new(0, 160, 0, 20)
+    Button.Position = UDim2.new(0, 10, 0, (i - 1) * 25)
+    
+    -- กำหนดฟังก์ชันเทเลพอร์ตตามชื่อไอเทม
+    if i == 1 then
+        Button.Text = "Shotgun"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            local originalPosition = character.HumanoidRootPart.CFrame
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Shotgun.CFrame
+wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 2 then
+        Button.Text = "Shells"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Shells.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 3 then
+        Button.Text = "Medkit"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Medkit.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 4 then
+        Button.Text = "Food"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Food.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 5 then
+        Button.Text = "Bat"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Bat.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 6 then
+        Button.Text = "Crowbar"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Crowbar.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 7 then
+        Button.Text = "Hammer"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Hammer.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    elseif i == 8 then
+        Button.Text = "Soda"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Soda.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+        elseif i == 9 then
+        Button.Text = "Money"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Money.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+        elseif i == 10 then
+        Button.Text = "handgun"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Handgun.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+        elseif i == 11 then
+        Button.Text = "Lantern"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.Lantern.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+        elseif i == 12 then
+        Button.Text = "GPS"
+        Button.MouseButton1Click:Connect(function()
+            local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+            rootPart.CFrame = game:GetService("Workspace").Pickups.GPS.CFrame
+            wait(5)
+character.HumanoidRootPart.CFrame = originalPosition
+        end)
+    end
+end
+
+-- สร้างปุ่ม Esp Gefs และ Esp Menu Players
+for i = 1, 2 do
+    local Button = Instance.new("TextButton")
+    Button.Parent = EspMenu
+    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
+    Button.Size = UDim2.new(0, 160, 0, 20)
+    Button.Position = UDim2.new(0, 10, 0, (i - 1) * 25)
+
+    if i == 1 then
+    Button.Text = "Esp Gefs"
+    Button.MouseButton1Click:Connect(function()
+        -- สคริปต์ ESP ที่ไม่มี GUI จะถูกใส่ที่นี่
+        local espEnabled = true -- ตั้งค่าเป็น true เพื่อให้ ESP ทำงานทันที
+
+-- ฟังก์ชันสำหรับสร้าง ESP สำหรับ Hurtbox
+local function createESPForHurtbox(part)
+    local espGui = Instance.new("BillboardGui", part)
+    espGui.Adornee = part
+    espGui.Size = UDim2.new(0, 200, 0, 50)
+    espGui.AlwaysOnTop = true
+    espGui.StudsOffset = Vector3.new(0, 3, 0)
+    
+    local nameLabel = Instance.new("TextLabel", espGui)
+    nameLabel.Text = "GEF"
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Size = UDim2.new(0, 200, 0, 20)
+    nameLabel.Font = Enum.Font.SourceSansBold
+    nameLabel.TextSize = 18
+    
+    local distanceLabel = Instance.new("TextLabel", espGui)
+    distanceLabel.BackgroundTransparency = 1
+    distanceLabel.Size = UDim2.new(0, 200, 0, 20)
+    distanceLabel.Font = Enum.Font.SourceSansBold
+    distanceLabel.TextSize = 18
+    distanceLabel.Position = UDim2.new(0, 0, 0, 20)
+    
+    -- อัปเดตระยะห่างและสีข้อความ
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).magnitude
+        distanceLabel.Text = string.format("Distance: %.2f", distance)
+        
+        if distance < 50 then
+            nameLabel.TextColor3 = Color3.new(1, 0.5, 0)
+            distanceLabel.TextColor3 = Color3.new(1, 0.5, 0)
+        elseif distance < 100 then
+            nameLabel.TextColor3 = Color3.new(1, 1, 0)
+            distanceLabel.TextColor3 = Color3.new(1, 1, 0)
+        else
+            nameLabel.TextColor3 = Color3.new(0, 1, 0)
+            distanceLabel.TextColor3 = Color3.new(0, 1, 0)
+        end
+    end)
+end
+
+-- ฟังก์ชันสำหรับการเปิด/ปิด ESP และอัปเดต Hurtbox ทุก ๆ 60 วินาที
+local function toggleESP()
+    while espEnabled do
+        for _, part in pairs(workspace:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name == "Hurtbox" then
+                if not part:FindFirstChildOfClass("BillboardGui") then
+                    createESPForHurtbox(part)
+                end
+            end
+        end
+        wait(60) -- รอ 60 วินาทีก่อนที่จะทำการลูปใหม่
+    end
+end
+
+-- เรียกใช้ฟังก์ชัน toggleESP ทันทีเมื่อปุ่มถูกคลิก
+toggleESP()
+
+    end)
+elseif i == 2 then
+        Button.Text = "Esp Menu Players"
+        Button.MouseButton1Click:Connect(function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/USEXe42D"))()
+        end)
+    end
+end
+
+for i = 1, 12 do
+    local Button = Instance.new("TextButton")
+    Button.Parent = PlayerMenu
+    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
+    Button.Size = UDim2.new(0, 160, 0, 20)
+    Button.Position = UDim2.new(0, 10, 0, (i - 1) * 25)
+    
+    if i == 1 then
+        Button.Text = "tprandomplayer"
+        Button.MouseButton1Click:Connect(function()
+            -- function disini
+            -- Function to teleport the character to a random player
+            local function teleportToRandomPlayer()
+                local players = game.Players:GetPlayers()
+                local randomPlayer = players[math.random(1, #players)]
+                
+                if randomPlayer then
+                    local character = game.Players.LocalPlayer.Character
+                    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+                    humanoidRootPart.CFrame = randomPlayer.Character.PrimaryPart.CFrame
+                    local humanoid = character:FindFirstChildOfClass("Humanoid")
+                    if humanoid then
+                        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    end
+                else
+                    warn("No players found.")
+                end
+            end
+            teleportToRandomPlayer()
+        end)
+    elseif i == 2 then
+    Button.Text = "noclip"
+    Button.MouseButton1Click:Connect(function()
+        local Noclipping = nil
+        local speaker = game:GetService("Players").LocalPlayer
+        local RunService = game:GetService("RunService")
+        Clip = false
+        wait(0.1)
+        local function NoclipLoop()
+            if Clip == false and speaker.Character ~= nil then
+                for _, child in pairs(speaker.Character:GetDescendants()) do
+                    if child:IsA("BasePart") and child.CanCollide == true and child.Name ~= floatName then
+                        child.CanCollide = false
+                    end
+                end
+            end
+        end
+        Noclipping = RunService.Stepped:Connect(NoclipLoop)
+    end)
+elseif i == 3 then
+    Button.Text = "unnoclip"
+    Button.MouseButton1Click:Connect(function()
+        if Noclipping then
+            Noclipping:Disconnect()
+        end
+        Clip = true
+    end)
+elseif i == 4 then
+    Button.Text = "nccam"
+    Button.MouseButton1Click:Connect(function()
+        local PlayerScripts = game:GetService("Players").LocalPlayer.PlayerScripts
+        local ZoomController = PlayerScripts:FindFirstChild("PlayerModule"):FindFirstChild("CameraModule"):FindFirstChild("ZoomController")
+        
+        if ZoomController and ZoomController:FindFirstChild("Popper") then
+            local pop = ZoomController.Popper
+            for _, v in pairs(getgc()) do
+                if type(v) == 'function' and getfenv(v).script == pop then
+                    for i, v1 in pairs(gc(v)) do
+                        if tonumber(v1) == 0.25 then
+                            sc(v, i, 0)
+                        elseif tonumber(v1) == 0 then
+                            sc(v, i, 0.25)
+                        end
+                    end
+                end
+            end
+        else
+            warn("ZoomController or Popper not found.")
+        end
+    end)
+elseif i == 5 then
+    Button.Text = "infjump"
+    Button.MouseButton1Click:Connect(function()
+        local infJump
+        local speaker = game:GetService("Players").LocalPlayer
+        local UserInputService = game:GetService("UserInputService")
+        infJumpDebounce = false
+        if infJump then infJump:Disconnect() end
+        infJumpDebounce = false
+        infJump = UserInputService.JumpRequest:Connect(function()
+            if not infJumpDebounce then
+                infJumpDebounce = true
+                speaker.Character:FindFirstChildWhichIsA("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+                wait()
+                infJumpDebounce = false
+            end
+        end)
+    end)
+elseif i == 6 then
+    Button.Text = "Fullbright"
+    Button.MouseButton1Click:Connect(function()
+        if brightLoop then
+            brightLoop:Disconnect()
+        end
+        local Lighting = game:GetService("Lighting")
+        local RunService = game:GetService("RunService")
+        local function brightFunc()
+            Lighting.Brightness = 2
+            Lighting.ClockTime = 14
+            Lighting.FogEnd = 100000
+            Lighting.GlobalShadows = false
+            Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+        end
+        brightLoop = RunService.RenderStepped:Connect(brightFunc)
+    end)
+elseif i == 7 then
+    Button.Text = "oof reset yourself"
+    Button.MouseButton1Click:Connect(function()
+        local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")  -- Menambah game.Players.LocalPlayer sebelum Character
+        if humanoid then
+            humanoid.Health = 0  -- Mengubah ChangeState menjadi Health = 0 untuk mereset karakter
+        else
+            warn("Humanoid not found.")
+         end
+      end)
+elseif i == 8 then
+    Button.Text = "infinite yield"
+    Button.MouseButton1Click:Connect(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+      end)
+      elseif i == 9 then
+    Button.Text = "antidamage"
+    Button.MouseButton1Click:Connect(function()
+        local gefs = game:GetService("Workspace").GEFs
+
+            -- ลูปผ่านทุก "Mini GEF" ใน "GEFs" และลบ "Hurtbox"
+            for _, miniGEF in pairs(gefs:GetChildren()) do
+                if miniGEF.Name == "Mini GEF" then
+                    for _, obj in pairs(miniGEF:GetDescendants()) do
+                        if obj.Name == "Hurtbox" and obj:IsA("BasePart") then
+                            obj:Destroy()
+                        end
+                    end
+                end
+            end
+        end)
+        elseif i == 10 then
+    Button.Text = "infmaxstamina"
+    Button.MouseButton1Click:Connect(function()
+        local playerUpgrades = game.Players.LocalPlayer.Upgrades
+
+            if playerUpgrades:FindFirstChild("MaxStamina") then
+                playerUpgrades.MaxStamina.Value = 9223372036854775807 -- 2^63 - 1
+            else
+                -- ถ้าไม่มี MaxStamina, สร้างใหม่และตั้งค่า Value เป็น 2^63 - 1
+                local maxStamina = Instance.new("IntValue", playerUpgrades)
+                maxStamina.Name = "MaxStamina"
+                maxStamina.Value = 9223372036854775807 -- 2^63 - 1
+            end
+        end)
+      elseif i == 11 then
+    Button.Text = "infenergy"
+    Button.MouseButton1Click:Connect(function()
+        local Energy = game.Workspace.LocalPlayer.Energy
+
+            if Energy then
+  
