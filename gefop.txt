@@ -197,7 +197,6 @@ local function Toggleframe(visible)
     frame.Visible = visible  
     if visible then
         frame.BackgroundTransparency = 0.5
-        minimizeButton.
         ToggleElements(true) -- Menampilkan tombol-tombol
     else
         frame.BackgroundTransparency = 1
@@ -221,6 +220,7 @@ end)
 xButton.MouseButton1Click:Connect(function()
     if not isMinimized then
         Toggleframe(false)
+        minimizeButton.Visible = visible
     end
 end)
 
