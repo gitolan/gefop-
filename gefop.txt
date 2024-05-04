@@ -157,7 +157,7 @@ destroyESPButton.Parent = frame
 
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Size = UDim2.new(0, 80, 0, 25) -- (0, 25, 0, 25)
-minimizeButton.Position = UDim2.new(0.1, 0, 0.9, 0)
+minimizeButton.Position = UDim2.new(0.1, 0, 0.76, 0)
 minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
 minimizeButton.Text = "Minimize"
@@ -221,7 +221,7 @@ xButton.MouseButton1Click:Connect(function()
     if not isMinimized then
         Toggleframe(false)
         minimizeButton.Visible = visible
-        xButton.Visisble = visible
+        xButton.Visible = visible
         DestroyAllESP()
     end
 end)
