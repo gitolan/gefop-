@@ -238,41 +238,6 @@ local function TeleportAndJump(cframe)
     end
 end
 
--- gotopartButton.MouseButton1Click:Connect(function()
-    -- local partName = textbox.Text
-    -- local part = findPartByName(partName)
-    -- if part then
-        -- getRoot(game.Players.LocalPlayer.Character).CFrame = part.CFrame
-        -- print("Last Gotopart: "..partName)
-    else
-        print("Tidak dapat menemukan part dengan nama '"..partName.."'.")
-    end
-end)
-
--- createSPButton.MouseButton1Click:Connect(function()
-    -- local partName = textbox.Text
-    local part = findPartByName(partName)
-    if part then
-        local randomColor = getRandomColor()
-        CreateESP(part, randomColor)
-        CreateFloatingHighlight(part)
-        print("Created ESP atau highlight: "..partName)
-    else
-        print("Tidak dapat menemukan part dengan nama '"..partName.."'.")
-    end
-end)
-
-gotoplayerButton.MouseButton1Click:Connect(function()
-    local playerName = textbox.Text
-    local player = findPlayerByName(playerName)
-    if player then
-        getRoot(game.Players.LocalPlayer.Character).CFrame = player.Character.HumanoidRootPart.CFrame
-        print("Last Gotoplayer: "..player.Name)
-    else
-        print("Tidak dapat menemukan pemain dengan nama '"..playerName.."'.")
-    end
-end)
-
 gotopartButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
@@ -314,7 +279,6 @@ gotoplayerButton.MouseButton1Click:Connect(function()
     local playerName = textbox.Text
     local player = findPlayerByName(playerName)
     if player then
-        game.Players.LocalPlayer.CharacterAdded:Wait() -- Menunggu karakter ditambahkan
         getRoot(game.Players.LocalPlayer.Character).CFrame = player.Character.HumanoidRootPart.CFrame
         print("Last Gotoplayer: "..player.Name)
     else
