@@ -45,7 +45,7 @@ local function findPartByName(partName)
     return nil
 end
 
-local function CreateESP(part, color)
+local function CreateSP(part, color)
     local existingESP = part:FindFirstChild("ESP")
     if existingESP then
         print("ESP atau highlight dengan nama '"..part.Name.."' sudah ada.")
