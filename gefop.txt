@@ -222,6 +222,7 @@ xButton.MouseButton1Click:Connect(function()
         Toggleframe(false)
         minimizeButton.Visible = visible
         xButton.Visisble = visible
+        DestroyAllESP()
     end
 end)
 
