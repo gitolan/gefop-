@@ -51,7 +51,7 @@ local function CreateESP(part, color)
         print("ESP atau highlight dengan nama '"..part.Name.."' sudah ada.")
         return
     end
-    
+
     local esp = Instance.new("BoxHandleAdornment")
     esp.Name = "ESP"
     esp.Adornee = part
