@@ -106,6 +106,8 @@ local frame = Instance.new("Frame")
 frame.Name = "frame"
 frame.Parent = ScreenGui
 frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- HSL to RGB
+frame.BorderSizePixel = 2
+frame.BorderColor3 = Color3.fromRGB(fromHSV(tick() % 5 / 5, 1, 1)
 frame.Position = UDim2.new(0.5, -100, 0.5, -50)
 frame.Size = UDim2.new(0, 200, 0, 200)
 frame.Active = true
@@ -178,8 +180,9 @@ local textLabel = frame:FindFirstChild("TextLabel") -- Mencari child bernama "Te
 game:GetService("RunService").Heartbeat:Connect(function()
     frame.BackgroundColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
     if textLabel then
-        textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1) -- Mengubah warna teks dari textLabel
+        textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
     end
+    frame.BorderColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
 local isMinimized = false
