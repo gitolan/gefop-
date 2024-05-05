@@ -267,7 +267,6 @@ createSPButton.MouseButton1Click:Connect(function()
     local partName = textbox.Text
     local part = findPartByName(partName)
     if part then
-        game.Players.LocalPlayer.CharacterAdded:Wait() 
         local randomColor = getRandomColor()
         CreateESP(part, randomColor)
         CreateFloatingHighlight(part)
