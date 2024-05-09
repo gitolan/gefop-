@@ -225,6 +225,7 @@ xButton.MouseButton1Click:Connect(function()
         minimizeButton.Visible = visible
         xButton.Visible = visible
         DestroyAllESP()
+        ScreenGui:Destroy()
     end
 end)
 
