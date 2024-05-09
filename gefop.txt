@@ -182,7 +182,6 @@ game:GetService("RunService").Heartbeat:Connect(function()
     if textLabel then
         textLabel.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
     end
-    frame.BorderColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
 local isMinimized = false
