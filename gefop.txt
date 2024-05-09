@@ -163,16 +163,16 @@ minimizeButton.Position = UDim2.new(0.1, 0, 0.76, 0)
 minimizeButton.BackgroundColor3 = Color3.new(0, 0, 1)
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
 minimizeButton.Text = "Minimize"
-minimizeButton.BorderSizePixel = 0
+minimizeButton.BorderSizePixel = 1
 minimizeButton.Parent = ScreenGui
 
 local xButton = Instance.new("TextButton")
 xButton.Size = UDim2.new(0, 45, 0, 30)-- (0, 25, 0, 25)(0.1, 0, 0.1, 0)
-xButton.Position = UDim2.new(0.2, 0, 0.76, 0) -- (0.1, 0, 0.8, 0)
+xButton.Position = UDim2.new(0.11, 0, 0.76, 0) -- (0.1, 0, 0.8, 0)
 xButton.BackgroundColor3 = Color3.new(1, 0, 0)
 xButton.TextColor3 = Color3.new(1, 1, 1)
 xButton.Text = "x"
-xButton.BorderSizePixel = 0
+xButton.BorderSizePixel = 1
 xButton.Parent = ScreenGui
 
 local textLabel = frame:FindFirstChild("TextLabel") -- Mencari child bernama "TextLabel" di dalam frame
