@@ -26,8 +26,9 @@ local colors = {
     red = Color3.fromRGB(255, 0, 0),
     black = Color3.fromRGB(0, 0, 0),
     gray = Color3.fromRGB(128,128,128),
-    darkgrey = Color3.fromRGB(59, 59, 59)
-    white = Color3.fromRGB(1, 1, 1)
+    darkgrey = Color3.fromRGB(59, 59, 59),
+    white = Color3.fromRGB(1, 1, 1),
+    green = Color3.fromRGB(11, 128, 37)
 }
 -- end
 
@@ -55,8 +56,8 @@ print("screengui?")
 -- ตั้งค่า OpenButton
 OpenButton.Name = "OpenButton"
 OpenButton.Parent = ScreenGui
-OpenButton.BackgroundColor3 = Color3.fromRGB(59, 59, 59)
-OpenButton.TextColor3 = colors.black
+OpenButton.BackgroundColor3 = colors.green
+OpenButton.TextColor3 = colors.white
 OpenButton.Position = UDim2.new(0.5, -425, 0.5, 4)
 OpenButton.Size = UDim2.new(0, 70, 0, 40)
 OpenButton.Text = "Open Rof Hub"
@@ -73,8 +74,8 @@ print("show")
 -- ตั้งค่า CloseButton
 CloseButton.Name = "CloseButton"
 CloseButton.Parent = MainFrame
-CloseButton.BackgroundColor3 = Color3.fromRGB(59, 59, 59)
-CloseButton.TextColor3 = colors.black
+CloseButton.BackgroundColor3 = colors.red
+CloseButton.TextColor3 = colors.white
 CloseButton.Position = UDim2.new(1, -25, 0, 0)
 CloseButton.Size = UDim2.new(0, 25, 0, 25)
 CloseButton.Text = "x"
@@ -84,8 +85,8 @@ end)
 
 XButton.Name = "XButton"
 XButton.Parent = ScreenGui
-XButton.BackgroundColor3 = Color3.fromRGB(59, 59, 59)
-XButton.TextColor3 = colors.black
+XButton.BackgroundColor3 = colors.red
+XButton.TextColor3 = colors.white
 XButton.Position = UDim2.new(0.5, -451, 0.5, 4)
 XButton.Size = UDim2.new(0, 25, 0, 25)
 XButton.Text = "X"
@@ -151,7 +152,7 @@ EspMenu.Name = "EspMenu"
 EspMenu.Parent = MainFrame
 EspMenu.BackgroundColor3 = Color3.fromRGB(128,128,128)
 EspMenu.Position = UDim2.new(0, 200, 0, 0)
-EspMenu.Size = UDim2.new(0, 200, 0, 124)
+EspMenu.Size = UDim2.new(0, 200, 0, 100)
 EspMenu.Visible = false
 
 PlayerMenu.Name = "PlayerMenu"
@@ -193,7 +194,7 @@ title.TextColor3 = Color3.new(1, 1, 1)
 title.BackgroundColor3 = Color3.fromRGB(59, 59, 59)
 
 title2.Size = UDim2.new(1, 0, 0, 20)
-title2.Position = UDim2.new(0, 0, 1, 0) -- Mengubah nilai Y menjadi 1 untuk menempatkannya di bawah
+title2.Position = UDim2.new(0, 0, 0.95, 0) -- Mengubah nilai Y menjadi 0.95 untuk menempatkannya sedikit ke atas
 title2.Text = "Gef Script V2"
 title2.Parent = MainFrame
 title2.TextColor3 = Color3.new(1, 1, 1)
@@ -313,76 +314,55 @@ end
 print("ok")
 
 -- สร้างปุ่ม Esp Gefs และ Esp Menu Players
-for i = 1, 5 do
+for i = 1, 4 do
     local Button = Instance.new("TextButton")
     Button.Parent = EspMenu
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
     Button.Size = UDim2.new(0, 200, 0, 20)
     Button.Position = UDim2.new(0, 1, 0, (i - 1) * 25)
 
-    if i == 1 then
-    Button.Text = "Esp Gefs"
+if i == 1 then
+    Button.Text = "Esp All item"
     Button.MouseButton1Click:Connect(function()
-        -- สคริปต์ ESP ที่ไม่มี GUI จะถูกใส่ที่นี่
-        local espEnabled = true -- ตั้งค่าเป็น true เพื่อให้ ESP ทำงานทันที
-
--- ฟังก์ชันสำหรับสร้าง ESP สำหรับ Hurtbox
-local function createESPForHurtbox(part)
-    local espGui = Instance.new("BillboardGui", part)
-    espGui.Adornee = part
-    espGui.Size = UDim2.new(0, 200, 0, 50)
-    espGui.AlwaysOnTop = true
-    espGui.StudsOffset = Vector3.new(0, 3, 0)
-    
-    local nameLabel = Instance.new("TextLabel", espGui)
-    nameLabel.Text = "GEF"
-    nameLabel.BackgroundTransparency = 1
-    nameLabel.Size = UDim2.new(0, 200, 0, 20)
-    nameLabel.Font = Enum.Font.SourceSansBold
-    nameLabel.TextSize = 18
-    
-    local distanceLabel = Instance.new("TextLabel", espGui)
-    distanceLabel.BackgroundTransparency = 1
-    distanceLabel.Size = UDim2.new(0, 200, 0, 20)
-    distanceLabel.Font = Enum.Font.SourceSansBold
-    distanceLabel.TextSize = 18
-    distanceLabel.Position = UDim2.new(0, 0, 0, 20)
-    
-    -- อัปเดตระยะห่างและสีข้อความ
-    game:GetService("RunService").RenderStepped:Connect(function()
-        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).magnitude
-        distanceLabel.Text = string.format("Distance: %.2f", distance)
-        
-        if distance < 50 then
-            nameLabel.TextColor3 = Color3.new(1, 0.5, 0)
-            distanceLabel.TextColor3 = Color3.new(1, 0.5, 0)
-        elseif distance < 100 then
-            nameLabel.TextColor3 = Color3.new(1, 1, 0)
-            distanceLabel.TextColor3 = Color3.new(1, 1, 0)
-        else
-            nameLabel.TextColor3 = Color3.new(0, 1, 0)
-            distanceLabel.TextColor3 = Color3.new(0, 1, 0)
+        -- Function to create ESP for a single part
+        local function createESP(part)
+            local billboardGui = Instance.new("BillboardGui")
+            billboardGui.AlwaysOnTop = true
+            billboardGui.Size = UDim2.new(0, 100, 0, 20)
+            billboardGui.StudsOffset = Vector3.new(0, 3, 0)
+            
+            local textLabel = Instance.new("TextLabel")
+            textLabel.BackgroundTransparency = 1
+            textLabel.Size = UDim2.new(1, 0, 1, 0)
+            textLabel.Text = part.Name
+            textLabel.TextScaled = true
+            textLabel.Font = Enum.Font.SourceSansBold
+            textLabel.TextColor3 = Color3.new(1, 1, 1)
+            textLabel.TextStrokeTransparency = 0.4  -- Transparency for the border
+            textLabel.Parent = billboardGui
+            
+            billboardGui.Parent = part
         end
-    end)
-end
 
--- ฟังก์ชันสำหรับการเปิด/ปิด ESP และอัปเดต Hurtbox ทุก ๆ 60 วินาที
-local function toggleESP()
-    while espEnabled do
-        for _, part in pairs(workspace:GetDescendants()) do
-            if part:IsA("BasePart") and part.Name == "Hurtbox" then
-                if not part:FindFirstChildOfClass("BillboardGui") then
-                    createESPForHurtbox(part)
+        -- Function to update ESP size
+        local function updateESPSize()
+            for _, part in ipairs(workspace.Pickups:GetChildren()) do
+                if part:IsA("BasePart") then
+                    local distance = (part.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                    part.BillboardGui.Size = UDim2.new(0, 100 / distance, 0, 20 / distance)
                 end
             end
         end
-        wait(60) -- รอ 60 วินาทีก่อนที่จะทำการลูปใหม่
-    end
-end
 
--- เรียกใช้ฟังก์ชัน toggleESP ทันทีเมื่อปุ่มถูกคลิก
-toggleESP()
+        -- Create ESP for all parts in the Pickups workspace
+        for _, part in ipairs(workspace.Pickups:GetChildren()) do
+            if part:IsA("BasePart") then
+                createESP(part)
+            end
+        end
 
+        -- Update ESP size continuously
+        game:GetService("RunService").RenderStepped:Connect(updateESPSize)
     end)
 elseif i == 2 then
         Button.Text = "Esp Menu Players"
@@ -414,6 +394,7 @@ elseif i == 2 then
             distanceLabel.Position = UDim2.new(0, 0, 0, 20)
             
             game:GetService("RunService").RenderStepped:Connect(function()
+            game:GetService("RunService").RenderStepped:Connect(updateVisibility)
                 local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).magnitude
                 distanceLabel.Text = string.format("Distance: %.2f", distance)
                 
@@ -470,7 +451,7 @@ elseif i == 2 then
             distanceLabel.TextSize = 18
             distanceLabel.Position = UDim2.new(0, 0, 0, 20)
             
-            game:GetService("RunService").RenderStepped:Connect(function()
+           game:GetService("RunService").RenderStepped:Connect(function()
                 local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).magnitude
                 distanceLabel.Text = string.format("Distance: %.2f", distance)
                 
@@ -505,88 +486,29 @@ elseif i == 2 then
         toggleESP() -- panggil fungsi toggleESP setelah didefinisikan
        end)
        elseif i == 5 then
-    Button.Text = "Esp All item"
+    Button.Text = "Delete esp"
     Button.MouseButton1Click:Connect(function()
-        local Workspace = game:GetService("Workspace")
-        local pickupsFolder = Workspace:FindFirstChild("Pickups")
-        if pickupsFolder then
-            for _, pickup in ipairs(pickupsFolder:GetChildren()) do
-                local esp = Instance.new("SelectionBox")
-                esp.Name = "ESP_" .. pickup.Name
-                esp.LineThickness = 0.1
-                esp.Color3 = Color3.new(1, 1, 1)
-                esp.SurfaceTransparency = 0.5
-                esp.Adornee = pickup.PrimaryPart or pickup -- Sesuaikan dengan objek sesuai kebutuhan
-                esp.Parent = pickup
-
-                local highlight = Instance.new("SelectionBox")
-                highlight.Name = "Highlight_" .. pickup.Name
-                highlight.LineThickness = 0.1
-                highlight.Color3 = Color3.new(0, 1, 0) -- warna hijau untuk highlight
-                highlight.SurfaceTransparency = 0.5
-                highlight.Adornee = pickup.PrimaryPart or pickup -- Sesuaikan dengan objek sesuai kebutuhan
-                highlight.Parent = pickup
-                highlight.ZIndex = 5
-                highlight.Visible = false
-
-                local floatingText = Instance.new("BillboardGui")
-                floatingText.Size = UDim2.new(0, 100, 0, 50)
-                floatingText.Adornee = pickup.PrimaryPart or pickup -- Sesuaikan dengan objek sesuai kebutuhan
-                floatingText.Parent = pickup
-                floatingText.FaceCamera = true -- agar teks menghadap kamera
-                local textLabel = Instance.new("TextLabel")
-                textLabel.Size = UDim2.new(1, 0, 1, 0)
-                textLabel.Text = pickup.Name
-                textLabel.TextColor3 = Color3.new(1, 1, 1)
-                textLabel.BackgroundTransparency = 1
-                textLabel.Parent = floatingText
-            end
-            
-            local function isObjectVisible(object)
-                local origin = game:GetService("Players").LocalPlayer.Character.Head.Position
-                local direction = (object.Position - origin).unit * 1000
-                local ray = Ray.new(origin, direction)
-                local part, position = Workspace:FindPartOnRay(ray)
-                return part == object
-            end
-
-            local function updateVisibility()
-                for _, pickup in ipairs(pickupsFolder:GetChildren()) do
-                    local esp = pickup:FindFirstChild("ESP_" .. pickup.Name)
-                    local highlight = pickup:FindFirstChild("Highlight_" .. pickup.Name)
-                    local floatingText = pickup:FindFirstChildOfClass("BillboardGui")
-
-                    if esp and highlight and floatingText then
-                        if isObjectVisible(pickup) then
-                            esp.Visible = true
-                            highlight.Visible = true
-                            floatingText.Enabled = true
-                            local distance = (pickup.Position - game:GetService("Players").LocalPlayer.Character.Head.Position).magnitude
-                            floatingText.TextLabel.TextSize = math.clamp(1000 / distance, 10, 30)
-                        else
-                            esp.Visible = false
-                            highlight.Visible = false
-                            floatingText.Enabled = false
-                        end
-                    end
-                end
-            end
-
-            game:GetService("RunService").Stepped:Connect(updateVisibility)
-            
-            game:GetService("RunService").Heartbeat:Connect(function()
-                for _, pickup in ipairs(pickupsFolder:GetChildren()) do
-                    local floatingText = pickup:FindFirstChildOfClass("BillboardGui")
-                    if floatingText then
-                        floatingText.TextLabel.TextColor3 = Color3.fromHSV(tick() % 1, 1, 1)
-                    end
-                end
-            end)
-        else
-            warn("Folder Pickups tidak ditemukan di Workspace")
+        -- Function to remove ESP from a single part
+local function removeESP(part)
+    for _, child in ipairs(part:GetChildren()) do
+        if child:IsA("BillboardGui") then
+            child:Destroy()
         end
-    end)
     end
+end
+-- Function to remove ESP from all parts in the Pickups workspace
+local function removeAllESP()
+    for _, part in ipairs(workspace.Pickups:GetChildren()) do
+        if part:IsA("BasePart") then
+            removeESP(part)
+        end
+    end
+end
+
+-- Call function to remove all ESP
+removeAllESP()
+    end)
+   end
 end
 
 print("goodesp")
@@ -675,7 +597,7 @@ elseif i == 5 then
         local Lighting = game:GetService("Lighting")
         local RunService = game:GetService("RunService")
         local function brightFunc()
-            Lighting.Brightness = 1
+            Lighting.Brightness = 2
             Lighting.FogEnd = 100000
             Lighting.GlobalShadows = false
             Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
@@ -1096,7 +1018,7 @@ for i = 1, 12 do
 end
 
 -- สร้างเส้นขีดสีแดงใน EspMenu
-for i = 1, 5 do
+for i = 1,4 do
     createSeparator(EspMenu, UDim2.new(0, 0, 0, (i * 25) - 4))
 end
 
