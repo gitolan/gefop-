@@ -168,7 +168,7 @@ minimizeButton.Parent = ScreenGui
 
 local xButton = Instance.new("TextButton")
 xButton.Size = UDim2.new(0, 45, 0, 30)-- (0, 25, 0, 25)(0.1, 0, 0.1, 0)
-xButton.Position = UDim2.new(0.11, 0, 0.76, 0) -- (0.1, 0, 0.8, 0)
+xButton.Position = UDim2.new(0.11, 0, 0.78, 0) -- (0.1, 0, 0.8, 0)
 xButton.BackgroundColor3 = Color3.new(1, 0, 0)
 xButton.TextColor3 = Color3.new(1, 1, 1)
 xButton.Text = "x"
@@ -291,6 +291,22 @@ gotoplayerButton.MouseButton1Click:Connect(function()
         getRoot(game.Players.LocalPlayer.Character).CFrame = CFrame.new(-66, 0.600000381, -49, 1, 0, 0, 0, 1, 0, -1, 0)
     end
 end)
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Buat fungsi untuk pengecekan posisi
+local function checkPosition()
+    -- Cek posisi karakter
+    if humanoidRootPart.Position.y < -200 then
+        -- Pindahkan karakter ke posisi yang aman
+        humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.x, 36, humanoidRootPart.Position.z)
+    end
+end
+
+-- Panggil fungsi checkPosition secara berkala menggunakan Heartbeat
+game:GetService("RunService").Heartbeat:Connect(checkPosition)
 
 destroyESPButton.MouseButton1Click:Connect(function()
     DestroyAllESP()
