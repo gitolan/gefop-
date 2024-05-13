@@ -511,9 +511,7 @@ removeAllESP()
    end
 end
 
-print("goodesp")
-
-for i = 1, 12 do
+for i = 1, 13 do
     local Button = Instance.new("TextButton")
     Button.Parent = PlayerMenu
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
@@ -597,7 +595,7 @@ elseif i == 5 then
         local Lighting = game:GetService("Lighting")
         local RunService = game:GetService("RunService")
         local function brightFunc()
-            Lighting.Brightness = 2
+            Lighting.Brightness = 3
             Lighting.FogEnd = 100000
             Lighting.GlobalShadows = false
             Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
@@ -614,12 +612,29 @@ elseif i == 6 then
             warn("Humanoid not found.")
          end
       end)
-elseif i == 7 then
-    Button.Text = "infinite yield"
+      elseif i == 7 then
+    Button.Text = "+storage visual"
     Button.MouseButton1Click:Connect(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-      end)
-      elseif i == 8 then
+        local playerUpgrades = game.Players.LocalPlayer.Upgrades
+
+            if playerUpgrades:FindFirstChild("Storage") then
+                playerUpgrades.Storage.Value = 15 -- 2^63 - 1
+            else
+                -- ถ้าไม่มี StaminaRegen, สร้างใหม่และตั้งค่า Value เป็น 2^63 - 1
+                local StaminaRegen = Instance.new("IntValue", playerUpgrades)
+                Storage.Name = "Storage"
+                Storage.Value = 15 -- 2^63 - 1
+            end
+        end)
+        elseif i == 8 then
+        Button.Text = "DamageCrowbar"
+        Button.MouseButton1Click:Connect(function()
+                local player = game.Players.LocalPlayer
+    if player.Backpack:FindFirstChild("Crowbar") and player.Backpack.Crowbar:FindFirstChild("Damage") then
+        player.Backpack.Crowbar.Damage.Value = 99999999999999999
+            end
+        end)
+      elseif i == 9 then
     Button.Text = "antidamage"
     Button.MouseButton1Click:Connect(function()
         local gefs = game:GetService("Workspace").GEFs
@@ -634,7 +649,7 @@ elseif i == 7 then
                 end
             end
         end)
-        elseif i == 9 then
+        elseif i == 10 then
     Button.Text = "infmaxstamina"
     Button.MouseButton1Click:Connect(function()
         local playerUpgrades = game.Players.LocalPlayer.Upgrades
@@ -648,7 +663,7 @@ elseif i == 7 then
                 maxStamina.Value = 9223372036854775807 -- 2^63 - 1
             end
         end)
-      elseif i == 10 then
+      elseif i == 11 then
     Button.Text = "infenergy"
     Button.MouseButton1Click:Connect(function()
         local Energy = game.Workspace.LocalPlayer.Energy
@@ -657,7 +672,7 @@ elseif i == 7 then
                 Energy.Value = 922337203685807
             end
         end)
-      elseif i == 11 then
+      elseif i == 12 then
     Button.Text = "infstaminaregen"
     Button.MouseButton1Click:Connect(function()
         local playerUpgrades = game.Players.LocalPlayer.Upgrades
@@ -671,34 +686,12 @@ elseif i == 7 then
                 StaminaRegen.Value = 9223372036854775807 -- 2^63 - 1
             end
         end)
-        elseif i == 12 then
-    Button.Text = "infstaminaregen"
-    Button.MouseButton1Click:Connect(function()
-        local playerUpgrades = game.Players.LocalPlayer.Upgrades
-
-            if playerUpgrades:FindFirstChild("StaminaRegen") then
-                playerUpgrades.Storage.Value = 9223372036854775807 -- 2^63 - 1
-            else
-                -- ถ้าไม่มี StaminaRegen, สร้างใหม่และตั้งค่า Value เป็น 2^63 - 1
-                local StaminaRegen = Instance.new("IntValue", playerUpgrades)
-                Storage.Name = "Storage"
-                Storage.Value = 9223372036854775807 -- 2^63 - 1
-            end
-        end)
         elseif i == 13 then
-        Button.Text = "DamageCrowbar"
-        Button.MouseButton1Click:Connect(function()
-                local player = game.Players.LocalPlayer
-    if player.Backpack:FindFirstChild("Crowbar") and player.Backpack.Crowbar:FindFirstChild("Damage") then
-        player.Backpack.Crowbar.Damage.Value = 99999999999999999
-            end
-        end)
-        elseif i == 14 then
-        Button.Text = "DamageBat"
+        Button.Text = "DamageBat no money drop"
         Button.MouseButton1Click:Connect(function()
         local player = game.Players.LocalPlayer
     if player.Backpack:FindFirstChild("Bat") and player.Backpack.Bat:FindFirstChild("Damage") then
-        player.Backpack.Bat.Damage.Value = 99999999999999999
+        player.Backpack.Bat.Damage.Value = 2000000
            end
         end)
    end
@@ -706,7 +699,7 @@ end
 
 print("then other")
 
-for i = 1, 6 do
+for i = 1, 7 do
     local Button = Instance.new("TextButton")
     Button.Parent = OtherMenu
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
@@ -717,14 +710,13 @@ for i = 1, 6 do
         Button.Text = "GefscriptByme"
         Button.MouseButton1Click:Connect(function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/gefop.txt"))() -- error 112,433
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/creditgef.txt"))()
         end)
-        
         elseif i == 2 then
-        Button.Text = "Discord"
+        Button.Text = "Dex Mobile need key no work"
         Button.MouseButton1Click:Connect(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/creditgef.txt"))() -- error 426
-        end)
-        
+		loadstring(game:HttpGetAsync(("https://123.nekoweb.org/idex.plugin.luau"), true))()
+    end)
         elseif i == 3 then
         Button.Text = "Deletetree"
         Button.MouseButton1Click:Connect(function()
@@ -757,10 +749,10 @@ for i = 1, 6 do
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
     end)
     elseif i == 7 then
-        Button.Text = "Dex Mobile need key"
-        Button.MouseButton1Click:Connect(function()
-		loadstring(game:HttpGetAsync(("https://123.nekoweb.org/idex.plugin.luau"), true))()
-    end)
+    Button.Text = "infinite yield"
+    Button.MouseButton1Click:Connect(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+      end)
     end
 end
 
@@ -910,7 +902,7 @@ end
 
 print("player2")
 
-for i = 1, 7 do
+for i = 1, 8 do
     local Button = Instance.new("TextButton")
     Button.Parent = Player2Menu
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- สีขาว
@@ -928,7 +920,7 @@ for i = 1, 7 do
         game:GetService("Workspace").Ammo.Bullets.Value = 50
           end)
 elseif i == 3 then
-    Button.Text = "Hitbox small gef"
+    Button.Text = "Hitbox gef small"
     Button.MouseButton1Click:Connect(function()
         local workspace = game:GetService("Workspace")
 local miniGEF = workspace.GEFs["Mini GEF"]
@@ -980,15 +972,18 @@ elseif i == 5 then
         deleteBuildings()
         end)
 elseif i == 6 then
-        Button.Text = "BigGef No kill"
-        Button.MouseButton1Click:Connect(function()
+    Button.Text = "BigGef No kill"
+    Button.MouseButton1Click:Connect(function()
         local gefs = game:GetService("Workspace").GEFs
         -- Loop through each "Mini GEF" in "GEFs" and destroy "KillHitbox"
         for _, miniGEF in pairs(gefs:GetChildren()) do
-            if miniGEF.Name == "Mini GEF" then
-                local KillHitbox = miniGEF:FindFirstChild("KillHitbox")
-                if KillHitbox and KillHitbox:IsA("BasePart") then
-                    KillHitbox:Destroy()
+            if miniGEF.Name == "GEF" then
+                local RootPart = miniGEF:FindFirstChild("RootPart")
+                if RootPart then
+                    local KillHitbox = RootPart:FindFirstChild("KillHitbox")
+                    if KillHitbox and KillHitbox:IsA("BasePart") then
+                        KillHitbox:Destroy()
+                    end
                 end
             end
         end
@@ -997,6 +992,93 @@ elseif i == 7 then
         Button.Text = "Delete Plank"
         Button.MouseButton1Click:Connect(function()
         workspace.Planks:Destroy()
+        end)
+        elseif i == 8 then
+        Button.Text = "Anti Fling"
+        Button.MouseButton1Click:Connect(function()
+        -- // Constants \\ --
+-- [ Services ] --
+local Services = setmetatable({}, {__index = function(Self, Index)
+local NewService = game.GetService(game, Index)
+if NewService then
+Self[Index] = NewService
+end
+return NewService
+end})
+
+-- [ LocalPlayer ] --
+local LocalPlayer = Services.Players.LocalPlayer
+
+-- // Functions \\ --
+local function PlayerAdded(Player)
+   local Detected = false
+   local Character;
+   local PrimaryPart;
+
+   local function CharacterAdded(NewCharacter)
+       Character = NewCharacter
+       repeat
+           wait()
+           PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+       until PrimaryPart
+       Detected = false
+   end
+
+   CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+   Player.CharacterAdded:Connect(CharacterAdded)
+   Services.RunService.Heartbeat:Connect(function()
+       if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+           if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+               if Detected == false then
+                   game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                       Text = "Fling Exploit detected, Player: " .. tostring(Player);
+                       Color = Color3.fromRGB(255, 200, 0);
+                   })
+               end
+               Detected = true
+               for i,v in ipairs(Character:GetDescendants()) do
+                   if v:IsA("BasePart") then
+                       v.CanCollide = false
+                       v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                       v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                       v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                   end
+               end
+               PrimaryPart.CanCollide = false
+               PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+           end
+       end
+   end)
+end
+
+-- // Event Listeners \\ --
+for i,v in ipairs(Services.Players:GetPlayers()) do
+   if v ~= LocalPlayer then
+       PlayerAdded(v)
+   end
+end
+Services.Players.PlayerAdded:Connect(PlayerAdded)
+
+local LastPosition = nil
+Services.RunService.Heartbeat:Connect(function()
+   pcall(function()
+       local PrimaryPart = LocalPlayer.Character.PrimaryPart
+       if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+           PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+           PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+           PrimaryPart.CFrame = LastPosition
+
+           game.StarterGui:SetCore("ChatMakeSystemMessage", {
+               Text = "You were flung. Neutralizing velocity.";
+               Color = Color3.fromRGB(255, 0, 0);
+           })
+       elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+           LastPosition = PrimaryPart.CFrame
+       end
+   end)
+end)
         end)
     end
 end
@@ -1022,11 +1104,11 @@ for i = 1,4 do
     createSeparator(EspMenu, UDim2.new(0, 0, 0, (i * 25) - 4))
 end
 
-for i = 1, 12 do
+for i = 1, 13 do
     createSeparator(PlayerMenu, UDim2.new(0, 0, 0, (i * 25) - 4))
 end
 
-for i = 1, 6 do
+for i = 1, 7 do
     createSeparator(OtherMenu, UDim2.new(0, 0, 0, (i * 25) - 4))
 end
 
@@ -1034,7 +1116,7 @@ for i = 1, 12 do
     createSeparator(Teleport2Menu, UDim2.new(0, 0, 0, (i * 25) - 4))
 end
 
-for i = 1, 7 do
+for i = 1, 8 do
     createSeparator(Player2Menu, UDim2.new(0, 0, 0, (i * 25) - 4))
 end
 
