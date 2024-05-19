@@ -301,7 +301,7 @@ local function checkPosition()
     -- Cek posisi karakter
     if humanoidRootPart.Position.y < -200 then
         -- Pindahkan karakter ke posisi yang aman
-        humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.x, 36, humanoidRootPart.Position.z)
+        humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.x, 40, humanoidRootPart.Position.z)
     end
 end
 
