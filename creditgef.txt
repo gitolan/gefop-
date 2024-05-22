@@ -14,7 +14,7 @@ customButton.AnchorPoint = Vector2.new(0.5, 0.5)
 customButton.BackgroundColor3 = Color3.new(1, 1, 1)
 customButton.BackgroundTransparency = 1
 customButton.Position = UDim2.new(0.5, 0, 0.84, 0) -- Atur posisi sedikit di atas dari tombol Discord
-customButton.Size = UDim2.new(0.2, 0, 0.02, 0) -- Ukuran tombol
+customButton.Size = UDim2.new(0.2, 0, 0.04, 0) -- Ukuran tombol
 customButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
 customButton.Text = "By Rof_R and edited"
 customButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
@@ -30,8 +30,8 @@ local discordButton = Instance.new("TextButton")
 discordButton.AnchorPoint = Vector2.new(0.5, 0.5)
 discordButton.BackgroundColor3 = Color3.new(1, 1, 1)
 discordButton.BackgroundTransparency = 1
-discordButton.Position = UDim2.new(0.5, 0, 0.85, 0) -- Sedikit di atas dari tengah bawah
-discordButton.Size = UDim2.new(0.3, 0, 0.03, 0) -- Ukuran tombol
+discordButton.Position = UDim2.new(0.5, 0, 0.88, 0) -- Sedikit di atas dari tengah bawah
+discordButton.Size = UDim2.new(0.3, 0, 0.05, 0) -- Ukuran tombol
 discordButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
 discordButton.Text = "Join our Discord"
 discordButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
@@ -43,7 +43,7 @@ discordButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks men
 discordButton.Parent = screenGui
 
 -- Tautan Discord
-local discordLink = "https://discord.com/invite/5sG4jJwQ"
+local discordLink = "https://discord.gg/RxFVwJ59"
 
 -- Fungsi untuk menyalin tautan ke clipboard
 local function copyToClipboard(text)
