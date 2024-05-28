@@ -77,13 +77,7 @@ local function fadeLoop(button)
     end
 end
 
--- Mulai efek fade loop pada tombol "By indQwerty🤫 and edited"
-fadeLoop(customButton)
-
--- Mulai efek fade loop pada tombol "Join our Discord"
-fadeLoop(discordButton)
-
--- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakte
+-- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter
 local function autoJump(character)
     local humanoid = character:WaitForChild("Humanoid")
     humanoid.JumpingEnabled = true
@@ -133,13 +127,14 @@ local function antiVoid()
     local playerPosition = getPlayerPosition()
     if playerPosition and playerPosition.Y < VOID_THRESHOLD then
         -- Pemain berada di dalam void, kita perlu memindahkan mereka kembali ke permukaan
-        playerPosition = Vector3.new(playerPosition.X, 400, playerPosition.Z) -- Mengubah ketinggian menjadi 20
+        playerPosition = Vector3.new(playerPosition.X, 400, playerPosition.Z) -- Mengubah ketinggian menjadi 400
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(playerPosition)) -- Memindahkan pemain kembali ke posisi yang aman
     end
 end
 
--- Loop untuk memantau posisi pemain dan menjalankan fungsi antiVoid secara berkala
-while true do
+-- Gunakan RunService untuk memantau posisi pemain
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
     antiVoid()
-    wait(1) -- Periksa setiap detik
-  end
+end)
