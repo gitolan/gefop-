@@ -16,7 +16,7 @@ end
 -- Create the TextLabel
 local label = Instance.new("TextLabel")
 label.Size = UDim2.new(0, 100, 0, 20)
-label.Position = UDim2.new(0.5, -50, 0.8, -40)  -- Positioned above the button
+label.Position = UDim2.new(0.5, -50, 0.8, -30)  -- Positioned above the button
 label.BackgroundTransparency = 1  -- Set background transparency to 1
 label.Text = "By Rof_r"
 label.TextColor3 = Color3.new(1, 1, 1)  -- Optional: set text color to white
