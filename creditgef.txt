@@ -1,81 +1,45 @@
--- Buat ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Enabled = true
-screenGui.IgnoreGuiInset = true
-screenGui.DisplayOrder = 0
-screenGui.Name = "MyGui"
-screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-screenGui.ResetOnSpawn = false
+-- Initialize the UI
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
 
--- Button "By indQwerty🤫 and edited"
-local customButton = Instance.new("TextButton")
-customButton.AnchorPoint = Vector2.new(0.5, 0.5)
-customButton.BackgroundColor3 = Color3.new(1, 1, 1)
-customButton.BackgroundTransparency = 1
-customButton.Position = UDim2.new(0.5, 0, 0.80, 0) -- Atur posisi sedikit di atas dari tombol Discord
-customButton.Size = UDim2.new(0.2, 0, 0.03, 0) -- Ukuran tombol
-customButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
-customButton.Text = "By Rof_R."
-customButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
-customButton.TextSize = 0.11 -- Ukuran teks tombol
-customButton.TextTransparency = 0.8 -- Mengatur transparansi teks menjadi 0.5
-customButton.TextScaled = true -- Mengatur teks diukur
-customButton.TextWrapped = true -- Mengatur teks dibungkus
-customButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
-customButton.Parent = screenGui
-
--- Button "Join our Discord"
-local discordButton = Instance.new("TextButton")
-discordButton.AnchorPoint = Vector2.new(0.5, 0.5)
-discordButton.BackgroundColor3 = Color3.new(1, 1, 1)
-discordButton.BackgroundTransparency = 1
-discordButton.Position = UDim2.new(0.5, 0, 0.84, 0) -- Sedikit di atas dari tengah bawah
-discordButton.Size = UDim2.new(0.3, 0, 0.04, 0) -- Ukuran tombol
-discordButton.Font = Enum.Font.SourceSansBold -- Mengatur font menjadi bold
-discordButton.Text = "Join our Discord"
-discordButton.TextColor3 = Color3.new(1, 1, 1) -- Mengatur warna teks menjadi putih
-discordButton.TextSize = 0.7 -- Ukuran teks tombol
-discordButton.TextTransparency = 0.8 -- Mengatur transparansi teks menjadi 0.5
-discordButton.TextScaled = true -- Mengatur teks diukur
-discordButton.TextWrapped = true -- Mengatur teks dibungkus
-discordButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks menjadi 0
-discordButton.Parent = screenGui
-
--- Tautan Discord
-local discordLink = "https://discord.gg/Fx4mjG97"
-
--- Fungsi untuk menyalin tautan ke clipboard
-local function copyToClipboard(text)
-    if setclipboard then
-        setclipboard(text)
-    else
-        warn("Clipboard feature is not supported in this platform.")
-    end
+-- Create a ScreenGui if it doesn't exist
+local screenGui = PlayerGui:FindFirstChild("DiscordLinkGui")
+if not screenGui then
+    screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "Ktfg"
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    screenGui.ResetOnSpawn = false
 end
 
--- Fungsi untuk menyalin tautan Discord saat tombol diklik
-discordButton.MouseButton1Click:Connect(function()
-    copyToClipboard(discordLink)
-end)
+-- Create the TextLabel
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(0, 100, 0, 20)
+label.Position = UDim2.new(0.5, -50, 0.8, -40)  -- Positioned above the button
+label.BackgroundTransparency = 1  -- Set background transparency to 1
+label.Text = "By Rof_r"
+label.TextColor3 = Color3.new(1, 1, 1)  -- Optional: set text color to white
+label.Parent = screenGui
 
--- Fungsi untuk membuat efek fade loop pada tombol
-local function fadeLoop(button)
-    local fadeDuration = 0.6
-    local transparencyMin = 1
-    local transparencyMax = 1
+-- Create the TextButton
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 100, 0, 20)  -- Smaller size: width 100, height 20
+button.Position = UDim2.new(0.5, -50, 0.8, -10)  -- 20% up from the bottom
+button.BackgroundTransparency = 1  -- Set background transparency to 1
+button.Text = "Copy Link"
+button.Parent = screenGui
 
-    while true do
-        for transparency = transparencyMin, transparencyMax, 0.1 do
-            button.BackgroundTransparency = transparency
-            wait(fadeDuration / (transparencyMax - transparencyMin + 1))
-        end
-        for transparency = transparencyMax, transparencyMin, -0.1 do
-            button.BackgroundTransparency = transparency
-            wait(fadeDuration / (transparencyMax - transparencyMin + 1))
-        end
-    end
+-- Copy to clipboard function
+local function copyToClipboard()
+    setclipboard("https://discord.gg/Fx4mjG97")
+    button.Text = "Link Copied!"
+    wait(2)
+    button.Text = "Copy Link"
 end
+
+-- Connect the button click to the function
+button.MouseButton1Click:Connect(copyToClipboard)
 
 -- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter
 local function autoJump(character)
