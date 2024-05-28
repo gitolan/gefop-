@@ -43,7 +43,7 @@ discordButton.TextStrokeTransparency = 0 -- Mengatur transparansi garis teks men
 discordButton.Parent = screenGui
 
 -- Tautan Discord
-local discordLink = "https://discord.gg/RxFVwJ59"
+local discordLink = "https://discord.gg/Fx4mjG97"
 
 -- Fungsi untuk menyalin tautan ke clipboard
 local function copyToClipboard(text)
