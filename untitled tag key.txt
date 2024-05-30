@@ -1,0 +1,251 @@
+-- Made BY Mr.Alegator
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+
+-- Menambahkan ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 100)
+frame.Position = UDim2.new(0.5, -150, 0.5, -50)
+frame.BackgroundColor3 = Color3.fromRGB(64, 64, 64)
+frame.BorderSizePixel = 3
+frame.BorderColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+frame.Parent = screenGui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 20)
+title.Position = UDim2.new(0, 0, 0, -20)
+title.Text = "Untitled tag game Key"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.BackgroundColor3 = Color3.new(0, 0, 0)
+title.Parent = frame
+
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+title.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+title.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+title.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
+        dragInput = nil
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+local KeySystem = Instance.new("TextBox")
+KeySystem.Size = UDim2.new(1, 0, 0.5, 0)
+KeySystem.Position = UDim2.new(0, 0, 0, 0)
+KeySystem.Text = "Enter Key Here"
+KeySystem.TextColor3 = Color3.new(0, 0, 0)
+KeySystem.BackgroundTransparency = 0.5
+KeySystem.BackgroundColor3 = Color3.new(64, 64, 64)
+KeySystem.TextWrapped = true
+KeySystem.Parent = frame
+
+local SubmitButton = Instance.new("TextButton")
+SubmitButton.Size = UDim2.new(0.4, 0, 0.3, 0)
+SubmitButton.Position = UDim2.new(0, 0, 0.5, 0)
+SubmitButton.Text = "Submit"
+SubmitButton.Parent = frame
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Size = UDim2.new(0, 20, 0, 20)
+CloseButton.Position = UDim2.new(1, -20, 0, 0)
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+CloseButton.BackgroundColor3 = Color3.new(0, 0, 0)
+CloseButton.Parent = frame
+
+CloseButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+local GetKeyButton = Instance.new("TextButton")
+GetKeyButton.Size = UDim2.new(0.4, 0, 0.3, 0)
+GetKeyButton.Position = UDim2.new(0.6, 0, 0.5, 0)
+GetKeyButton.Text = "Get Key"
+GetKeyButton.Parent = frame
+
+local keylessButton = Instance.new("TextButton")
+keylessButton.Size = UDim2.new(0.3, 0, 0.3, 0)
+keylessButton.Position = UDim2.new(0.35, 0, 0.5, 0)
+keylessButton.Text = "keyles script"
+keylessButton.Parent = frame
+
+--------------------------------------------------------------------------
+-- Logic to load string from KeySystem file and execute the script if correct
+local success, keyString = pcall(readfile, "GEFKeySystem.txt")
+if success and keyString == "SiqakytKjaitRbap" then
+game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Loaded",
+        Text = "Please wait",
+        Duration = 5
+    })
+    screenGui:Destroy()
+    wait(3)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc1"))()
+else
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Error",
+        Text = "KeySystem is missing or incorrect",
+        Duration = 5
+    })
+end
+
+SubmitButton.MouseButton1Click:Connect(function()
+    local KeySystem = KeySystem.Text
+    if KeySystem == "SiqakytKjaitRbap" then
+        screenGui:Destroy()
+        wait(1)
+        for i = 1, 2 do
+            frame.BackgroundColor3 = Color3.new(1, 1, 1)
+            wait(0.1)
+            frame.BackgroundColor3 = Color3.new(0, 0, 0)
+            wait(0.1)
+        end
+        for i = 1, 10 do
+            frame.BackgroundTransparency = frame.BackgroundTransparency + 0.1
+            wait(0.2)
+            if i == 5 then
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Wait..",
+                    Text = "",
+                    Duration = 5
+                })
+                wait(1)
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Execute",
+                    Text = "",
+                    Duration = 5
+                })
+                screenGui:Destroy()
+            end
+        end
+        -- Write KeySystem to a file
+        local keyString = "SiqakytKjaitRbap"
+        writefile("Untitled tag gameKeySystem.txt", keyString)
+        
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc1"))()
+    else
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Wrong Key",
+            Text = "Check Again",
+            Duration = 5
+        })
+    end
+end)
+
+GetKeyButton.MouseButton1Click:Connect(function()
+    setclipboard("https://gateway.platoboost.com/l/21621/h1ig1ba8")
+end)
+
+--------------------------------------------------------------------------
+keylessButton.MouseButton1Click:Connect(function()
+    for i = 1, 2 do
+        frame.BackgroundColor3 = Color3.new(1, 1, 1)
+        wait(0.1)
+        frame.BackgroundColor3 = Color3.new(0, 0, 0)
+        wait(0.1)
+    end
+    for i = 1, 10 do
+        frame.BackgroundTransparency = frame.BackgroundTransparency + 0.1
+        wait(0.2) 
+    end
+
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Coming soon...",
+                    Text = "",
+                    Duration = 5
+                })
+    print("comingsoon")
+game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "....",
+                    Text = "",
+                    Duration = 5
+                })
+end)
+
+-- Menambahkan deteksi pemain saat bergabung
+wait(4)
+
+local Players = game:GetService("Players")
+for i, v in pairs(Players:GetPlayers()) do
+    if v.Name == "rest_adnti|hack" or v.Name == "lapu_lasap" then
+        for i = 1, 2 do
+            frame.BackgroundColor3 = Color3.new(1, 1, 1)
+            wait(0.1)
+            frame.BackgroundColor3 = Color3.new(0, 0, 0)
+            wait(0.1)
+        end
+        for i = 1, 5 do
+            frame.BackgroundTransparency = frame.BackgroundTransparency + 0.1
+            wait(0.1) 
+        end
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "You are whitelisted",
+            Text = "",
+            Duration = 5
+        })
+        wait(4)
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Open Menu..",
+            Text = "",
+            Duration = 5
+        })
+        wait(0.2)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc1"))()
+        screenGui:Destroy()
+    end
+end
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    frame.BorderColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+end)
+
+game:GetService("StarterGui"):SetCore("DevConsoleVisible",true) 
+
+local function clearTextBox()
+    wait(0.2)
+    KeySystem.Text = ""
+end
+
+clearTextBox()
+
