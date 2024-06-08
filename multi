@@ -9,5 +9,5 @@ end
 
 if placeId == 15135285305 then
     -- Execute the external script if the Place ID is correct
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefori"))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/nAlwspa/GefUpdatee/main/keyGefv2.lua.txt'))()
 end
