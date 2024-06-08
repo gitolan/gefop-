@@ -104,13 +104,13 @@ GetKeyButton.Parent = frame
 local keylessButton = Instance.new("TextButton")
 keylessButton.Size = UDim2.new(0.3, 0, 0.3, 0)
 keylessButton.Position = UDim2.new(0.35, 0, 0.5, 0)
-keylessButton.Text = "keyles script"
+keylessButton.Text = "keyles script coming soon"
 keylessButton.Parent = frame
 
 --------------------------------------------------------------------------
 -- Logic to load string from KeySystem file and execute the script if correct
 local success, keyString = pcall(readfile, "GEFKeySystem.txt")
-if success and keyString == "SiqakytKjaitRbap" then
+if success and keyString == "LZtFFzJkgcoKQtGfg" then
 game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "Loaded",
         Text = "Please wait",
@@ -130,7 +130,7 @@ end
 
 SubmitButton.MouseButton1Click:Connect(function()
     local KeySystem = KeySystem.Text
-    if KeySystem == "SiqakytKjaitRbap" then
+    if KeySystem == "LZtFFzJkgcoKQtGfg" then
         screenGui:Destroy()
         wait(1)
         for i = 1, 2 do
@@ -158,7 +158,7 @@ SubmitButton.MouseButton1Click:Connect(function()
             end
         end
         -- Write KeySystem to a file
-        local keyString = "SiqakytKjaitRbap"
+        local keyString = "LZtFFzJkgcoKQtGfg"
         writefile("Untitled tag gameKeySystem.txt", keyString)
         
         loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
@@ -173,7 +173,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/m
 end)
 
 GetKeyButton.MouseButton1Click:Connect(function()
-    setclipboard("https://gateway.platoboost.com/l/21621/h1ig1ba8")
+    setclipboard("https://gateway.platoboost.com/l/21621/570df47j")
 end)
 
 --------------------------------------------------------------------------
