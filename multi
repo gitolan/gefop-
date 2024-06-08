@@ -10,4 +10,5 @@ end
 if placeId == 15135285305 then
     -- Execute the external script if the Place ID is correct
     loadstring(game:HttpGet('https://github.com/gitolan/gefbymeop-/blob/main/gefkey'))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 end
