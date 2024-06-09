@@ -4,7 +4,7 @@ local placeId = game.PlaceId
 -- Check if the Place ID matches any of the specified values
 if placeId == 14044547200 or placeId == 8365905206 then
     -- Execute the external script if the Place ID is correct
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/nAlwspa/Into/main/j.lua.txt"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 end
