@@ -109,7 +109,7 @@ keylessButton.Parent = frame
 
 ------------------------------------------------------------------
 -- Logic to load string from KeySystem file and execute the script if correct
-local success, keyString = pcall(readfile, "GEFKeySystem.txt")
+local success, keyString = pcall(readfile, "Untitled tag gameKeySystem.txt")
 if success and keyString == "LZtFFzJkgcoKQtGfg" then
 game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "Loaded",
