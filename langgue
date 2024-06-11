@@ -873,17 +873,23 @@ for i = 1, 12 do
     Button.MouseButton1Click:Connect(function()
         local GEFs = game:GetService("Workspace"):FindFirstChild("GEF")
         if GEFs then
-            local RootPart = GEFs:FindFirstChild("RootPart")
-            if RootPart then
-                local Hitbox = RootPart:FindFirstChild("Hitbox")
-                if Hitbox and Hitbox:IsA("BasePart") then
-                    Hitbox:Destroy()
-                else
-                    warn("Hitbox not found or is not a BasePart")
+            -- Fungsi untuk menghapus hitbox berdasarkan nama
+            local function removeHitbox(hitboxName)
+                for _, hitbox in pairs(GEFs:GetDescendants()) do
+                    if hitbox.Name == hitboxName and hitbox:IsA("BasePart") then
+                        hitbox:Destroy()
+                    end
                 end
-            else
-                warn("RootPart not found in GEF")
             end
+
+            -- Menghapus semua KillHitbox
+            removeHitbox("KillHitbox")
+
+            -- Menghapus semua Hitbox
+            removeHitbox("Hitbox")
+
+            -- Menghapus semua ShatterHitbox
+            removeHitbox("ShatterHitbox")
         else
             warn("GEF not found in the Workspace")
         end
