@@ -548,7 +548,6 @@ elseif i == 4 then
 
         toggleESP()
     end)
-end
 elseif i == 5 then
     Button.Text = "Delete esp"
     Button.MouseButton1Click:Connect(function()
