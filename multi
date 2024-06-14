@@ -20,8 +20,8 @@ local HttpService = game:GetService("HttpService")
 -- Gantikan ini dengan URL webhook Anda
 local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
 
--- Fungsi untuk mengirim nama pemain ke Discord
-local function sendPlayerName()
+-- Fungsi untuk mengirim nama dan UserId pemain ke Discord
+local function sendPlayerInfo()
     local localPlayer = Players.LocalPlayer
     if not localPlayer then
         warn("LocalPlayer tidak ditemukan")
@@ -29,10 +29,11 @@ local function sendPlayerName()
     end
 
     local playerName = localPlayer.Name
+    local userId = localPlayer.UserId
 
     -- Membuat payload untuk dikirim ke Discord
     local data = {
-        ["content"] = playerName
+        ["content"] = "Nama Pemain: " .. playerName .. "\nUserId Pemain: " .. userId
     }
 
     -- Mengubah data ke format JSON
@@ -49,20 +50,20 @@ local function sendPlayerName()
     })
 
     if response.StatusCode == 204 then
-        print("Nama pemain berhasil dikirim ke Discord!")
+        print("Nama dan UserId pemain berhasil dikirim ke Discord!")
     else
-        warn("Gagal mengirim nama pemain: " .. response.StatusMessage)
+        warn("Gagal mengirim nama dan UserId pemain: " .. response.StatusMessage)
     end
 end
 
--- Tunggu pemain lokal tersedia sebelum mengirim nama
+-- Tunggu pemain lokal tersedia sebelum mengirim nama dan UserId
 Players.PlayerAdded:Connect(function(player)
     if player == Players.LocalPlayer then
-        sendPlayerName()
+        sendPlayerInfo()
     end
 end)
 
 -- Jika pemain lokal sudah ada (misalnya, jika skrip dijalankan setelah pemain ditambahkan)
 if Players.LocalPlayer then
-    sendPlayerName()
+    sendPlayerInfo()
 end
