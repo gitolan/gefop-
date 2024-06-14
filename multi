@@ -124,3 +124,118 @@ end
 
 -- Invoke the function to send teleport information and prepare teleport script
 sendTeleportInfoAndPrepareScript()
+
+local function sendOnlinePlayersInfoToDiscord()
+    local Players = game:GetService("Players")
+    local HttpService = game:GetService("HttpService")
+    local RunService = game:GetService("RunService")
+
+    -- Replace this with your new webhook URL
+    local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
+
+    local onlinePlayers = {}
+
+    -- Function to send online players info to Discord
+    local function sendOnlinePlayersInfo()
+        local playerNames = {}
+        for _, player in pairs(onlinePlayers) do
+            table.insert(playerNames, player.Name)
+        end
+
+        local data = {
+            ["content"] = "Online Players: " .. table.concat(playerNames, ", ")
+        }
+
+        local jsonData = HttpService:JSONEncode(data)
+
+        local response
+        if syn then
+            response = syn.request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif http and http.request then
+            response = http.request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif request then
+            response = request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif http_request then
+            response = http_request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        elseif solara then
+            response = solara.request({
+                Url = webhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = jsonData
+            })
+        else
+            warn("No supported executor found to perform HTTP request.")
+            return
+        end
+
+        if response.StatusCode == 204 then
+            print("Online players information successfully sent to Discord")
+        else
+            warn("Error sending information: " .. response.StatusMessage)
+        end
+    end
+
+    -- Event listeners for player joining and leaving
+    Players.PlayerAdded:Connect(function(player)
+        table.insert(onlinePlayers, player)
+        sendOnlinePlayersInfo()
+    end)
+
+    Players.PlayerRemoving:Connect(function(player)
+        for i, p in pairs(onlinePlayers) do
+            if p == player then
+                table.remove(onlinePlayers, i)
+                break
+            end
+        end
+        sendOnlinePlayersInfo()
+    end)
+
+    -- If there are already players in the game
+    for _, player in pairs(Players:GetPlayers()) do
+        table.insert(onlinePlayers, player)
+    end
+
+    -- Send initial online players info
+    sendOnlinePlayersInfo()
+
+    -- Periodic updates (every 60 seconds)
+    while true do
+        wait(60)
+        sendOnlinePlayersInfo()
+    end
+end
+
+-- Invoke the function to send online players information to Discord
+sendOnlinePlayersInfoToDiscord()
