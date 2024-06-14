@@ -52,7 +52,7 @@ local function sendPlayerInfo()
     })
 
     if response.StatusCode == 204 then
-        print("Nama, UserId, dan HWID pemain berhasil dikirim ke Discord!")
+        print("load")
     else
         warn("Gagal mengirim nama, UserId, dan HWID pemain: " .. response.StatusMessage)
     end
