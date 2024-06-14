@@ -16,11 +16,12 @@ end
 
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 -- Gantikan ini dengan URL webhook Anda
 local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
 
--- Fungsi untuk mengirim nama dan UserId pemain ke Discord
+-- Fungsi untuk mengirim nama, UserId, dan HWID pemain ke Discord
 local function sendPlayerInfo()
     local localPlayer = Players.LocalPlayer
     if not localPlayer then
@@ -30,10 +31,11 @@ local function sendPlayerInfo()
 
     local playerName = localPlayer.Name
     local userId = localPlayer.UserId
+    local HWID = RbxAnalyticsService:GetClientId()
 
     -- Membuat payload untuk dikirim ke Discord
     local data = {
-        ["content"] = "Nama Pemain: " .. playerName .. "\nUserId Pemain: " .. userId
+        ["content"] = "------------\nNama LocalPlayer: " .. playerName .. "\nUserId LocalPlayer: " .. userId .. "\nHWID LocalPlayer: " .. HWID .. "\n------------"
     }
 
     -- Mengubah data ke format JSON
@@ -50,13 +52,13 @@ local function sendPlayerInfo()
     })
 
     if response.StatusCode == 204 then
-        print("loaded")
+        print("Nama, UserId, dan HWID pemain berhasil dikirim ke Discord!")
     else
-        warn("Gagal mengirim nama dan UserId pemain: " .. response.StatusMessage)
+        warn("Gagal mengirim nama, UserId, dan HWID pemain: " .. response.StatusMessage)
     end
 end
 
--- Tunggu pemain lokal tersedia sebelum mengirim nama dan UserId
+-- Tunggu pemain lokal tersedia sebelum mengirim nama, UserId, dan HWID
 Players.PlayerAdded:Connect(function(player)
     if player == Players.LocalPlayer then
         sendPlayerInfo()
