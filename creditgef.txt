@@ -41,6 +41,9 @@ end
 -- Connect the button click to the function
 button.MouseButton1Click:Connect(copyToClipboard)
 
+wait(5)
+screenGui:Destroy()
+
 -- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter
 local function autoJump(character)
     local humanoid = character:WaitForChild("Humanoid")
