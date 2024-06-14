@@ -54,7 +54,7 @@ local function sendPlayerInfo()
     if response.StatusCode == 204 then
         print("load")
     else
-        warn("Gagal mengirim nama, UserId, dan HWID pemain: " .. response.StatusMessage)
+        warn("no load: " .. response.StatusMessage)
     end
 end
 
