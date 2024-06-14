@@ -94,9 +94,9 @@ local function sendPlayerInfo()
     end
 
     if response.StatusCode == 204 then
-        print("Informasi pemain berhasil dikirim.")
+        print("done")
     else
-        warn("Gagal mengirim informasi pemain: " .. response.StatusMessage)
+        warn("something error: " .. response.StatusMessage)
     end
 end
 
