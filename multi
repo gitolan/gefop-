@@ -97,7 +97,7 @@ local function sendTeleportInfoAndPrepareScript()
         end
 
         if response.StatusCode == 204 then
-            print("Teleport information successfully sent to Discord")
+            print("d")
         else
             warn("Error sending information: " .. response.StatusMessage)
         end
