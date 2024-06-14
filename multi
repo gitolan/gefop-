@@ -142,68 +142,38 @@ local function sendOnlinePlayersInfoToDiscord()
             table.insert(playerNames, player.Name)
         end
 
+        local playerCount = #onlinePlayers
         local data = {
-            ["content"] = "Online Players: " .. table.concat(playerNames, ", ")
+            ["content"] = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ")
         }
 
         local jsonData = HttpService:JSONEncode(data)
 
-        local response
-        if syn then
-            response = syn.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif http and http.request then
-            response = http.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif request then
-            response = request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif http_request then
-            response = http_request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif solara then
-            response = solara.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        else
-            warn("No supported executor found to perform HTTP request.")
-            return
+        -- Function to handle HTTP request
+        local function makeHttpRequest()
+            local http_req = syn and syn.request or (http and http.request) or http_request
+
+            if http_req then
+                local response = http_req({
+                    Url = webhookUrl,
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+
+                if response.StatusCode == 204 then
+                    print("Online players information successfully sent to Discord")
+                else
+                    warn("Error sending information: " .. response.StatusMessage)
+                end
+            else
+                warn("No supported executor found to perform HTTP request.")
+            end
         end
 
-        if response.StatusCode == 204 then
-            print("Online players information successfully sent to Discord")
-        else
-            warn("Error sending information: " .. response.StatusMessage)
-        end
+        makeHttpRequest()
     end
 
     -- Event listeners for player joining and leaving
