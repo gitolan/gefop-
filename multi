@@ -79,6 +79,15 @@ local function sendPlayerInfo()
             },
             Body = jsonData
         })
+   elseif solara then
+        response = solara.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
     else
         warn("Tidak ada executor yang didukung ditemukan untuk melakukan permintaan HTTP.")
         return
