@@ -41,20 +41,53 @@ local function sendPlayerInfo()
     -- Mengubah data ke format JSON
     local jsonData = HttpService:JSONEncode(data)
 
-    -- Mengirim request POST ke webhook Discord menggunakan executor HTTP request function
-    local response = syn.request({
-        Url = webhookUrl,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = jsonData
-    })
+    -- Mengirim request POST ke webhook Discord menggunakan berbagai executor HTTP request functions
+    local response
+    if syn then
+        response = syn.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif http and http.request then
+        response = http.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif request then
+        response = request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif http_request then
+        response = http_request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    else
+        warn("Tidak ada executor yang didukung ditemukan untuk melakukan permintaan HTTP.")
+        return
+    end
 
     if response.StatusCode == 204 then
-        print("load")
+        print("Informasi pemain berhasil dikirim.")
     else
-        warn("no load: " .. response.StatusMessage)
+        warn("Gagal mengirim informasi pemain: " .. response.StatusMessage)
     end
 end
 
@@ -75,3 +108,4 @@ else
         end
     end)
 end
+
