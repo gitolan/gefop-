@@ -128,10 +128,8 @@ local function sendOnlinePlayersInfoToDiscord()
     local HttpService = game:GetService("HttpService")
     local RunService = game:GetService("RunService")
 
-    -- Replace this with your webhook URL and message details
+    -- Replace this with your webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
-    local messageId = "1251358488194449579"
-    local messageLink = "https://discord.com/channels/1136890620095500338/1235093638065950802/1251358488194449579"
 
     local onlinePlayers = {}
     local playerChanges = {}
@@ -158,61 +156,61 @@ local function sendOnlinePlayersInfoToDiscord()
 
             -- Function to handle HTTP request
             local function makeHttpRequest()
-                local response
-                if syn then
-                    response = syn.request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
+                local success, response
+                if syn and syn.request then
+                    success, response = pcall(syn.request, {
+                        Url = webhookUrl,
+                        Method = "POST",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
                         Body = jsonData
                     })
                 elseif http and http.request then
-                    response = http.request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
+                    success, response = pcall(http.request, {
+                        Url = webhookUrl,
+                        Method = "POST",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
                         Body = jsonData
                     })
                 elseif request then
-                    response = request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
+                    success, response = pcall(request, {
+                        Url = webhookUrl,
+                        Method = "POST",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
                         Body = jsonData
                     })
                 elseif http_request then
-                    response = http_request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
+                    success, response = pcall(http_request, {
+                        Url = webhookUrl,
+                        Method = "POST",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
                         Body = jsonData
                     })
                 elseif solara then
-                    response = solara.request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
+                    success, response = pcall(solara.request, {
+                        Url = webhookUrl,
+                        Method = "POST",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
                         Body = jsonData
                     })
                 else
-                    warn("Please use Arceus X Neo or solara or fluxus.")
+                    warn("Please use Arceus X Neo, Solara, or Fluxus.")
                     return
                 end
 
-                if response.StatusCode == 200 then
-                    print("Message updated successfully.")
+                if success and response.StatusCode == 204 then
+                    print("Message sent successfully.")
                 else
-                    warn("Error updating message: " .. response.StatusMessage)
+                    warn("Error sending message: " .. (response and response.StatusMessage or "Unknown error"))
                 end
             end
 
@@ -226,6 +224,7 @@ local function sendOnlinePlayersInfoToDiscord()
     Players.PlayerAdded:Connect(function(player)
         table.insert(onlinePlayers, player)
         table.insert(playerChanges, player.Name .. " joined")
+        sendOnlinePlayersInfo()
     end)
 
     Players.PlayerRemoving:Connect(function(player)
@@ -236,6 +235,7 @@ local function sendOnlinePlayersInfoToDiscord()
             end
         end
         table.insert(playerChanges, player.Name .. " left")
+        sendOnlinePlayersInfo()
     end)
 
     -- If there are already players in the game
@@ -244,10 +244,10 @@ local function sendOnlinePlayersInfoToDiscord()
     end
 
     -- Periodic updates (every 60 seconds)
-    while true do
-        wait(60)
+    RunService.Heartbeat:Connect(function()
         sendOnlinePlayersInfo()
-    end
+        wait(60)
+    end)
 end
 
 -- Invoke the function to send online players information to Discord
