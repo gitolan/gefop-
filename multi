@@ -226,7 +226,7 @@ local function sendLocalPlayerInfoToDiscord()
 
     -- Replace this with your new webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
-    local messageId = "1251381195032367105" -- Replace with your actual message ID
+    local messageId = "1251380509687414795" -- Replace with your actual message ID
 
     local localPlayer = Players.LocalPlayer
 
