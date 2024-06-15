@@ -47,50 +47,76 @@ local function sendTeleportInfoAndPrepareScript()
         -- Send POST request to Discord webhook
         local response
         if syn then
-            response = syn.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif http and http.request then
-            response = http.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif request then
-            response = request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif http_request then
-            response = http_request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif solara then
-            response = solara.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
+    response = syn.request({
+        Url = webhookUrl,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = jsonData
+    })
+
+-- Option 2: http
+elseif http and http.request then
+    response = http.request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        source = jsonData
+    })
+
+-- Option 3: request
+elseif request then
+    response = request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        data = jsonData
+    })
+
+-- Option 4: http_request
+elseif http_request then
+    response = http_request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        body = jsonData
+    })
+
+-- Option 5: solara
+elseif solara then
+    response = solara.request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        data = jsonData
+    })
+
+-- Option 6: curl (if available)
+elseif curl then
+    local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
+    local handle = io.popen(cmd)
+    local result = handle:read("*a")
+    handle:close()
+    response = result
+
+-- Option 7: fetch (if available)
+elseif fetch then
+    response = fetch(webhookUrl, {
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        body = jsonData
+    })
         else
             warn("Please use Arceus X Neo or solara or fluxus.")
             return
@@ -157,51 +183,77 @@ local function sendOnlinePlayersInfoToDiscord()
             -- Function to handle HTTP request
             local function makeHttpRequest()
                 local success, response
-                if syn and syn.request then
-                    success, response = pcall(syn.request, {
-                        Url = webhookUrl,
-                        Method = "POST",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif http and http.request then
-                    success, response = pcall(http.request, {
-                        Url = webhookUrl,
-                        Method = "POST",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif request then
-                    success, response = pcall(request, {
-                        Url = webhookUrl,
-                        Method = "POST",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif http_request then
-                    success, response = pcall(http_request, {
-                        Url = webhookUrl,
-                        Method = "POST",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif solara then
-                    success, response = pcall(solara.request, {
-                        Url = webhookUrl,
-                        Method = "POST",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
+                if syn then
+    response = syn.request({
+        Url = webhookUrl,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = jsonData
+    })
+
+-- Option 2: http
+elseif http and http.request then
+    response = http.request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        source = jsonData
+    })
+
+-- Option 3: request
+elseif request then
+    response = request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        data = jsonData
+    })
+
+-- Option 4: http_request
+elseif http_request then
+    response = http_request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        body = jsonData
+    })
+
+-- Option 5: solara
+elseif solara then
+    response = solara.request({
+        url = webhookUrl,
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        data = jsonData
+    })
+
+-- Option 6: curl (if available)
+elseif curl then
+    local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
+    local handle = io.popen(cmd)
+    local result = handle:read("*a")
+    handle:close()
+    response = result
+
+-- Option 7: fetch (if available)
+elseif fetch then
+    response = fetch(webhookUrl, {
+        method = "POST",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+        body = jsonData
+    })
                 else
                     warn("Please use Arceus X Neo, Solara, or Fluxus.")
                     return
