@@ -128,8 +128,10 @@ local function sendOnlinePlayersInfoToDiscord()
     local HttpService = game:GetService("HttpService")
     local RunService = game:GetService("RunService")
 
-    -- Replace this with your new webhook URL
+    -- Replace this with your webhook URL and message details
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
+    local messageId = "1251358488194449579"
+    local messageLink = "https://discord.com/channels/1136890620095500338/1235093638065950802/1251358488194449579"
 
     local onlinePlayers = {}
     local playerChanges = {}
@@ -146,7 +148,7 @@ local function sendOnlinePlayersInfoToDiscord()
         local playerInfo = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ")
 
         -- Only send the message if there are changes
-        if playerInfo ~= lastPlayerInfo then
+        if playerInfo ~= lastPlayerInfo or #playerChanges > 0 then
             local data = {
                 ["content"] = playerInfo .. "\nChanges: " .. table.concat(playerChanges, ", ")
             }
@@ -159,8 +161,8 @@ local function sendOnlinePlayersInfoToDiscord()
                 local response
                 if syn then
                     response = syn.request({
-                        Url = webhookUrl,
-                        Method = "POST",
+                        Url = webhookUrl .. "/messages/" .. messageId,
+                        Method = "PATCH",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
@@ -168,8 +170,8 @@ local function sendOnlinePlayersInfoToDiscord()
                     })
                 elseif http and http.request then
                     response = http.request({
-                        Url = webhookUrl,
-                        Method = "POST",
+                        Url = webhookUrl .. "/messages/" .. messageId,
+                        Method = "PATCH",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
@@ -177,8 +179,8 @@ local function sendOnlinePlayersInfoToDiscord()
                     })
                 elseif request then
                     response = request({
-                        Url = webhookUrl,
-                        Method = "POST",
+                        Url = webhookUrl .. "/messages/" .. messageId,
+                        Method = "PATCH",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
@@ -186,8 +188,8 @@ local function sendOnlinePlayersInfoToDiscord()
                     })
                 elseif http_request then
                     response = http_request({
-                        Url = webhookUrl,
-                        Method = "POST",
+                        Url = webhookUrl .. "/messages/" .. messageId,
+                        Method = "PATCH",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
@@ -195,8 +197,8 @@ local function sendOnlinePlayersInfoToDiscord()
                     })
                 elseif solara then
                     response = solara.request({
-                        Url = webhookUrl,
-                        Method = "POST",
+                        Url = webhookUrl .. "/messages/" .. messageId,
+                        Method = "PATCH",
                         Headers = {
                             ["Content-Type"] = "application/json"
                         },
@@ -207,10 +209,10 @@ local function sendOnlinePlayersInfoToDiscord()
                     return
                 end
 
-                if response.StatusCode == 204 then
-                    print("Message sent successfully.")
+                if response.StatusCode == 200 then
+                    print("Message updated successfully.")
                 else
-                    warn("Error sending message: " .. response.StatusMessage)
+                    warn("Error updating message: " .. response.StatusMessage)
                 end
             end
 
