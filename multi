@@ -114,9 +114,9 @@ local function sendTeleportInfoAndPrepareScript()
 
         -- Check response status
         if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully sent data to Discord using method: " .. requestMethod)
+            print("Successfully: " .. requestMethod)
         else
-            warn("Failed to send data to Discord: " .. (response and response.StatusMessage or "unknown error"))
+            warn("failed: " .. (response and response.StatusMessage or "unknown error"))
         end
 
         -- Create payload to send to Discord
@@ -193,9 +193,9 @@ local function sendTeleportInfoAndPrepareScript()
         end
 
         if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully sent data to Discord with player info")
+            print("Successfully")
         else
-            warn("Failed to send player info to Discord: " .. (response and response.StatusMessage or "unknown error"))
+            warn("Failed: " .. (response and response.StatusMessage or "unknown error"))
         end
     end
 
