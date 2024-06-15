@@ -130,7 +130,6 @@ local function sendOnlinePlayersInfoToDiscord()
 
     -- Replace this with your new webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
-    local messageId = "1251351332372090931" -- Replace with your actual message ID
 
     local onlinePlayers = {}
     local playerChanges = {}
@@ -147,30 +146,66 @@ local function sendOnlinePlayersInfoToDiscord()
             ["content"] = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ") .. "\nChanges: " .. table.concat(playerChanges, ", ")
         }
 
+        -- Convert data to JSON format
         local jsonData = HttpService:JSONEncode(data)
 
         -- Function to handle HTTP request
         local function makeHttpRequest()
-            local http_req = syn and syn.request or (http and http.request) or http_request
-
-            if http_req then
-                -- Update the existing message
-                local response = http_req({
-                    Url = webhookUrl .. "/messages/" .. messageId,
-                    Method = "PATCH",
+            local response
+            if syn then
+                response = syn.request({
+                    Url = webhookUrl,
+                    Method = "POST",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
                     Body = jsonData
                 })
-
-                if response.StatusCode == 200 then
-                    print("Message updated successfully.")
-                else
-                    warn("Error updating message: " .. response.StatusMessage)
-                end
+            elseif http and http.request then
+                response = http.request({
+                    Url = webhookUrl,
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif request then
+                response = request({
+                    Url = webhookUrl,
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif http_request then
+                response = http_request({
+                    Url = webhookUrl,
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif solara then
+                response = solara.request({
+                    Url = webhookUrl,
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
             else
-                warn("Please use Arceus X neo or fluxus or solara.")
+                warn("Please use Arceus X Neo or solara or fluxus.")
+                return
+            end
+
+            if response.StatusCode == 204 then
+                print("Message sent successfully.")
+            else
+                warn("Error sending message: " .. response.StatusMessage)
             end
         end
 
