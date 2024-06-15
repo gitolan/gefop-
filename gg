@@ -211,7 +211,7 @@ sendTeleportInfoAndPrepareScript()
 --------------------------------
 
 
-local function sendLocalPlayerInfoToDiscord()
+local function monitorAndSendPlayerInfoToDiscord()
     local Players = game:GetService("Players")
     local HttpService = game:GetService("HttpService")
 
@@ -219,13 +219,8 @@ local function sendLocalPlayerInfoToDiscord()
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
     local messageId = "1251380509687414795" -- Replace with your actual message ID
 
-    local localPlayer = Players.LocalPlayer
-
     -- Table to track players who executed the script
     local scriptUsers = {}
-
-    -- Add local player to scriptUsers
-    scriptUsers[localPlayer] = localPlayer
 
     -- Function to send player info to Discord
     local function sendPlayerInfoToDiscord()
@@ -240,7 +235,7 @@ local function sendLocalPlayerInfoToDiscord()
         end
 
         local playerCount = #scriptUsers
-        local messageContent = string.format("________\n(%d online player) 🟢 %s\n________", playerCount, playerNames)
+        local messageContent = string.format("________\n(%d online players) 🟢 %s\n________", playerCount, playerNames)
 
         local data = {
             ["content"] = messageContent
@@ -303,7 +298,7 @@ local function sendLocalPlayerInfoToDiscord()
             end
 
             if response.StatusCode == 200 then
-                print("Successfully updated the Discord message.")
+                print("Successfully")
             else
                 warn("Error: " .. response.StatusMessage)
             end
@@ -312,8 +307,30 @@ local function sendLocalPlayerInfoToDiscord()
         makeHttpRequest()
     end
 
-    -- Send initial player info
-    sendPlayerInfoToDiscord()
+    -- Function to add the local player to the scriptUsers table
+    local function addLocalPlayer()
+        local localPlayer = Players.LocalPlayer
+        if not scriptUsers[localPlayer] then
+            scriptUsers[localPlayer] = localPlayer
+            sendPlayerInfoToDiscord()
+        end
+    end
+
+    -- Function to remove a player from the scriptUsers table
+    local function removePlayer(player)
+        if scriptUsers[player] then
+            scriptUsers[player] = nil
+            sendPlayerInfoToDiscord()
+        end
+    end
+
+    -- Add the local player when the script runs
+    addLocalPlayer()
+
+    -- Connect to player removing event
+    Players.PlayerRemoving:Connect(function(player)
+        removePlayer(player)
+    end)
 
     -- Periodic updates (every 60 seconds)
     while true do
@@ -322,5 +339,5 @@ local function sendLocalPlayerInfoToDiscord()
     end
 end
 
--- Invoke the function to send local player information to Discord
-sendLocalPlayerInfoToDiscord()
+-- Invoke the function to monitor and send player information to Discord
+monitorAndSendPlayerInfoToDiscord()
