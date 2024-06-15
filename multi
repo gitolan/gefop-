@@ -4,13 +4,16 @@ local placeId = game.PlaceId
 if placeId == 14044547200 or placeId == 8365905206 then
     -- Execute the external script if the Place ID is correct
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefop-/main/gg'))()
+
 end
 
 if placeId == 15135285305 then
     -- Execute the external script if the Place ID is correct
     loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefop-/main/gg'))()
+
 end
 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefop-/main/gg'))()
