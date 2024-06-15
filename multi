@@ -219,7 +219,7 @@ end
 -- Invoke the function to send teleport information and prepare teleport script
 sendTeleportInfoAndPrepareScript()
 
-local function sendOnlinePlayersInfoToDiscord()
+local function sendLocalPlayerInfoToDiscord()
     local Players = game:GetService("Players")
     local HttpService = game:GetService("HttpService")
     local RunService = game:GetService("RunService")
@@ -228,148 +228,91 @@ local function sendOnlinePlayersInfoToDiscord()
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
     local messageId = "1251381195032367105" -- Replace with your actual message ID
 
-    local onlinePlayers = {}
-    local playerChanges = {}
-    local scriptUsers = {}
+    local localPlayer = Players.LocalPlayer
 
-    -- Function to send online players info to Discord
-    local function sendOnlinePlayersInfo()
-        local playerNames = {}
-        for _, player in pairs(onlinePlayers) do
-            table.insert(playerNames, player.Name)
-        end
+    -- Function to send local player info to Discord
+    local function sendLocalPlayerInfo()
+        local playerInfo = "Script User Online: " .. localPlayer.Name
 
-        local playerCount = #onlinePlayers
-        local playerInfo = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ")
+        local data = {
+            ["content"] = playerInfo
+        }
 
-        local scriptUserNames = {}
-        for _, user in pairs(scriptUsers) do
-            table.insert(scriptUserNames, user.Name)
-        end
+        -- Convert data to JSON format
+        local jsonData = HttpService:JSONEncode(data)
 
-        local scriptUserInfo = "Script Users Online: " .. table.concat(scriptUserNames, ", ")
-
-        -- Only send the message if there are changes
-        if #playerChanges > 0 then
-            local data = {
-                ["content"] = playerInfo .. "\n" .. scriptUserInfo .. "\nChanges: " .. table.concat(playerChanges, ", ")
-            }
-
-            -- Convert data to JSON format
-            local jsonData = HttpService:JSONEncode(data)
-
-            -- Function to handle HTTP request
-            local function makeHttpRequest()
-                local response
-                if syn then
-                    response = syn.request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif http and http.request then
-                    response = http.request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif request then
-                    response = request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif http_request then
-                    response = http_request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                elseif solara then
-                    response = solara.request({
-                        Url = webhookUrl .. "/messages/" .. messageId,
-                        Method = "PATCH",
-                        Headers = {
-                            ["Content-Type"] = "application/json"
-                        },
-                        Body = jsonData
-                    })
-                else
-                    warn("Please use Arceus X Neo or solara or fluxus.")
-                    return
-                end
-
-                if response.StatusCode == 200 then
-                    print("successfully.")
-                else
-                    warn("Error: " .. response.StatusMessage)
-                end
+        -- Function to handle HTTP request
+        local function makeHttpRequest()
+            local response
+            if syn then
+                response = syn.request({
+                    Url = webhookUrl .. "/messages/" .. messageId,
+                    Method = "PATCH",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif http and http.request then
+                response = http.request({
+                    Url = webhookUrl .. "/messages/" .. messageId,
+                    Method = "PATCH",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif request then
+                response = request({
+                    Url = webhookUrl .. "/messages/" .. messageId,
+                    Method = "PATCH",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif http_request then
+                response = http_request({
+                    Url = webhookUrl .. "/messages/" .. messageId,
+                    Method = "PATCH",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            elseif solara then
+                response = solara.request({
+                    Url = webhookUrl .. "/messages/" .. messageId,
+                    Method = "PATCH",
+                    Headers = {
+                        ["Content-Type"] = "application/json"
+                    },
+                    Body = jsonData
+                })
+            else
+                warn("Please use Arceus X Neo or solara or fluxus.")
+                return
             end
 
-            makeHttpRequest()
-            playerChanges = {} -- Clear changes after sending
-        end
-    end
-
-    -- Event listeners for player joining and leaving
-    Players.PlayerAdded:Connect(function(player)
-        table.insert(onlinePlayers, player)
-        table.insert(playerChanges, player.Name .. " joined")
-    end)
-
-    Players.PlayerRemoving:Connect(function(player)
-        for i, p in pairs(onlinePlayers) do
-            if p == player then
-                table.remove(onlinePlayers, i)
-                break
+            if response.StatusCode == 200 then
+                print("Message updated successfully.")
+            else
+                warn("Error updating message: " .. response.StatusMessage)
             end
         end
-        table.insert(playerChanges, player.Name .. " left")
-    end)
 
-    -- If there are already players in the game
-    for _, player in pairs(Players:GetPlayers()) do
-        table.insert(onlinePlayers, player)
+        makeHttpRequest()
     end
 
-    -- Add player to the script user list
-    local function addPlayerToScriptUsers(player)
-        if not table.find(scriptUsers, player) then
-            table.insert(scriptUsers, player)
-        end
-    end
-
-    -- Remove player from the script user list
-    local function removePlayerFromScriptUsers(player)
-        for i, p in pairs(scriptUsers) do
-            if p == player then
-                table.remove(scriptUsers, i)
-                break
-            end
-        end
-    end
-
-    -- Track when a player executes the script
-    addPlayerToScriptUsers(Players.LocalPlayer)
+    -- Send initial local player info
+    sendLocalPlayerInfo()
 
     -- Periodic updates (every 60 seconds)
     while true do
         wait(60)
-        sendOnlinePlayersInfo()
+        sendLocalPlayerInfo()
     end
 end
 
--- Invoke the function to send online players information to Discord
-sendOnlinePlayersInfoToDiscord()
+-- Invoke the function to send local player information to Discord
+sendLocalPlayerInfoToDiscord()
