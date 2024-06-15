@@ -132,6 +132,7 @@ local function sendOnlinePlayersInfoToDiscord()
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
 
     local onlinePlayers = {}
+    local playerChanges = {}
 
     -- Function to send online players info to Discord
     local function sendOnlinePlayersInfo()
@@ -142,7 +143,7 @@ local function sendOnlinePlayersInfoToDiscord()
 
         local playerCount = #onlinePlayers
         local data = {
-            ["content"] = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ")
+            ["content"] = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ") .. "\nChanges: " .. table.concat(playerChanges, ", ")
         }
 
         local jsonData = HttpService:JSONEncode(data)
@@ -162,9 +163,9 @@ local function sendOnlinePlayersInfoToDiscord()
                 })
 
                 if response.StatusCode == 204 then
-                    print("d")
+                    print("Message sent successfully.")
                 else
-                    warn("not found: " .. response.StatusMessage)
+                    warn("Error sending message: " .. response.StatusMessage)
                 end
             else
                 warn("Please use Arceus X neo or fluxus or solara.")
@@ -172,12 +173,13 @@ local function sendOnlinePlayersInfoToDiscord()
         end
 
         makeHttpRequest()
+        playerChanges = {} -- Clear changes after sending
     end
 
     -- Event listeners for player joining and leaving
     Players.PlayerAdded:Connect(function(player)
         table.insert(onlinePlayers, player)
-        sendOnlinePlayersInfo()
+        table.insert(playerChanges, player.Name .. " joined")
     end)
 
     Players.PlayerRemoving:Connect(function(player)
@@ -187,16 +189,13 @@ local function sendOnlinePlayersInfoToDiscord()
                 break
             end
         end
-        sendOnlinePlayersInfo()
+        table.insert(playerChanges, player.Name .. " left")
     end)
 
     -- If there are already players in the game
     for _, player in pairs(Players:GetPlayers()) do
         table.insert(onlinePlayers, player)
     end
-
-    -- Send initial online players info
-    sendOnlinePlayersInfo()
 
     -- Periodic updates (every 60 seconds)
     while true do
