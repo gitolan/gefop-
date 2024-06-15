@@ -130,6 +130,7 @@ local function sendOnlinePlayersInfoToDiscord()
 
     -- Replace this with your new webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
+    local messageId = "1251351332372090931" -- Replace with your actual message ID
 
     local onlinePlayers = {}
     local playerChanges = {}
@@ -153,19 +154,20 @@ local function sendOnlinePlayersInfoToDiscord()
             local http_req = syn and syn.request or (http and http.request) or http_request
 
             if http_req then
+                -- Update the existing message
                 local response = http_req({
-                    Url = webhookUrl,
-                    Method = "POST",
+                    Url = webhookUrl .. "/messages/" .. messageId,
+                    Method = "PATCH",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
                     Body = jsonData
                 })
 
-                if response.StatusCode == 204 then
-                    print("successfully.")
+                if response.StatusCode == 200 then
+                    print("Message updated successfully.")
                 else
-                    warn("Error : " .. response.StatusMessage)
+                    warn("Error updating message: " .. response.StatusMessage)
                 end
             else
                 warn("Please use Arceus X neo or fluxus or solara.")
