@@ -204,10 +204,16 @@ end
 -- Invoke the function to send teleport information and prepare teleport script
 sendTeleportInfoAndPrepareScript()
 
+--------------------------------
+
+--------------------------------
+
+--------------------------------
+
+
 local function sendLocalPlayerInfoToDiscord()
     local Players = game:GetService("Players")
     local HttpService = game:GetService("HttpService")
-    local RunService = game:GetService("RunService")
 
     -- Replace this with your new webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
@@ -215,12 +221,29 @@ local function sendLocalPlayerInfoToDiscord()
 
     local localPlayer = Players.LocalPlayer
 
-    -- Function to send local player info to Discord
-    local function sendLocalPlayerInfo()
-        local playerInfo = "Script User Online: " .. localPlayer.Name
+    -- Table to track players who executed the script
+    local scriptUsers = {}
+
+    -- Add local player to scriptUsers
+    scriptUsers[localPlayer] = localPlayer
+
+    -- Function to send player info to Discord
+    local function sendPlayerInfoToDiscord()
+        local playerNames = ""
+        for _, player in pairs(scriptUsers) do
+            playerNames = playerNames .. player.Name .. ", "
+        end
+
+        -- Remove trailing comma and space
+        if #playerNames > 0 then
+            playerNames = playerNames:sub(1, -3)
+        end
+
+        local playerCount = #scriptUsers
+        local messageContent = string.format("________\n(%d online player) 🟢 %s\n________", playerCount, playerNames)
 
         local data = {
-            ["content"] = playerInfo
+            ["content"] = messageContent
         }
 
         -- Convert data to JSON format
@@ -280,7 +303,7 @@ local function sendLocalPlayerInfoToDiscord()
             end
 
             if response.StatusCode == 200 then
-                print("successfully.")
+                print("Successfully updated the Discord message.")
             else
                 warn("Error: " .. response.StatusMessage)
             end
@@ -289,13 +312,13 @@ local function sendLocalPlayerInfoToDiscord()
         makeHttpRequest()
     end
 
-    -- Send initial local player info
-    sendLocalPlayerInfo()
+    -- Send initial player info
+    sendPlayerInfoToDiscord()
 
     -- Periodic updates (every 60 seconds)
     while true do
         wait(60)
-        sendLocalPlayerInfo()
+        sendPlayerInfoToDiscord()
     end
 end
 
