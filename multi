@@ -13,6 +13,8 @@ if placeId == 15135285305 then
     loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
 end
 
+loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefop-/main/gg'))()
+
 local function sendTeleportInfoAndPrepareScript()
     local Players = game:GetService("Players")
     local HttpService = game:GetService("HttpService")
