@@ -295,9 +295,9 @@ local function sendLocalPlayerInfoToDiscord()
             end
 
             if response.StatusCode == 200 then
-                print("Message updated successfully.")
+                print("successfully.")
             else
-                warn("Error updating message: " .. response.StatusMessage)
+                warn("Error: " .. response.StatusMessage)
             end
         end
 
