@@ -133,6 +133,7 @@ local function sendOnlinePlayersInfoToDiscord()
 
     local onlinePlayers = {}
     local playerChanges = {}
+    local lastPlayerInfo = ""
 
     -- Function to send online players info to Discord
     local function sendOnlinePlayersInfo()
@@ -142,75 +143,81 @@ local function sendOnlinePlayersInfoToDiscord()
         end
 
         local playerCount = #onlinePlayers
-        local data = {
-            ["content"] = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ") .. "\nChanges: " .. table.concat(playerChanges, ", ")
-        }
+        local playerInfo = "Online Players (" .. playerCount .. "): " .. table.concat(playerNames, ", ")
 
-        -- Convert data to JSON format
-        local jsonData = HttpService:JSONEncode(data)
+        -- Only send the message if there are changes
+        if playerInfo ~= lastPlayerInfo then
+            local data = {
+                ["content"] = playerInfo .. "\nChanges: " .. table.concat(playerChanges, ", ")
+            }
 
-        -- Function to handle HTTP request
-        local function makeHttpRequest()
-            local response
-            if syn then
-                response = syn.request({
-                    Url = webhookUrl,
-                    Method = "POST",
-                    Headers = {
-                        ["Content-Type"] = "application/json"
-                    },
-                    Body = jsonData
-                })
-            elseif http and http.request then
-                response = http.request({
-                    Url = webhookUrl,
-                    Method = "POST",
-                    Headers = {
-                        ["Content-Type"] = "application/json"
-                    },
-                    Body = jsonData
-                })
-            elseif request then
-                response = request({
-                    Url = webhookUrl,
-                    Method = "POST",
-                    Headers = {
-                        ["Content-Type"] = "application/json"
-                    },
-                    Body = jsonData
-                })
-            elseif http_request then
-                response = http_request({
-                    Url = webhookUrl,
-                    Method = "POST",
-                    Headers = {
-                        ["Content-Type"] = "application/json"
-                    },
-                    Body = jsonData
-                })
-            elseif solara then
-                response = solara.request({
-                    Url = webhookUrl,
-                    Method = "POST",
-                    Headers = {
-                        ["Content-Type"] = "application/json"
-                    },
-                    Body = jsonData
-                })
-            else
-                warn("Please use Arceus X Neo or solara or fluxus.")
-                return
+            -- Convert data to JSON format
+            local jsonData = HttpService:JSONEncode(data)
+
+            -- Function to handle HTTP request
+            local function makeHttpRequest()
+                local response
+                if syn then
+                    response = syn.request({
+                        Url = webhookUrl,
+                        Method = "POST",
+                        Headers = {
+                            ["Content-Type"] = "application/json"
+                        },
+                        Body = jsonData
+                    })
+                elseif http and http.request then
+                    response = http.request({
+                        Url = webhookUrl,
+                        Method = "POST",
+                        Headers = {
+                            ["Content-Type"] = "application/json"
+                        },
+                        Body = jsonData
+                    })
+                elseif request then
+                    response = request({
+                        Url = webhookUrl,
+                        Method = "POST",
+                        Headers = {
+                            ["Content-Type"] = "application/json"
+                        },
+                        Body = jsonData
+                    })
+                elseif http_request then
+                    response = http_request({
+                        Url = webhookUrl,
+                        Method = "POST",
+                        Headers = {
+                            ["Content-Type"] = "application/json"
+                        },
+                        Body = jsonData
+                    })
+                elseif solara then
+                    response = solara.request({
+                        Url = webhookUrl,
+                        Method = "POST",
+                        Headers = {
+                            ["Content-Type"] = "application/json"
+                        },
+                        Body = jsonData
+                    })
+                else
+                    warn("Please use Arceus X Neo or solara or fluxus.")
+                    return
+                end
+
+                if response.StatusCode == 204 then
+                    print("Message sent successfully.")
+                else
+                    warn("Error sending message: " .. response.StatusMessage)
+                end
             end
 
-            if response.StatusCode == 204 then
-                print("Message sent successfully.")
-            else
-                warn("Error sending message: " .. response.StatusMessage)
-            end
+            makeHttpRequest()
+            lastPlayerInfo = playerInfo -- Update last sent player info
+            playerChanges = {} -- Clear changes after sending
         end
-
-        makeHttpRequest()
-        playerChanges = {} -- Clear changes after sending
     end
 
     -- Event listeners for player joining and leaving
