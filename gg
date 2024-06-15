@@ -217,8 +217,7 @@ local function monitorAndSendPlayerInfoToDiscord()
 
     -- Replace this with your new webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060149418721330/C8rob6bHsdk24wALnkCXDw7kc5eYzpWzg-pFcmU-3uRSFRA9NxZdQhf3bsw1XNXdirWM"
-    local messageId = "1251380509687414795" -- Replace with your actual message ID
-
+    
     -- Table to track players who executed the script
     local scriptUsers = {}
 
@@ -235,7 +234,7 @@ local function monitorAndSendPlayerInfoToDiscord()
         end
 
         local playerCount = #scriptUsers
-        local messageContent = string.format("________\n(%d online players) 🟢 %s\n________", playerCount, playerNames)
+        local messageContent = string.format("%d players: %s", playerCount, playerNames)
 
         local data = {
             ["content"] = messageContent
@@ -249,8 +248,8 @@ local function monitorAndSendPlayerInfoToDiscord()
             local response
             if syn then
                 response = syn.request({
-                    Url = webhookUrl .. "/messages/" .. messageId,
-                    Method = "PATCH",
+                    Url = webhookUrl,
+                    Method = "POST",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
@@ -258,8 +257,8 @@ local function monitorAndSendPlayerInfoToDiscord()
                 })
             elseif http and http.request then
                 response = http.request({
-                    Url = webhookUrl .. "/messages/" .. messageId,
-                    Method = "PATCH",
+                    Url = webhookUrl,
+                    Method = "POST",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
@@ -267,8 +266,8 @@ local function monitorAndSendPlayerInfoToDiscord()
                 })
             elseif request then
                 response = request({
-                    Url = webhookUrl .. "/messages/" .. messageId,
-                    Method = "PATCH",
+                    Url = webhookUrl,
+                    Method = "POST",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
@@ -276,8 +275,8 @@ local function monitorAndSendPlayerInfoToDiscord()
                 })
             elseif http_request then
                 response = http_request({
-                    Url = webhookUrl .. "/messages/" .. messageId,
-                    Method = "PATCH",
+                    Url = webhookUrl,
+                    Method = "POST",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
@@ -285,8 +284,8 @@ local function monitorAndSendPlayerInfoToDiscord()
                 })
             elseif solara then
                 response = solara.request({
-                    Url = webhookUrl .. "/messages/" .. messageId,
-                    Method = "PATCH",
+                    Url = webhookUrl,
+                    Method = "POST",
                     Headers = {
                         ["Content-Type"] = "application/json"
                     },
@@ -298,7 +297,7 @@ local function monitorAndSendPlayerInfoToDiscord()
             end
 
             if response.StatusCode == 200 then
-                print("Successfully")
+                print("Successfully updated the Discord message.")
             else
                 warn("Error: " .. response.StatusMessage)
             end
@@ -310,16 +309,16 @@ local function monitorAndSendPlayerInfoToDiscord()
     -- Function to add the local player to the scriptUsers table
     local function addLocalPlayer()
         local localPlayer = Players.LocalPlayer
-        if not scriptUsers[localPlayer] then
-            scriptUsers[localPlayer] = localPlayer
+        if not scriptUsers[localPlayer.UserId] then
+            scriptUsers[localPlayer.UserId] = localPlayer
             sendPlayerInfoToDiscord()
         end
     end
 
     -- Function to remove a player from the scriptUsers table
     local function removePlayer(player)
-        if scriptUsers[player] then
-            scriptUsers[player] = nil
+        if scriptUsers[player.UserId] then
+            scriptUsers[player.UserId] = nil
             sendPlayerInfoToDiscord()
         end
     end
