@@ -163,9 +163,9 @@ local function sendOnlinePlayersInfoToDiscord()
                 })
 
                 if response.StatusCode == 204 then
-                    print("Message sent successfully.")
+                    print("successfully.")
                 else
-                    warn("Error sending message: " .. response.StatusMessage)
+                    warn("Error : " .. response.StatusMessage)
                 end
             else
                 warn("Please use Arceus X neo or fluxus or solara.")
