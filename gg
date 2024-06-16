@@ -99,9 +99,9 @@ local function sendTeleportInfoAndPrepareScript()
 
         -- Check response status
         if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully: " .. requestMethod)
+            print("Successfully")
         else
-            warn("failed: " .. (response and response.StatusMessage or "unknown error"))
+            warn("failed"))
         end
 
         -- Create payload to send to Discord
