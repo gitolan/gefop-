@@ -179,6 +179,3 @@ if Players.LocalPlayer then
 else
     waitForLocalPlayer()
 end
-
-____________________
-____________________
