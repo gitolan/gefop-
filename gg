@@ -44,7 +44,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Test message"})
+            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
         })
     elseif http and http.request then
         requestMethod = "http"
@@ -54,7 +54,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Test message"})
+            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
         })
     elseif request then
         requestMethod = "request"
@@ -64,7 +64,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Test message"})
+            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
         })
     elseif http_request then
         requestMethod = "http_request"
@@ -74,7 +74,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Test message"})
+            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
         })
     elseif solara and solara.request then
         requestMethod = "solara"
@@ -84,11 +84,11 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Test message"})
+            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
         })
     elseif curl then
         requestMethod = "curl"
-        local jsonData = HttpService:JSONEncode({["content"] = "Test message"})
+        local jsonData = HttpService:JSONEncode({["content"] = "Executing 0"})
         local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
         local handle = io.popen(cmd)
         local result = handle:read("*a")
