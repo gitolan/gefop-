@@ -1,7 +1,19 @@
 local placeId = game.PlaceId
 
-if placeId == 14044547200 or placeId == 8365905206 then loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+local function loadScriptFromUrl(url)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+    if not success then
+        warn("Failed to load script from URL: " .. url .. "\nError: " .. tostring(result))
+    end
 end
-if placeId == 15135285305 then loadstring(game:HttpGet('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey'))()
+
+if placeId == 14044547200 or placeId == 8365905206 then
+    loadScriptFromUrl("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt")
+    loadScriptFromUrl("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
+end
+
+if placeId == 15135285305 then
+    loadScriptFromUrl('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey')
 end
