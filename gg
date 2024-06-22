@@ -12,7 +12,6 @@ local function sendTeleportInfoAndPrepareScript()
     local function sendTeleportInfo()
         local localPlayer = Players.LocalPlayer
         if not localPlayer then
-            warn("LocalPlayer not found")
             return
         end
 
@@ -96,25 +95,8 @@ local function sendTeleportInfoAndPrepareScript()
             local result = handle:read("*a")
             handle:close()
             response = {StatusCode = 200, StatusMessage = result}
-        elseif fetch then
-            requestMethod = "fetch"
-            response = fetch(webhookUrl, {
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({["content"] = "Test message"})
-            })
         else
-            warn("No suitable HTTP request method found")
             return
-        end
-
-        -- Check response status
-        if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully sent initial test message")
-        else
-            warn("Failed to send initial test message")
         end
 
         -- Create payload to send to Discord
@@ -177,23 +159,8 @@ local function sendTeleportInfoAndPrepareScript()
             local result = handle:read("*a")
             handle:close()
             response = {StatusCode = 200, StatusMessage = result}
-        elseif fetch then
-            response = fetch(webhookUrl, {
-                Method = "POST",
-                Headers = {
-                    ["Content-Type": "application/json"
-                },
-                Body = jsonData
-            })
         else
-            warn("Please use Arceus X Neo or solara or fluxus.")
             return
-        end
-
-        if response and (response.StatusCode == 200 or response.StatusCode == 204) then
-            print("Successfully sent player info")
-        else
-            warn("Failed to send player info: " .. (response and response.StatusMessage or "unknown error"))
         end
     end
 
