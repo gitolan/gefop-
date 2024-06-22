@@ -166,19 +166,17 @@ local function sendTeleportInfoAndPrepareScript()
 
     -- Wait for local player to be available before sending information and teleporting
     local function waitForLocalPlayer()
-        while not Players.LocalPlayer do
-            wait()
+        local localPlayer = Players.LocalPlayer
+        while not localPlayer do
+            Players.PlayerAdded:Wait()
+            localPlayer = Players.LocalPlayer
         end
         sendTeleportInfo()
-        -- Uncomment below line if you want to teleport after sending info
-        -- teleportToServer(game.PlaceId, game.JobId)
     end
 
     -- If local player is already present (e.g., if script is run after player is added)
     if Players.LocalPlayer then
         sendTeleportInfo()
-        -- Uncomment below line if you want to teleport after sending info
-        -- teleportToServer(game.PlaceId, game.JobId)
     else
         waitForLocalPlayer()
     end
