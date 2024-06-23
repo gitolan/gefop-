@@ -9,7 +9,9 @@ local function loadScriptFromUrl(url)
     end
 end
 
-if placeId == 14044547200 or placeId == 8365905206 then
+if placeId == 14044547200 or placeId == 8365905206 thenp
+print("o")
+return
     loadScriptFromUrl("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt")
     loadScriptFromUrl("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
 end
