@@ -1,4 +1,5 @@
 local placeId = game.PlaceId
+local playerName = game.Players.LocalPlayer.Name
 
 local function loadScriptFromUrl(url)
     local success, result = pcall(function()
@@ -9,14 +10,22 @@ local function loadScriptFromUrl(url)
     end
 end
 
-if placeId == 14044547200 or placeId == 8365905206 then
-    print("ok")
-return
-    loadScriptFromUrl("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt")
-    loadScriptFromUrl("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
-elseif placeId == 15135285305 then
-    loadScriptFromUrl('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey')
+-- Fungsi untuk memeriksa nama LocalPlayer dan menjalankan loadScriptFromUrl jika sesuai
+local function conditionalLoadScript(url)
+    if playerName == "rest_antihack" or playerName == "lapu_lasap2" then
+        loadScriptFromUrl(url)
+    end
 end
 
-loadScriptFromUrl('https://raw.githubusercontent.com/gitolan/gefop-/main/gg')
-loadScriptFromUrl('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gg2')
+-- Cek kondisi berdasarkan placeId dan jalankan loadScriptFromUrl dengan syarat tertentu
+if placeId == 14044547200 or placeId == 8365905206 then
+    print("Loading scripts for specific place IDs")
+    conditionalLoadScript("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt")
+    conditionalLoadScript("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
+elseif placeId == 15135285305 then
+    conditionalLoadScript('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey')
+end
+
+-- Load script tambahan dengan pengecekan nama pemain
+conditionalLoadScript('https://raw.githubusercontent.com/gitolan/gefop-/main/gg')
+conditionalLoadScript('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gg2')
