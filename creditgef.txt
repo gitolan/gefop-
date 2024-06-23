@@ -32,7 +32,7 @@ button.Parent = screenGui
 
 -- Copy to clipboard function
 local function copyToClipboard()
-    setclipboard("https://discord.gg/8KZVd6Bv")
+    setclipboard("https://discord.gg/y6ShGVxR")
     button.Text = "Link Discord Copied:)"
     wait(2)
     button.Text = "Click Me"
