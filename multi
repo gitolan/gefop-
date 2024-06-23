@@ -6,7 +6,7 @@ local function loadScriptFromUrl(url)
         return loadstring(game:HttpGet(url))()
     end)
     if not success then
-        warn("Failed to load script from URL: " .. url .. "\nError: " .. tostring(result))
+        warn("Failed to load script from URL")
     end
 end
 
