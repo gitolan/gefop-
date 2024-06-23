@@ -10,7 +10,8 @@ local function loadScriptFromUrl(url)
 end
 
 if placeId == 14044547200 or placeId == 8365905206 then
-    print("Loading scripts for specific place IDs")
+    print("ok")
+return
     loadScriptFromUrl("https://raw.githubusercontent.com/gitolan/gefop-/main/untitled%20tag%20key.txt")
     loadScriptFromUrl("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
 elseif placeId == 15135285305 then
