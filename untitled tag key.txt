@@ -118,8 +118,10 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
     })
     screenGui:Destroy()
     wait(3)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc2"))()
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/untitled-tg/main/sc1"))()
+
 else
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "Error",
