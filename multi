@@ -24,6 +24,8 @@ if placeId == 14044547200 or placeId == 8365905206 then
     conditionalLoadScript("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
 elseif placeId == 15135285305 then  
     loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gefkey"))()
+    else
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefbymeop-/main/Notlist"))()
 end
 
 -- Load script tambahan dengan pengecekan nama pemain
