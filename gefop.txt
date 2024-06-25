@@ -29,7 +29,7 @@ end
 local function findPlayerByName(playerName)
     playerName = playerName:lower()
     for _, player in ipairs(game.Players:GetPlayers()) do
-        if player.Name:lower():match(playerName) then
+        if player.Name:lower():sub(1, #playerName) == playerName then
             return player
         end
     end
