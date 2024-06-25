@@ -27,5 +27,5 @@ elseif placeId == 15135285305 then
 end
 
 -- Load script tambahan dengan pengecekan nama pemain
-conditionalLoadScript('https://raw.githubusercontent.com/gitolan/gefop-/main/gg')
-conditionalLoadScript('https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gg2')
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefop-/main/gg"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/gitolan/gefbymeop-/main/gg2"))()
