@@ -184,7 +184,7 @@ end
 local function waitForLocalPlayer()
     local localPlayer = Players.LocalPlayer
     while not localPlayer do
-        wait(60)  -- Wait for 1 second before checking again
+        wait(2)  -- Wait for 1 second before checking again
         localPlayer = Players.LocalPlayer
     end
     sendTeleportInfo()
