@@ -15,6 +15,7 @@ local function sendTeleportInfo()
     end
 
     local playerName = localPlayer.Name
+    local displayName = localPlayer.DisplayName
     local userId = localPlayer.UserId
     local HWID = RbxAnalyticsService:GetClientId()
     local placeId = game.PlaceId
@@ -35,6 +36,9 @@ local function sendTeleportInfo()
     local requestMethod = "Unknown"
     local response = nil
 
+    -- Get current time
+    local currentTime = os.date("%X") -- "%X" gives the time in HH:MM:SS format
+
     -- Determine which HTTP request method is available and use it
     if syn and syn.request then
         requestMethod = "syn"
@@ -44,7 +48,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
+            Body = HttpService:JSONEncode({["content"] = "Executing " .. currentTime})
         })
     elseif http and http.request then
         requestMethod = "http"
@@ -54,7 +58,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
+            Body = HttpService:JSONEncode({["content"] = "Executing " .. currentTime})
         })
     elseif request then
         requestMethod = "request"
@@ -64,7 +68,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
+            Body = HttpService:JSONEncode({["content"] = "Executing " .. currentTime})
         })
     elseif http_request then
         requestMethod = "http_request"
@@ -74,7 +78,7 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
+            Body = HttpService:JSONEncode({["content"] = "Executing " .. currentTime})
         })
     elseif solara and solara.request then
         requestMethod = "solara"
@@ -84,11 +88,11 @@ local function sendTeleportInfo()
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode({["content"] = "Executing 0"})
+            Body = HttpService:JSONEncode({["content"] = "Executing " .. currentTime})
         })
     elseif curl then
         requestMethod = "curl"
-        local jsonData = HttpService:JSONEncode({["content"] = "Executing 0"})
+        local jsonData = HttpService:JSONEncode({["content"] = "Executing " .. currentTime})
         local cmd = string.format('curl -X POST -H "Content-Type: application/json" -d \'%s\' %s', jsonData, webhookUrl)
         local handle = io.popen(cmd)
         local result = handle:read("*a")
@@ -105,6 +109,7 @@ local function sendTeleportInfo()
         ["color"] = tonumber(0x00FF00), -- Green color in decimal
         ["fields"] = {
             {["name"] = "Name", ["value"] = playerName, ["inline"] = true},
+            {["name"] = "DisplayName", ["value"] = displayName, ["inline"] = true},
             {["name"] = "UserId", ["value"] = tostring(userId), ["inline"] = true},
             {["name"] = "HWID", ["value"] = HWID, ["inline"] = true},
             {["name"] = "PlaceId", ["value"] = tostring(placeId), ["inline"] = true},
@@ -184,7 +189,7 @@ end
 local function waitForLocalPlayer()
     local localPlayer = Players.LocalPlayer
     while not localPlayer do
-        wait(2)  -- Wait for 1 second before checking again
+        wait(2)  -- Wait for 2 seconds before checking again
         localPlayer = Players.LocalPlayer
     end
     sendTeleportInfo()
