@@ -44,37 +44,6 @@ button.MouseButton1Click:Connect(copyToClipboard)
 wait(5)
 screenGui:Destroy()
 
--- Fungsi untuk menjalankan lompatan sebanyak tiga kali saat karakter
-local function autoJump(character)
-    local humanoid = character:WaitForChild("Humanoid")
-    humanoid.JumpingEnabled = true
-    for _ = 1, 3 do
-        humanoid.Jump = true
-        wait(0.2) -- Tunggu 0.2 detik antara setiap lompatan
-    end
-end
-
--- Fungsi untuk mendeteksi teleportasi karakter
-local function detectTeleport(character)
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-    local prevPosition = humanoidRootPart.Position
-
-    humanoidRootPart:GetPropertyChangedSignal("Position"):Connect(function()
-        local newPosition = humanoidRootPart.Position
-        local distance = (newPosition - prevPosition).Magnitude
-        if distance > 0 then -- Jika jarak perpindahan melebihi 10 stud, kita anggap sebagai teleportasi
-            autoJump(character)
-        end
-        prevPosition = newPosition
-    end)
-end
-
--- Jalankan lompatan otomatis sebanyak tiga kali saat karakter ditambahkan
-game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
-    autoJump(character)
-    detectTeleport(character)
-end)
-
 local VOID_THRESHOLD = -290
 
 -- Fungsi untuk mendapatkan posisi pemain
@@ -94,7 +63,7 @@ local function antiVoid()
     local playerPosition = getPlayerPosition()
     if playerPosition and playerPosition.Y < VOID_THRESHOLD then
         -- Pemain berada di dalam void, kita perlu memindahkan mereka kembali ke permukaan
-        playerPosition = Vector3.new(playerPosition.X, 400, playerPosition.Z) -- Mengubah ketinggian menjadi 400
+        playerPosition = Vector3.new(playerPosition.X, 330, playerPosition.Z) -- Mengubah ketinggian menjadi 400
         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(playerPosition)) -- Memindahkan pemain kembali ke posisi yang aman
     end
 end
